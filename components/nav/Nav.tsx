@@ -115,7 +115,7 @@ export function Nav() {
   const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navColor = "text-mistral-black";
+  const navColor = "text-white";
 
   const navItemTriggerProps = (id: DropdownId) => ({
     onMouseEnter: () => setOpenDropdown(id),
@@ -126,8 +126,8 @@ export function Nav() {
     <header className="fixed z-999 top-0 left-0 w-full">
       {/* The sliding-down backdrop. Mistral animates this height on scroll. */}
       <div
-        className="absolute left-0 top-0 w-full pointer-events-none z-0 bg-background transition-[height] duration-300"
-        style={{ height: "100%" }}
+        className="absolute left-0 top-0 w-full pointer-events-none z-0 transition-[height] duration-300"
+        style={{ height: "0" }}
       />
 
       <div className="px-4 md:px-auto md:container flex items-center gap-6 justify-between py-6 relative z-10">
@@ -142,7 +142,7 @@ export function Nav() {
               className="object-contain transition-[filter] duration-300"
               style={{
                 color: "transparent",
-                filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
+                filter: "brightness(0) invert(1)",
               }}
               src="/images/Columbo.png"
             />
@@ -209,12 +209,12 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white"
+            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-white/10 text-white border border-white/30 hover:bg-white hover:text-mistral-black"
             href="https://mistral.ai/contact"
           >
             Contact Sales
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
-              <ArrowDot className="text-mistral-black group-hover:text-white" />
+              <ArrowDot className="text-white group-hover:text-mistral-black" />
             </span>
           </a>
 
@@ -257,7 +257,7 @@ export function Nav() {
 
           {/* Mobile menu trigger */}
           <button
-            className="lg:hidden md:px-2 cursor-pointer text-mistral-black"
+            className="lg:hidden md:px-2 cursor-pointer text-white"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
