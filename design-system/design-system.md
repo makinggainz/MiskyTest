@@ -292,8 +292,8 @@ Mistral's voice (per brand page + observed homepage usage):
 | `rounded-full` (Tailwind) | 9999px | Pills, badges |
 
 **Rules:**
-- **Mistral defaults to square corners** (`--radius: 0rem`). Don't reach for rounded utilities unless the design explicitly calls for them.
-- Pills/chips use `rounded-full`.
+- **Mistral defaults to square corners** (`--radius: 0rem`) for layout containers — cards, panels, sections, surfaces. Don't reach for rounded utilities for these unless the design explicitly calls for them.
+- **Interactive primitives are always pills (`rounded-full`)** — every button, semi-transparent nav control, badge, and chip-label. See §8.1 for variants. The square-by-default rule applies to *layout*; the pill rule applies to *interaction*.
 - For deliberately soft cards, use `rounded-xl` / `rounded-2xl`.
 - Never write `border-radius: 11px` — use a token.
 
@@ -441,24 +441,26 @@ These are conventions, not extracted from the live site. The live site uses `tra
 
 ```html
 <button class="inline-flex items-center justify-center gap-md whitespace-nowrap
-               rounded-md ring-offset-background transition-colors
+               rounded-full ring-offset-background transition-colors
                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
                disabled:pointer-events-none disabled:opacity-50">
 ```
 
-> Note: the outline variant (`bg-transparent` + `border`) overrides the default `rounded-md` and uses `rounded-full` instead — see the `button-secondary` row below.
+> **Pill rule:** every rectangular CTA on the homepage uses `rounded-full`. Mistral's overall aesthetic stays squared (cards, surfaces, sections — see §3 Border Radius), but interactive primitives — buttons, semi-transparent nav controls, status chips/labels — are pills. This contrast makes interactive elements visually distinct from layout containers. The only button-shaped exception is `button-link` (border-bottom underline) which is a text-link pattern, not a button shape.
 
 **Variants observed:**
 
 | Variant name (suggested) | Class composition |
 |---|---|
-| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm` |
-| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright` |
-| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black` |
-| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white` |
-| `button-secondary` (outline) | `border border-current bg-transparent rounded-full` — outline pattern uses full radius (pill) so the empty fill reads as a deliberate shape, not as un-styled square edges |
-| `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` |
+| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm rounded-full` |
+| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright rounded-full` |
+| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black rounded-full` |
+| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white rounded-full` |
+| `button-secondary` (outline) | `border border-current bg-transparent rounded-full` |
+| `button-split` (link + chevron pill) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container so both halves clip into one pill (used for Try Studio in nav) |
+| `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *not a button shape, no radius* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
+| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep p-3 rounded-full` — used for the "Production-ready / Secure codebase / …" rows next to product CTAs |
 
 **Heights:** `h-10` (40px) standard / `h-11` (44px) touch-friendly. Hit target ≥ 44px.
 

@@ -195,10 +195,10 @@ const animations = [
 ];
 
 const buttonVariants = [
-  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm rounded-md transition-colors", label: "Get started" },
-  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-4 py-2 text-sm rounded-md transition-colors", label: "Try Studio" },
-  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-4 py-2 text-sm rounded-md transition-colors", label: "Contact Sales", darkBg: true },
-  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-4 py-2 text-sm rounded-md transition-colors", label: "Learn more" },
+  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm rounded-full transition-colors", label: "Get started" },
+  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-4 py-2 text-sm rounded-full transition-colors", label: "Try Studio" },
+  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-4 py-2 text-sm rounded-full transition-colors", label: "Contact Sales", darkBg: true },
+  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-4 py-2 text-sm rounded-full transition-colors", label: "Learn more" },
   { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-4 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
   { name: "Link", className: "border-b border-current pb-1 inline-flex items-center gap-3 text-mistral-black hover:text-mistral-orange transition-colors", label: "Read more →" },
 ];
@@ -646,7 +646,7 @@ export default function DesignPage() {
             intro="Mistral leans squared corners — --radius defaults to 0rem. Use rounded-xl/2xl/3xl explicitly when softer corners are needed; rounded-full for pills."
           >
             <Usage status="partial">
-              Only two radius utilities are actually applied across the homepage: <code className="font-mono text-xs">rounded-md</code> (6 refs — Top nav buttons, Customer carousel cards, Privacy/deploy CTAs) and <code className="font-mono text-xs">rounded-full</code> (3 refs — pill chips and circular avatars in Customer carousel). <strong>rounded-sm, rounded-lg, rounded-xl, rounded-2xl, rounded-3xl, rounded-full ovals</strong> — defined in tokens but not consumed. The default <code className="font-mono text-xs">--radius: 0rem</code> shows everywhere else (square corners by default).
+              Two split rules: <strong>layout containers stay square</strong> (default <code className="font-mono text-xs">--radius: 0rem</code> — cards, sections, surfaces, the customer-carousel slide tiles); <strong>interactive primitives are pills</strong> (<code className="font-mono text-xs">rounded-full</code> — every button, the 15 chip-labels in Customer carousel feature rows, badges, and the Try Studio split-button wrapper). Intermediate radii (<code className="font-mono text-xs">rounded-sm</code>, <code className="font-mono text-xs">rounded-lg</code>, <code className="font-mono text-xs">rounded-xl/2xl/3xl</code>) are declared in tokens but unused. See §8.1 in design-system.md for the canonical pill rule.
             </Usage>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
               {radiusScale.map((r) => (
@@ -822,8 +822,7 @@ export default function DesignPage() {
           >
             <SubHeading>Buttons</SubHeading>
             <Usage status="used">
-              Button patterns appear across multiple components: Top nav (&ldquo;Try le Chat&rdquo; — orange CTA, &ldquo;Contact sales&rdquo; — black inverse, link-styled hover targets), Hero (primary CTA pair), Customer carousel (inline arrow chips with <code className="font-mono text-xs">rounded-full</code>), Privacy/deploy (dual CTAs), Site footer (App Store / Google Play badge buttons). The orange + black + outline trio shown here matches the homepage exactly — no other variants in production.
-              {" "}Note: the <strong>Outline</strong> variant uses <code className="font-mono text-xs">rounded-full</code> by convention (the only place in the system where pill shape is canonical for a non-badge surface) — no live homepage CTA currently renders this exact pattern, but design-system.md §8.1 establishes the rule for future use.
+              <strong>Pill rule:</strong> every rectangular CTA on the homepage uses <code className="font-mono text-xs">rounded-full</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons), Privacy/deploy (&ldquo;Discover more&rdquo;). Layout containers (cards, surfaces, sections) stay square — pill shape is reserved for interactive primitives so they pop against the squared layout. The <em>Link</em> variant below (border-bottom underline) is a text-link pattern, not a button shape, and keeps no radius.
             </Usage>
             <div className="space-y-4">
               {buttonVariants.map((b) => (
