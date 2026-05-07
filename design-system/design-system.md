@@ -446,6 +446,8 @@ These are conventions, not extracted from the live site. The live site uses `tra
                disabled:pointer-events-none disabled:opacity-50">
 ```
 
+> Note: the outline variant (`bg-transparent` + `border`) overrides the default `rounded-md` and uses `rounded-full` instead — see the `button-secondary` row below.
+
 **Variants observed:**
 
 | Variant name (suggested) | Class composition |
@@ -454,7 +456,7 @@ These are conventions, not extracted from the live site. The live site uses `tra
 | `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright` |
 | `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black` |
 | `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white` |
-| `button-secondary` (outline) | `border border-current bg-transparent` |
+| `button-secondary` (outline) | `border border-current bg-transparent rounded-full` — outline pattern uses full radius (pill) so the empty fill reads as a deliberate shape, not as un-styled square edges |
 | `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
 

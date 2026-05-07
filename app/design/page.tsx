@@ -199,7 +199,7 @@ const buttonVariants = [
   { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-4 py-2 text-sm rounded-md transition-colors", label: "Try Studio" },
   { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-4 py-2 text-sm rounded-md transition-colors", label: "Contact Sales", darkBg: true },
   { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-4 py-2 text-sm rounded-md transition-colors", label: "Learn more" },
-  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-4 py-2 text-sm rounded-md hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
+  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-4 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
   { name: "Link", className: "border-b border-current pb-1 inline-flex items-center gap-3 text-mistral-black hover:text-mistral-orange transition-colors", label: "Read more →" },
 ];
 
@@ -823,6 +823,7 @@ export default function DesignPage() {
             <SubHeading>Buttons</SubHeading>
             <Usage status="used">
               Button patterns appear across multiple components: Top nav (&ldquo;Try le Chat&rdquo; — orange CTA, &ldquo;Contact sales&rdquo; — black inverse, link-styled hover targets), Hero (primary CTA pair), Customer carousel (inline arrow chips with <code className="font-mono text-xs">rounded-full</code>), Privacy/deploy (dual CTAs), Site footer (App Store / Google Play badge buttons). The orange + black + outline trio shown here matches the homepage exactly — no other variants in production.
+              {" "}Note: the <strong>Outline</strong> variant uses <code className="font-mono text-xs">rounded-full</code> by convention (the only place in the system where pill shape is canonical for a non-badge surface) — no live homepage CTA currently renders this exact pattern, but design-system.md §8.1 establishes the rule for future use.
             </Usage>
             <div className="space-y-4">
               {buttonVariants.map((b) => (
