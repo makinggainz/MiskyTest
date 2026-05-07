@@ -43,3 +43,11 @@
 :root {
   font-family: var(--font-rubik), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+/* The logoloop uses background-image (CSS vars) to load logos, so the <img>
+   src is a transparent placeholder whose aspect ratio varies per logo.
+   width:auto would derive wildly different container widths from each
+   placeholder's viewBox — force a consistent 145px width instead. */
+.logoloop__item img {
+  width: 145px;
+}

@@ -50,9 +50,9 @@ function Pair({ children }: { children: React.ReactNode }) {
 
 function MistralCol({ children, label = "Mistral" }: { children: React.ReactNode; label?: string }) {
   return (
-    <div className="border border-mistral-black/10 p-6" style={{ background: "#fffaeb", color: "#1f1f1f", fontFamily: "var(--font-rubik), system-ui, sans-serif" }}>
+    <div className="border border-mistral-black/10 p-6" style={{ background: "#F1F5FE", color: "#1f1f1f", fontFamily: "var(--font-rubik), system-ui, sans-serif" }}>
       <div className="flex items-center gap-2 mb-4">
-        <span className="size-2 rounded-full" style={{ background: "#ff8205" }} />
+        <span className="size-2 rounded-full" style={{ background: "#154ACC" }} />
         <span className="text-xs uppercase tracking-wider font-mono opacity-70">{label}</span>
       </div>
       {children}
@@ -107,7 +107,7 @@ export default function CompareMCPage() {
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
           {[
-            ["Mistral", "#ff8205", "Utility-first Tailwind. Active design ≈ defined design."],
+            ["Mistral", "#154ACC", "Utility-first Tailwind. Active design ≈ defined design."],
             ["Columbus", "#0066CC", "Active design is much smaller than defined: brand black + accent blue + M3 type scale + .ent-scope partial + globals utilities."],
           ].map(([name, color, note]) => (
             <span key={name} className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-mono bg-mistral-black/5 rounded-sm">
@@ -141,7 +141,7 @@ export default function CompareMCPage() {
                 <ul className="text-sm space-y-2">
                   <li>• Tailwind v4 utility-first, compiled output</li>
                   <li>• 235 tokens, mostly used (utility-first means the tokens BACK the utilities)</li>
-                  <li>• Mistral Rainbow + sunset stripe = brand signature</li>
+                  <li>• MistX Rainbow band (6 blue stops) = brand signature</li>
                   <li>• Square corners by default (--radius: 0rem)</li>
                   <li>• Single-family typography (Rubik / Arial)</li>
                   <li>• 1 named shadow (--shadow-deploy-logo)</li>
@@ -188,11 +188,11 @@ export default function CompareMCPage() {
           <Section id="brand-color" title="Brand color" intro="Each system's signature color and how it actually appears on the site.">
             <Pair>
               <MistralCol>
-                <div className="size-32 mx-auto" style={{ background: "#ff8205" }} />
+                <div className="size-32 mx-auto" style={{ background: "#154ACC" }} />
                 <div className="text-center mt-3">
-                  <div className="text-lg font-medium">Mistral Orange</div>
-                  <div className="text-xs font-mono mt-1">#ff8205 · RGB 255/130/5 · CMYK 0/49/98/0</div>
-                  <div className="text-xs font-mono text-mistral-black-tint mt-2">--color-mistral-orange · --color-mistral-footer-band-4</div>
+                  <div className="text-lg font-medium">MistX Blue</div>
+                  <div className="text-xs font-mono mt-1">#154ACC · RGB 21/74/204 · CMYK 90/64/0/20</div>
+                  <div className="text-xs font-mono text-mistral-black-tint mt-2">--color-mistral-orange · --color-mistral-footer-band-3</div>
                 </div>
                 <p className="text-xs text-mistral-black-tint mt-4">Signal color: CTAs + active states only. Used widely via Tailwind classes that consume the token.</p>
               </MistralCol>
@@ -222,17 +222,18 @@ export default function CompareMCPage() {
             </Pair>
           </Section>
 
-          <Section id="palette" title="Palette / theming approach" intro="Mistral has a 5-stop signature spectrum. Columbus has 78 reference stops on paper but uses none of them directly.">
+          <Section id="palette" title="Palette / theming approach" intro="MistX has a 6-stop signature blue spectrum. Columbus has 78 reference stops on paper but uses none of them directly.">
             <Pair>
               <MistralCol>
-                <div className="text-sm font-medium mb-3">🌈 Mistral Rainbow (5 stops, signature)</div>
-                <div className="grid grid-cols-5 gap-1">
+                <div className="text-sm font-medium mb-3">🌊 MistX Rainbow (6 stops, signature)</div>
+                <div className="grid grid-cols-6 gap-1">
                   {[
-                    { hex: "#e10500", name: "Red" },
-                    { hex: "#fa500f", name: "Orange Dark" },
-                    { hex: "#ff8205", name: "Orange" },
-                    { hex: "#ffaf00", name: "Orange Light" },
-                    { hex: "#ffd800", name: "Yellow" },
+                    { hex: "#E8EFFD", name: "Pale Sky" },
+                    { hex: "#2663EB", name: "Bright Blue" },
+                    { hex: "#154ACC", name: "Brand Blue" },
+                    { hex: "#12369C", name: "Deep Blue" },
+                    { hex: "#0E256E", name: "Navy" },
+                    { hex: "#091442", name: "Deep Navy" },
                   ].map((c) => (
                     <div key={c.hex}>
                       <div className="h-16" style={{ background: c.hex }} />
@@ -305,7 +306,7 @@ export default function CompareMCPage() {
             <Pair>
               <MistralCol>
                 <div className="text-sm font-medium mb-3">2 fonts (1 active)</div>
-                <div className="border-l-2 pl-4 mb-3" style={{ borderColor: "#ff8205" }}>
+                <div className="border-l-2 pl-4 mb-3" style={{ borderColor: "#154ACC" }}>
                   <div className="text-xs font-mono opacity-70">Rubik · next/font/google · ACTIVE</div>
                   <div style={{ fontFamily: "var(--font-rubik)", fontSize: 24 }}>Rubik · used in app</div>
                 </div>
@@ -353,7 +354,7 @@ export default function CompareMCPage() {
                     { label: "full", radius: "9999px" },
                   ].map((r) => (
                     <div key={r.label} className="text-center">
-                      <div className="size-12 mx-auto" style={{ background: "#ff8205", borderRadius: r.radius }} />
+                      <div className="size-12 mx-auto" style={{ background: "#154ACC", borderRadius: r.radius }} />
                       <div className="text-xs font-mono mt-1">{r.label}</div>
                     </div>
                   ))}
@@ -386,7 +387,7 @@ export default function CompareMCPage() {
                     <div key={s.token} className="flex items-center gap-3">
                       <div className="text-xs font-mono w-32 shrink-0">{s.token}</div>
                       <div className="text-xs font-mono w-12 opacity-70">{s.px}px</div>
-                      <div style={{ height: 8, background: "#ff8205", width: s.px }} />
+                      <div style={{ height: 8, background: "#154ACC", width: s.px }} />
                     </div>
                   ))}
                 </div>
@@ -520,14 +521,14 @@ export default function CompareMCPage() {
                 <thead>
                   <tr className="border-b border-mistral-black/10">
                     <th className="text-left p-2 font-medium">Dimension</th>
-                    <th className="text-left p-2 font-medium" style={{ color: "#ff8205" }}>Mistral (def / used)</th>
+                    <th className="text-left p-2 font-medium" style={{ color: "#154ACC" }}>Mistral (def / used)</th>
                     <th className="text-left p-2 font-medium" style={{ color: "#0066CC" }}>Columbus (def / used)</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
                     ["Total tokens", "235 / mostly used", "~430 / ~150 consumed"],
-                    ["Brand color tokens", "rainbow + sunshine + brand", "--primary/--accent: defined; mostly hardcoded as hex"],
+                    ["Brand color tokens", "rainbow (6 blue stops) + ocean ramp + brand", "--primary/--accent: defined; mostly hardcoded as hex"],
                     ["Type scale tokens", "~30 used", "M3 type scale: 75 defined / 39 used (the only M3 win)"],
                     ["Reference palette tokens", "—", "78 defined / 0 directly used"],
                     ["System color roles", "—", "~25 defined / 1-2 used (blog only) + the stray purple"],
@@ -558,7 +559,7 @@ export default function CompareMCPage() {
                   <li>✓ Marketing site / brand site with strong visual signature</li>
                   <li>✓ Single-family typography</li>
                   <li>✓ You want utility-first speed (compose in markup)</li>
-                  <li>✓ Square corners + warm cream palette fits the brand</li>
+                  <li>✓ Square corners + pale-blue palette fits the brand</li>
                   <li>✓ Few interactive components (mostly content + CTAs)</li>
                   <li>✓ Don&apos;t need formal accessibility theming</li>
                   <li>✓ The defined design IS the active design (no spec drift)</li>

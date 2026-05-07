@@ -867,7 +867,7 @@ export default function DesignPage() {
                 <h4 className="text-lg font-medium">Feature card (cream)</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Cream surface for feature blocks and value props.</p>
               </div>
-              <div className="bg-mistral-black text-white p-6 rounded-[28px] md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #fa500f 200%)" }}>
+              <div className="bg-mistral-black text-white p-6 rounded-[28px] md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #154ACC 200%)" }}>
                 <div className="text-xs font-mono text-white/70">card-photographic · rounded-[28px] (squircle approximation)</div>
                 <div>
                   <h4 className="text-2xl font-medium">Photographic dark card</h4>
@@ -957,21 +957,21 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
 
             <SubHeading>Signature elements</SubHeading>
             <Usage status="used">
-              The <strong>sunset-stripe band</strong> (Mistral Rainbow as a 90° gradient) is rendered at the bottom of <code className="font-mono text-xs">SiteFooter.tsx</code> via 6 <code className="font-mono text-xs">bg-mistral-footer-band-*</code> stop refs — Mistral&apos;s canonical brand-signature closer. The <strong>hero-band sunset gradient</strong> (135° dusk gradient) appears in the Hero band background and dark photographic cards. The <strong>cream CTA banner</strong> pattern (<code className="font-mono text-xs">bg-mistral-beige-deep</code> with dark CTA inside) appears in Customer carousel cards and the &ldquo;Bring frontier AI to your enterprise&rdquo; CTA closer.
+              The <strong>MistX rainbow band</strong> (6-stop blue gradient as a 90° stripe) is rendered at the bottom of <code className="font-mono text-xs">SiteFooter.tsx</code> via 6 <code className="font-mono text-xs">bg-mistral-footer-band-*</code> stop refs — the canonical brand-signature closer. The <strong>hero-band blue gradient</strong> (135°) appears in the Hero band background. The <strong>pale-blue CTA banner</strong> pattern (<code className="font-mono text-xs">bg-mistral-beige-deep</code> with dark CTA inside) appears in Customer carousel cards and the &ldquo;Bring frontier AI to your enterprise&rdquo; CTA closer.
             </Usage>
             <div className="space-y-4">
               <div className="rounded-md overflow-hidden border border-border">
-                <div className="text-xs font-mono text-mistral-black-tint p-3 bg-mistral-black/5">hero-band-sunset (135° gradient)</div>
-                <div className="h-32" style={{ background: "linear-gradient(135deg, #9F521A 0%, #D3812F 50%, #B35D20 100%)" }} />
+                <div className="text-xs font-mono text-mistral-black-tint p-3 bg-mistral-black/5">hero-band-blue (135° gradient)</div>
+                <div className="h-32" style={{ background: "linear-gradient(135deg, #2663EB 0%, #12369C 50%, #091442 100%)" }} />
               </div>
               <div className="rounded-md overflow-hidden border border-border">
-                <div className="text-xs font-mono text-mistral-black-tint p-3 bg-mistral-black/5">sunset-stripe-band — the brand signature closer</div>
+                <div className="text-xs font-mono text-mistral-black-tint p-3 bg-mistral-black/5">MistX rainbow band — the brand signature closer</div>
                 <div className="h-12" style={{ background: `linear-gradient(90deg, ${mistralRainbow.map((r) => r.hex).join(", ")})` }} />
               </div>
               <div className="bg-mistral-beige border border-mistral-beige-deep p-xl rounded-md">
-                <div className="text-xs font-mono text-mistral-black-tint mb-2">cta-banner-cream</div>
+                <div className="text-xs font-mono text-mistral-black-tint mb-2">cta-banner-pale</div>
                 <h4 className="text-2xl font-medium">Bring frontier AI to your enterprise.</h4>
-                <p className="text-sm text-mistral-black-tint mt-2">Cream-surfaced CTA panel near the page bottom.</p>
+                <p className="text-sm text-mistral-black-tint mt-2">Pale-blue surfaced CTA panel near the page bottom.</p>
                 <button className="mt-4 bg-mistral-black text-white px-5 py-2 text-sm rounded-full hover:bg-mistral-black/90 transition-colors">Contact Sales</button>
               </div>
             </div>
@@ -1015,22 +1015,22 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
           <Section
             id="imagery"
             title="Imagery"
-            intro="Hero imagery uses mountain photography under sunset gradients. Synthesized from observation — no formal brand spec."
+            intro="Hero imagery uses an abstract blue gradient (no photo). Synthesized from observation — no formal brand spec."
           >
             <Usage status="partial">
-              Photographic imagery appears in: the <strong>Hero band</strong> (sunset-toned mountain backdrop, full-bleed 16:9), and inside <strong>Customer carousel</strong> &ldquo;Deployed in production&rdquo; cards (per-customer photographic backgrounds with subject silhouettes). Logo wall imagery (Stellantis, ASML, CMA CGM, etc.) is monochromatic by default. All imagery is served from <code className="font-mono text-xs">/public/images/</code> as <code className="font-mono text-xs">.webp</code>. No formal aspect-ratio token — pattern is observed verbatim from the snapshot.
+              The <strong>Hero band</strong> renders as a pure CSS blue gradient (TODO: drop in a blue-friendly hero photo when one is sourced). <strong>Customer carousel</strong> &ldquo;Deployed in production&rdquo; cards still carry per-customer photographic backgrounds with subject silhouettes. Logo wall imagery is monochromatic by default. All imagery is served from <code className="font-mono text-xs">/public/images/</code> as <code className="font-mono text-xs">.webp</code>.
             </Usage>
             <div className="rounded-md overflow-hidden border border-border">
-              <div className="h-64 relative" style={{ background: "linear-gradient(135deg, #9F521A 0%, #D3812F 50%, #B35D20 100%)" }}>
+              <div className="h-64 relative" style={{ background: "linear-gradient(135deg, #2663EB 0%, #12369C 50%, #091442 100%)" }}>
                 <div className="absolute inset-0 flex items-center justify-center text-white">
                   <div className="text-center">
-                    <p className="text-xs uppercase tracking-wider opacity-60">photographic hero example</p>
-                    <p className="text-3xl font-medium mt-2">Mountains. 16:9. Sunset overlay.</p>
+                    <p className="text-xs uppercase tracking-wider opacity-60">hero band example</p>
+                    <p className="text-3xl font-medium mt-2">Abstract blue. 16:9.</p>
                   </div>
                 </div>
               </div>
               <div className="p-4 text-xs text-mistral-black-tint">
-                16:9 aspect ratio · cool-to-warm orange overlay · subject silhouettes against sunset · logo-wall items 60-80px tall, monochromatic by default
+                16:9 aspect ratio · pure CSS blue gradient (no image) · logo-wall items 60-80px tall, monochromatic by default
               </div>
             </div>
           </Section>
@@ -1053,7 +1053,7 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
                 <svg key="plus" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>,
                 <svg key="external" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M10 14L20 4M19 13v6a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
                 <svg key="menu" width="24" height="24" viewBox="0 0 75 63" fill="none"><path opacity=".5" d="M49.76 49.76H0V62.20H49.76V49.76Z" fill="currentColor" /><path opacity=".7" d="M74.64 24.88H0V37.32H74.64V24.88Z" fill="currentColor" /><path d="M74.64 0H0V12.44H74.64V0Z" fill="currentColor" /></svg>,
-                <svg key="dots" width="24" height="24" viewBox="0 0 9 13" fill="none"><path d="M8.5 7.87L8.5 5.31L5.94 5.31L5.94 7.87L8.5 7.87Z" fill="currentColor" /><path d="M5.94 5.30L5.94 2.74L3.38 2.74L3.38 5.30L5.94 5.30Z" fill="currentColor" /><path d="M3.38 2.74L3.38 0.18L0.82 0.18L0.82 2.74L3.38 2.74Z" fill="currentColor" /><path d="M5.94 10.43L5.94 7.87L3.38 7.87L3.38 10.43L5.94 10.43Z" fill="currentColor" /><path d="M3.38 13L3.38 10.44L0.82 10.44L0.82 13L3.38 13Z" fill="currentColor" /></svg>,
+                <svg key="dots" width="24" height="24" viewBox="0 0 9 13" fill="none"><circle cx="7.22" cy="6.589" r="1.28" fill="currentColor"/><circle cx="4.658" cy="4.018" r="1.28" fill="currentColor"/><circle cx="2.099" cy="1.46" r="1.28" fill="currentColor"/><circle cx="4.658" cy="9.151" r="1.28" fill="currentColor"/><circle cx="2.099" cy="11.718" r="1.28" fill="currentColor"/></svg>,
               ].map((icon, i) => (
                 <div key={i} className="border border-border p-4 rounded-md flex items-center justify-center text-mistral-black">
                   {icon}
@@ -1147,14 +1147,14 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
           >
             <SubHeading>Iteration principles</SubHeading>
             <Usage status="used">
-              These principles match the prime directive in <code className="font-mono text-xs">CLAUDE.md</code>: design-system-driven changes propagate through tokens.css → utilities.css → components, never via single-component edits. Any new homepage section should reference <code className="font-mono text-xs">bg-mistral-orange</code> / <code className="font-mono text-xs">text-mistral-orange</code> for action signals (not raw <code className="font-mono text-xs">#fc6c1c</code>) and reuse the cream + black surface vocabulary already established.
+              These principles match the prime directive in <code className="font-mono text-xs">CLAUDE.md</code>: design-system-driven changes propagate through tokens.css → utilities.css → components, never via single-component edits. Any new homepage section should reference <code className="font-mono text-xs">bg-mistral-orange</code> / <code className="font-mono text-xs">text-mistral-orange</code> for action signals (not raw <code className="font-mono text-xs">#154ACC</code>) and reuse the pale-blue + black surface vocabulary already established.
             </Usage>
             <ul className="text-sm space-y-1 list-disc pl-5 text-mistral-black-tint mb-8">
               <li>One component at a time — don&apos;t refactor multiple sections in a single change.</li>
-              <li>Reference tokens directly in components (`bg-mistral-orange`, not `bg-[#fc6c1c]`).</li>
+              <li>Reference tokens directly in components (`bg-mistral-orange`, not `bg-[#154ACC]`).</li>
               <li>Default body text → `text-base`; default page hero → `--font-size-heading-0`.</li>
-              <li>Keep the Mistral Rainbow + sunset stripe as canonical closers on every page.</li>
-              <li>Confine `--color-mistral-orange` to action signals (CTAs, active state, hover); not decorative.</li>
+              <li>Keep the MistX Rainbow band as the canonical closer on every page.</li>
+              <li>Confine `--color-mistral-orange` (now MistX Blue) to action signals (CTAs, active state, hover); not decorative.</li>
             </ul>
 
             <SubHeading>Known gaps (severity-ranked)</SubHeading>

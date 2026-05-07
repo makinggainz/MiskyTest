@@ -102,11 +102,11 @@ function ArrowDot({ className = "" }: { className?: string }) {
       fill="none"
       aria-hidden="true"
     >
-      <path d="M8.5 7.86859L8.5 5.30859L5.94 5.30859L5.94 7.86859L8.5 7.86859Z" fill="currentColor" />
-      <path d="M5.9375 5.29828L5.9375 2.73828L3.3775 2.73828L3.3775 5.29828L5.9375 5.29828Z" fill="currentColor" />
-      <path d="M3.37891 2.73969L3.37891 0.179688L0.818907 0.179687L0.818907 2.73969L3.37891 2.73969Z" fill="currentColor" />
-      <path d="M5.9375 10.4311L5.9375 7.87109L3.3775 7.87109L3.3775 10.4311L5.9375 10.4311Z" fill="currentColor" />
-      <path d="M3.37891 12.9975L3.37891 10.4375L0.818907 10.4375L0.818907 12.9975L3.37891 12.9975Z" fill="currentColor" />
+      <circle cx="7.22" cy="6.589" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="1.46" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
     </svg>
   );
 }
@@ -145,13 +145,18 @@ export function Nav() {
         <div className="flex items-center gap-8">
           <a rel="home" aria-label="Home" className="relative z-10 flex size-10 items-center justify-center" href="/">
             <img
-              alt="Mistral AI Logo"
+              alt="Columbo Logo"
               width={100}
               height={100}
               decoding="async"
-              className="object-contain"
-              style={{ color: "transparent" }}
-              src={scrolled ? "/images/img-de3ac8b83117.svg" : "/images/img-64a36dfdce2c.svg"}
+              className="object-contain transition-[filter] duration-300"
+              style={{
+                color: "transparent",
+                filter: scrolled
+                  ? "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)"
+                  : "brightness(0) invert(1)",
+              }}
+              src="/images/Columbo.png"
             />
           </a>
 
@@ -231,11 +236,11 @@ export function Nav() {
 
           {/* Try Studio — split button: link on left, chevron-dropdown on right */}
           <div className="relative hidden md:block" {...navItemTriggerProps("studio")}>
-            <div className={`group flex items-center overflow-hidden rounded-full text-sm transition-colors ${scrolled ? "bg-mistral-black/10 text-mistral-black" : "bg-white/10 text-white"}`}>
+            <div className={`group flex items-center overflow-hidden rounded-full text-sm transition-colors ${scrolled ? "bg-mistral-black text-white" : "bg-white/10 text-white"}`}>
               <a
                 target="_blank"
                 rel="noopener"
-                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-mistral-black/10" : "hover:bg-white/10"}`}
+                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-black/80" : "hover:bg-white/10"}`}
                 href="https://console.mistral.ai/?utm_source=website&utm_medium=header_cta"
               >
                 Try Studio
@@ -245,7 +250,7 @@ export function Nav() {
                 aria-expanded={openDropdown === "studio"}
                 onClick={() => setOpenDropdown((d) => (d === "studio" ? null : "studio"))}
                 className={`size-9 border-l flex justify-center items-center transition-colors ${
-                  scrolled ? "border-mistral-black/20 hover:bg-mistral-black/10" : "border-white/30 hover:bg-white/10"
+                  scrolled ? "border-white/20 text-primary hover:bg-black/80" : "border-white/30 hover:bg-white/10"
                 }`}
                 aria-label="Open Studio options"
               >
