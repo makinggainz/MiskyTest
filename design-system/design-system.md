@@ -452,17 +452,19 @@ These are conventions, not extracted from the live site. The live site uses `tra
 
 | Variant name (suggested) | Class composition |
 |---|---|
-| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm rounded-full` |
-| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright rounded-full` |
-| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black rounded-full` |
-| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white rounded-full` |
-| `button-secondary` (outline) | `border border-current bg-transparent rounded-full` |
-| `button-split` (link + chevron pill) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container so both halves clip into one pill (used for Try Studio in nav) |
-| `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *not a button shape, no radius* |
+| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-full` |
+| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-full` |
+| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 rounded-full` |
+| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-full` |
+| `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-full` |
+| `button-split` (link + chevron pill) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container so both halves clip into one pill (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square so it reads as a separate affordance inside the pill |
+| `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *not a button shape, no horizontal padding override* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
-| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep p-3 rounded-full` — used for the "Production-ready / Secure codebase / …" rows next to product CTAs |
+| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-full` — used for the "Production-ready / Secure codebase / …" rows next to product CTAs |
 
 **Heights:** `h-10` (40px) standard / `h-11` (44px) touch-friendly. Hit target ≥ 44px.
+
+**Horizontal padding (`px-5` = 20px):** pill-shaped buttons need more horizontal padding than rectangular ones because the curved left/right edges visually consume ~4–6px of the apparent inset, crowding letterforms. Default `px-5` (vs. the `px-4` you'd use on a square button) gives the text comfortable breathing room before the curve. Chip-labels follow the same rule (`px-5 py-3`).
 
 ### 8.2 Cards / Containers (synthesized)
 

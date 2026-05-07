@@ -216,7 +216,7 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className={`group rounded-full px-4 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
+            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
               scrolled
                 ? "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white"
                 : "bg-white/10 text-white hover:bg-white hover:text-mistral-black"
@@ -235,7 +235,7 @@ export function Nav() {
               <a
                 target="_blank"
                 rel="noopener"
-                className={`group/link px-4 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-mistral-black/10" : "hover:bg-white/10"}`}
+                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-mistral-black/10" : "hover:bg-white/10"}`}
                 href="https://console.mistral.ai/?utm_source=website&utm_medium=header_cta"
               >
                 Try Studio
@@ -310,12 +310,12 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="https://mistral.ai/contact" className="block rounded-full px-4 py-2 bg-mistral-black text-white text-sm text-center">
+              <a href="https://mistral.ai/contact" className="block rounded-full px-5 py-2 bg-mistral-black text-white text-sm text-center">
                 Contact Sales
               </a>
             </li>
             <li className="mt-2">
-              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-full px-4 py-2 bg-mistral-orange text-white text-sm text-center">
+              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-full px-5 py-2 bg-mistral-orange text-white text-sm text-center">
                 Try Studio
               </a>
             </li>

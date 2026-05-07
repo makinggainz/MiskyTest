@@ -35,38 +35,39 @@ const sections = [
 ];
 
 const mistralRainbow = [
-  { name: "Red", hex: "#e10500", rgb: "225/5/0", cmyk: "0/98/100/12", token: "--color-mistral-footer-band-6" },
-  { name: "Orange Dark", hex: "#fa500f", rgb: "250/80/15", cmyk: "0/68/94/2", token: "--color-mistral-footer-band-5" },
-  { name: "Orange", hex: "#ff8205", rgb: "255/130/5", cmyk: "0/49/98/0", token: "--color-mistral-footer-band-4" },
-  { name: "Orange Light", hex: "#ffaf00", rgb: "255/175/0", cmyk: "0/31/100/0", token: "--color-mistral-footer-band-3" },
-  { name: "Yellow", hex: "#ffd800", rgb: "255/216/0", cmyk: "0/15/100/0", token: "--color-mistral-footer-band-2" },
+  { name: "Pale Sky", hex: "#E8EFFD", rgb: "232/239/253", cmyk: "8/6/0/1", token: "--color-mistral-footer-band-1" },
+  { name: "Bright Blue", hex: "#2663EB", rgb: "38/99/235", cmyk: "84/58/0/8", token: "--color-mistral-footer-band-2" },
+  { name: "Brand Blue", hex: "#154ACC", rgb: "21/74/204", cmyk: "90/64/0/20", token: "--color-mistral-footer-band-3" },
+  { name: "Deep Blue", hex: "#12369C", rgb: "18/54/156", cmyk: "88/65/0/39", token: "--color-mistral-footer-band-4" },
+  { name: "Navy", hex: "#0E256E", rgb: "14/37/110", cmyk: "87/66/0/57", token: "--color-mistral-footer-band-5" },
+  { name: "Deep Navy", hex: "#091442", rgb: "9/20/66", cmyk: "86/70/0/74", token: "--color-mistral-footer-band-6" },
 ];
 
 const brandAccent = [
-  { name: "Mistral Orange", token: "--color-mistral-orange", hex: "#fc6c1c (HSL 17 96% 52%)", note: "Primary brand accent" },
-  { name: "Orange Bright", token: "--color-mistral-orange-bright", hex: "#ff7400 (HSL 30 100% 51%)", note: "Dark-mode-friendly" },
-  { name: "Orange Darker", token: "--color-mistral-orange-darker", hex: "(declared inline)", note: "Hover/pressed" },
+  { name: "MistX Blue", token: "--color-mistral-orange", hex: "#154ACC (HSL 220 81% 44%)", note: "Primary brand accent (token name retained for compatibility)" },
+  { name: "Bright Blue", token: "--color-mistral-orange-bright", hex: "#2663EB (HSL 219 84% 54%)", note: "Hover/active variant" },
+  { name: "Orange Darker", token: "--color-mistral-orange-darker", hex: "(declared inline)", note: "Hover/pressed (legacy token name)" },
 ];
 
 const beigeNeutrals = [
-  { name: "Beige Light", token: "--color-mistral-beige", hex: "#fffaeb", note: "= brand 'Beige Light'" },
-  { name: "Beige Deep", token: "--color-mistral-beige-deep", hex: "#ffefc1", note: "≈ brand 'Beige Medium'" },
-  { name: "Beige Deeper", token: "--color-mistral-beige-deeper", hex: "#e6dbbe", note: "≈ brand 'Beige Dark'" },
+  { name: "Surface Light", token: "--color-mistral-beige", hex: "#F1F5FE", note: "Pale-blue page background (replaces cream)" },
+  { name: "Surface Deep", token: "--color-mistral-beige-deep", hex: "#DCE7FB", note: "Secondary blue-tinted surface" },
+  { name: "Surface Deeper", token: "--color-mistral-beige-deeper", hex: "#B8CCF5", note: "Border / soft divider tint" },
 ];
 
 const sunshinePalette = [
-  { token: "--color-mistral-sunshine-50", hex: "#fff0c3" },
-  { token: "--color-mistral-sunshine-100", hex: "#ffe295" },
-  { token: "--color-mistral-sunshine-200", hex: "#ffdd8a" },
-  { token: "--color-mistral-sunshine-300", hex: "#ffd06a" },
-  { token: "--color-mistral-sunshine-400", hex: "#ffc452" },
-  { token: "--color-mistral-sunshine-500", hex: "#ffb83e" },
-  { token: "--color-mistral-sunshine-600", hex: "#ffad2e" },
-  { token: "--color-mistral-sunshine-700", hex: "#ffa110" },
-  { token: "--color-mistral-sunshine-750", hex: "#f2920b" },
-  { token: "--color-mistral-sunshine-800", hex: "#ff9500" },
-  { token: "--color-mistral-sunshine-900", hex: "#ff8a00" },
-  { token: "--color-mistral-sunshine-950", hex: "#ff7f00" },
+  { token: "--color-mistral-sunshine-50", hex: "#EEF3FE" },
+  { token: "--color-mistral-sunshine-100", hex: "#DCE7FB" },
+  { token: "--color-mistral-sunshine-200", hex: "#C7D7F8" },
+  { token: "--color-mistral-sunshine-300", hex: "#A8C0F4" },
+  { token: "--color-mistral-sunshine-400", hex: "#7EA0EE" },
+  { token: "--color-mistral-sunshine-500", hex: "#5582EA" },
+  { token: "--color-mistral-sunshine-600", hex: "#2663EB" },
+  { token: "--color-mistral-sunshine-700", hex: "#1B57DC" },
+  { token: "--color-mistral-sunshine-750", hex: "#154ACC" },
+  { token: "--color-mistral-sunshine-800", hex: "#1340B3" },
+  { token: "--color-mistral-sunshine-900", hex: "#12369C" },
+  { token: "--color-mistral-sunshine-950", hex: "#0E256E" },
 ];
 
 const inkScale = [
@@ -77,32 +78,32 @@ const inkScale = [
 ];
 
 const surfaces = [
-  { name: "Background", token: "--color-background", hex: "#fffaeb", note: "Page background (cream)" },
+  { name: "Background", token: "--color-background", hex: "#F1F5FE", note: "Page background (pale blue)" },
   { name: "Card", token: "--color-card", hex: "#ffffff", note: "Card surface" },
   { name: "Popover", token: "--color-popover", hex: "#ffffff", note: "Popover/dropdown surface" },
-  { name: "Primary", token: "--color-primary", hex: "#fc6c1c", note: "Primary action background" },
-  { name: "Secondary", token: "--color-secondary", hex: "#ffefc1", note: "Secondary action surface (cream)" },
-  { name: "Muted", token: "--color-muted", hex: "#fffaeb", note: "Muted/disabled surface" },
-  { name: "Accent", token: "--color-accent", hex: "#fc6c1c", note: "Accent surface (= primary)" },
-  { name: "Destructive", token: "--color-destructive", hex: "#e10500", note: "Destructive (= Rainbow Red)" },
+  { name: "Primary", token: "--color-primary", hex: "#154ACC", note: "Primary action background (MistX Blue)" },
+  { name: "Secondary", token: "--color-secondary", hex: "#DCE7FB", note: "Secondary action surface (blue-tinted)" },
+  { name: "Muted", token: "--color-muted", hex: "#F1F5FE", note: "Muted/disabled surface" },
+  { name: "Accent", token: "--color-accent", hex: "#154ACC", note: "Accent surface (= primary)" },
+  { name: "Destructive", token: "--color-destructive", hex: "#dc3030", note: "Destructive — kept red for error semantics" },
 ];
 
 const hairlines = [
-  { name: "Border", token: "--color-border", hex: "#fffaeb (HSL 45 100% 96%)", note: "Default hairline" },
+  { name: "Border", token: "--color-border", hex: "#F1F5FE (HSL 220 89% 97%)", note: "Default hairline" },
   { name: "Input", token: "--color-input", hex: "#e3e3ea", note: "Form input border" },
-  { name: "Ring", token: "--color-ring", hex: "#fffaeb", note: "Focus ring" },
+  { name: "Ring", token: "--color-ring", hex: "#F1F5FE", note: "Focus ring" },
 ];
 
 const blockGrid = [
-  { token: "--block-1-color", hex: "#ffe295" },
-  { token: "--block-2-color", hex: "#ffd900" },
-  { token: "--block-3-color", hex: "#ff8d06" },
-  { token: "--block-4-color", hex: "#fef2cb" },
-  { token: "--block-5-color", hex: "#ffe295" },
-  { token: "--block-6-color", hex: "#ffd900" },
-  { token: "--block-7-color", hex: "#ff8105" },
-  { token: "--block-grid-color", hex: "#fff0c3" },
-  { token: "--block-grid-color-2", hex: "#fef1c3" },
+  { token: "--block-1-color", hex: "#DCE7FB" },
+  { token: "--block-2-color", hex: "#A8C0F4" },
+  { token: "--block-3-color", hex: "#2663EB" },
+  { token: "--block-4-color", hex: "#EEF3FE" },
+  { token: "--block-5-color", hex: "#DCE7FB" },
+  { token: "--block-6-color", hex: "#A8C0F4" },
+  { token: "--block-7-color", hex: "#154ACC" },
+  { token: "--block-grid-color", hex: "#EEF3FE" },
+  { token: "--block-grid-color-2", hex: "#F1F5FE" },
 ];
 
 const headingScale = [
@@ -195,11 +196,11 @@ const animations = [
 ];
 
 const buttonVariants = [
-  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-4 py-2 text-sm rounded-full transition-colors", label: "Get started" },
-  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-4 py-2 text-sm rounded-full transition-colors", label: "Try Studio" },
-  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-4 py-2 text-sm rounded-full transition-colors", label: "Contact Sales", darkBg: true },
-  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-4 py-2 text-sm rounded-full transition-colors", label: "Learn more" },
-  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-4 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
+  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-full transition-colors", label: "Get started" },
+  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-full transition-colors", label: "Try Studio" },
+  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-full transition-colors", label: "Contact Sales", darkBg: true },
+  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-full transition-colors", label: "Learn more" },
+  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-5 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
   { name: "Link", className: "border-b border-current pb-1 inline-flex items-center gap-3 text-mistral-black hover:text-mistral-orange transition-colors", label: "Read more →" },
 ];
 
@@ -343,7 +344,7 @@ export default function DesignPage() {
       {/* Header */}
       <header className="container max-w-[1280px] mx-auto px-6 py-12 md:py-20">
         <div className="flex items-end gap-6 flex-wrap">
-          <div className="size-12 rounded-md" style={{ backgroundColor: "#ff8205" }} />
+          <div className="size-12 rounded-md" style={{ backgroundColor: "#154ACC" }} />
           <div>
             <p className="text-xs font-mono uppercase tracking-wider text-mistral-black-tint">MistX · v0.1.0 · alpha</p>
             <h1 className="text-4xl md:text-6xl font-medium leading-tight mt-2">Design System</h1>
@@ -666,7 +667,7 @@ export default function DesignPage() {
             intro="4px base grid. Two parallel naming scales (--spacing-* and --gap-*) resolve to identical values."
           >
             <Usage status="used">
-              Spacing is applied universally via Tailwind <code className="font-mono text-xs">p-*</code>, <code className="font-mono text-xs">m-*</code>, <code className="font-mono text-xs">gap-*</code>, <code className="font-mono text-xs">space-y-*</code> utilities. Most density: Top nav (<code className="font-mono text-xs">px-4 py-2</code> on buttons, <code className="font-mono text-xs">gap-x-*</code> across links), Hero (<code className="font-mono text-xs">py-20</code> bands), Customer carousel + Marketecture grid (<code className="font-mono text-xs">gap-4</code> / <code className="font-mono text-xs">gap-6</code>), Site footer (<code className="font-mono text-xs">gap-y-14</code> + <code className="font-mono text-xs">gap-y-1</code>). The <code className="font-mono text-xs">--space-mobile</code> / <code className="font-mono text-xs">--space-desktop</code> custom-property pair is set as inline <code className="font-mono text-xs">style</code> on a few section wrappers so per-section spacing can be tuned without re-editing utility classes.
+              Spacing is applied universally via Tailwind <code className="font-mono text-xs">p-*</code>, <code className="font-mono text-xs">m-*</code>, <code className="font-mono text-xs">gap-*</code>, <code className="font-mono text-xs">space-y-*</code> utilities. Most density: Top nav pill CTAs (<code className="font-mono text-xs">px-5 py-2</code>), Hero (<code className="font-mono text-xs">py-20</code> bands), Customer carousel + Marketecture grid (<code className="font-mono text-xs">gap-4</code> / <code className="font-mono text-xs">gap-6</code>), Site footer (<code className="font-mono text-xs">gap-y-14</code> + <code className="font-mono text-xs">gap-y-1</code>). The <code className="font-mono text-xs">--space-mobile</code> / <code className="font-mono text-xs">--space-desktop</code> custom-property pair is set as inline <code className="font-mono text-xs">style</code> on a few section wrappers so per-section spacing can be tuned without re-editing utility classes. Note: pill CTAs use <code className="font-mono text-xs">px-5</code> (20px) instead of the previous <code className="font-mono text-xs">px-4</code> so letterforms don&apos;t crowd the curved edges; chip-labels use <code className="font-mono text-xs">px-5 py-3</code> for the same reason.
             </Usage>
             <div className="space-y-3">
               {spacingScale.map((s) => (
@@ -823,6 +824,7 @@ export default function DesignPage() {
             <SubHeading>Buttons</SubHeading>
             <Usage status="used">
               <strong>Pill rule:</strong> every rectangular CTA on the homepage uses <code className="font-mono text-xs">rounded-full</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons), Privacy/deploy (&ldquo;Discover more&rdquo;). Layout containers (cards, surfaces, sections) stay square — pill shape is reserved for interactive primitives so they pop against the squared layout. The <em>Link</em> variant below (border-bottom underline) is a text-link pattern, not a button shape, and keeps no radius.
+              {" "}<strong>Horizontal padding:</strong> all pills use <code className="font-mono text-xs">px-5</code> (20px) instead of the more conventional <code className="font-mono text-xs">px-4</code> — the rounded edges visually consume a few pixels of the apparent inset, so the bumped padding keeps text from crowding the curve. Chip-labels use <code className="font-mono text-xs">px-5 py-3</code> for the same reason.
             </Usage>
             <div className="space-y-4">
               {buttonVariants.map((b) => (
@@ -969,7 +971,7 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
                 <div className="text-xs font-mono text-mistral-black-tint mb-2">cta-banner-cream</div>
                 <h4 className="text-2xl font-medium">Bring frontier AI to your enterprise.</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Cream-surfaced CTA panel near the page bottom.</p>
-                <button className="mt-4 bg-mistral-black text-white px-4 py-2 text-sm rounded-md hover:bg-mistral-black/90 transition-colors">Contact Sales</button>
+                <button className="mt-4 bg-mistral-black text-white px-5 py-2 text-sm rounded-full hover:bg-mistral-black/90 transition-colors">Contact Sales</button>
               </div>
             </div>
           </Section>
