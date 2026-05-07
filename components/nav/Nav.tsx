@@ -209,7 +209,7 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-white/10 text-white border border-white/30 hover:bg-white hover:text-mistral-black"
+            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-white/10 text-white hover:bg-white hover:text-mistral-black"
             href="https://mistral.ai/contact"
           >
             Contact Sales
@@ -233,7 +233,7 @@ export function Nav() {
                 aria-haspopup="menu"
                 aria-expanded={openDropdown === "studio"}
                 onClick={() => setOpenDropdown((d) => (d === "studio" ? null : "studio"))}
-                className="size-9 border-l flex justify-center items-center transition-colors border-white/20 text-primary hover:bg-black/80"
+                className="size-9 flex justify-center items-center transition-colors text-primary hover:bg-black/80"
                 aria-label="Open Studio options"
               >
                 <NavArrowStack />
