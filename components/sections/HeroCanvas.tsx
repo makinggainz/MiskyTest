@@ -2,177 +2,230 @@
 
 import { useEffect, useRef } from "react";
 
+// ── Grid ──────────────────────────────────────────────────────────────────────
 const GRID = 32;
-const DOT_R = 1.5;
-const CIRCLE_SIZE = 20;
-const HOVER_R = 180;
-const DOT_COLOR = "#C7D7F8";
-const FALLBACK_COLOR = "#5582EA";
-const POP_MS = 420;
-const FADE_MS = 200;
 
-// easeOutBack — overshoots 1.0 slightly then settles, producing the "pop" feel
-function easeOutBack(t: number): number {
-  const c1 = 1.70158;
-  const c3 = c1 + 1;
-  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+// ── Dot geometry ──────────────────────────────────────────────────────────────
+const DOT_R_MIN  = 1.5;
+const DOT_R_MAX  = 4.5;
+const GLOW_BLUR  = 8;
+const GLOW_COLOR = "rgba(37,99,235,0.4)";
+
+// ── Color stops ───────────────────────────────────────────────────────────────
+const COLOR_LOW  = { r: 199, g: 215, b: 248 }; // #C7D7F8
+const COLOR_MID  = { r:  96, g: 165, b: 250 }; // #60A5FA
+const COLOR_HIGH = { r:  37, g:  99, b: 235 }; // #2563EB
+
+// ── Height field ──────────────────────────────────────────────────────────────
+const SIGMA    = 160;
+const SIGMA_SQ = SIGMA * SIGMA;
+
+// ── Ambient noise ─────────────────────────────────────────────────────────────
+const NOISE_AMP = 0.07;
+const NOISE_FX  = 1 / 180;
+const NOISE_FY  = 1 / 150;
+const NOISE_TX  = 0.25;
+const NOISE_TY  = 0.18;
+
+// ── Mouse smoothing & decay ───────────────────────────────────────────────────
+const MOUSE_LERP = 0.12;
+const DECAY_MS   = 600;
+
+// ── Edges ─────────────────────────────────────────────────────────────────────
+const EDGE_THRESHOLD = 0.08;
+const EDGE_OPACITY   = 0.6;
+const EDGE_W_BASE    = 0.5;
+const EDGE_W_SCALE   = 1.5;
+
+// ── Contour rings ─────────────────────────────────────────────────────────────
+const CONTOUR_LEVELS  = [0.85, 0.65, 0.45, 0.28, 0.14] as const;
+const CONTOUR_OPACITY = 0.25;
+const CONTOUR_W       = 0.75;
+
+const TAU = Math.PI * 2;
+
+// ── Pure helpers ──────────────────────────────────────────────────────────────
+
+function lerpColor(
+  a: { r: number; g: number; b: number },
+  b: { r: number; g: number; b: number },
+  t: number,
+): string {
+  const r  = Math.round(a.r + (b.r - a.r) * t);
+  const g  = Math.round(a.g + (b.g - a.g) * t);
+  const bl = Math.round(a.b + (b.b - a.b) * t);
+  return `rgb(${r},${g},${bl})`;
 }
 
-
-interface AnimEntry {
-  startTime: number;
-  active: boolean;
+function heightToColor(h: number): string {
+  if (h <= 0.5) return lerpColor(COLOR_LOW, COLOR_MID,  h / 0.5);
+  return               lerpColor(COLOR_MID, COLOR_HIGH, (h - 0.5) / 0.5);
 }
+
+function computeH(
+  x: number,
+  y: number,
+  mx: number,
+  my: number,
+  weight: number,
+  tSec: number,
+): number {
+  const dx = x - mx;
+  const dy = y - my;
+  const hMouse = weight > 0 ? weight * Math.exp(-(dx * dx + dy * dy) / (2 * SIGMA_SQ)) : 0;
+  const hNoise = NOISE_AMP * Math.sin(x * NOISE_FX + tSec * NOISE_TX) * Math.cos(y * NOISE_FY + tSec * NOISE_TY);
+  return Math.max(0, Math.min(1, hMouse + hNoise));
+}
+
+function contourRadius(hLevel: number): number {
+  return SIGMA * Math.sqrt(-2 * Math.log(hLevel));
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
 
 export function HeroCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef<{ x: number; y: number } | null>(null);
-  const rafRef = useRef<number>(0);
-  const earthImgRef = useRef<HTMLImageElement | null>(null);
-  const animRef = useRef<Map<string, AnimEntry>>(new Map());
+  const canvasRef      = useRef<HTMLCanvasElement>(null);
+  const rafRef         = useRef<number>(0);
+  const rawMouseRef    = useRef<{ x: number; y: number } | null>(null);
+  const smoothMouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const mouseActiveRef = useRef<boolean>(false);
+  const decayStartRef  = useRef<number>(0);
+  const decayPeakRef   = useRef<number>(0);
 
   useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = "/images/earth-satellite.jpg";
-    img.onload = () => { earthImgRef.current = img; };
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
-
     let width = 0;
     let height = 0;
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
-      width = canvas!.offsetWidth;
+      width  = canvas!.offsetWidth;
       height = canvas!.offsetHeight;
-      canvas!.width = width * dpr;
+      canvas!.width  = width  * dpr;
       canvas!.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    function draw() {
+    function draw(now: number) {
       ctx.clearRect(0, 0, width, height);
-      const mouse = mouseRef.current;
-      const now = performance.now();
-      const earthImg = earthImgRef.current;
-      const anim = animRef.current;
-      const cols = Math.ceil(width / GRID) + 1;
-      const rows = Math.ceil(height / GRID) + 1;
+      const tSec = now / 1000;
 
-      // ── update animation state ────────────────────────────────────────────
-      if (mouse) {
-        for (let row = 0; row < rows; row++) {
-          for (let col = 0; col < cols; col++) {
-            const x = col * GRID;
-            const y = row * GRID;
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const key = `${col},${row}`;
-            const cur = anim.get(key);
-            if (dist < HOVER_R) {
-              if (!cur || !cur.active) anim.set(key, { startTime: now, active: true });
-            } else {
-              if (cur?.active) anim.set(key, { startTime: now, active: false });
-            }
-          }
-        }
-      } else {
-        // mouse left canvas — start fade-out for all active entries
-        for (const [key, entry] of anim) {
-          if (entry.active) anim.set(key, { startTime: now, active: false });
+      // ── 1. Resolve mouse state ────────────────────────────────────────────
+      let mouseWeight = 0;
+      let effectiveMx = smoothMouseRef.current.x;
+      let effectiveMy = smoothMouseRef.current.y;
+
+      if (mouseActiveRef.current) {
+        const raw = rawMouseRef.current!;
+        smoothMouseRef.current.x += (raw.x - smoothMouseRef.current.x) * MOUSE_LERP;
+        smoothMouseRef.current.y += (raw.y - smoothMouseRef.current.y) * MOUSE_LERP;
+        effectiveMx = smoothMouseRef.current.x;
+        effectiveMy = smoothMouseRef.current.y;
+        mouseWeight = 1;
+      } else if (decayPeakRef.current > 0) {
+        const elapsed = now - decayStartRef.current;
+        const t = Math.min(elapsed / DECAY_MS, 1);
+        mouseWeight = (1 - t) * decayPeakRef.current;
+        if (t >= 1) decayPeakRef.current = 0;
+      }
+
+      // ── 2. Build height map ───────────────────────────────────────────────
+      const cols = Math.ceil(width  / GRID) + 1;
+      const rows = Math.ceil(height / GRID) + 1;
+      const hMap = new Float32Array(cols * rows);
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          hMap[row * cols + col] = computeH(
+            col * GRID, row * GRID,
+            effectiveMx, effectiveMy,
+            mouseWeight, tSec,
+          );
         }
       }
 
-      // ── draw ──────────────────────────────────────────────────────────────
+      // ── 3. Draw edges ─────────────────────────────────────────────────────
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
+          const h1 = hMap[row * cols + col];
+
+          if (col + 1 < cols) {
+            const h2   = hMap[row * cols + (col + 1)];
+            const minH = Math.min(h1, h2);
+            if (minH > EDGE_THRESHOLD) {
+              ctx.beginPath();
+              ctx.moveTo(col * GRID,       row * GRID);
+              ctx.lineTo((col + 1) * GRID, row * GRID);
+              ctx.strokeStyle = heightToColor(minH);
+              ctx.globalAlpha = minH * EDGE_OPACITY;
+              ctx.lineWidth   = EDGE_W_BASE + minH * EDGE_W_SCALE;
+              ctx.stroke();
+            }
+          }
+
+          if (row + 1 < rows) {
+            const h2   = hMap[(row + 1) * cols + col];
+            const minH = Math.min(h1, h2);
+            if (minH > EDGE_THRESHOLD) {
+              ctx.beginPath();
+              ctx.moveTo(col * GRID, row * GRID);
+              ctx.lineTo(col * GRID, (row + 1) * GRID);
+              ctx.strokeStyle = heightToColor(minH);
+              ctx.globalAlpha = minH * EDGE_OPACITY;
+              ctx.lineWidth   = EDGE_W_BASE + minH * EDGE_W_SCALE;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      ctx.globalAlpha = 1;
+
+      // ── 4. Draw dots ──────────────────────────────────────────────────────
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const h = hMap[row * cols + col];
           const x = col * GRID;
           const y = row * GRID;
-          const key = `${col},${row}`;
-          const entry = anim.get(key);
+          const r = DOT_R_MIN + (DOT_R_MAX - DOT_R_MIN) * h;
 
-          if (!entry) {
-            ctx.beginPath();
-            ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
-            ctx.fillStyle = DOT_COLOR;
-            ctx.fill();
-            continue;
-          }
-
-          const elapsed = now - entry.startTime;
-          let scale: number;
-          let alpha: number;
-
-          if (entry.active) {
-            const t = Math.min(elapsed / POP_MS, 1);
-            scale = easeOutBack(t);
-            alpha = Math.min(t * 4, 1); // opacity reaches 1 quickly
+          if (h > 0.7) {
+            ctx.shadowBlur  = GLOW_BLUR * ((h - 0.7) / 0.3);
+            ctx.shadowColor = GLOW_COLOR;
           } else {
-            const t = Math.min(elapsed / FADE_MS, 1);
-            scale = 1 - t;
-            alpha = 1 - t;
-            if (t >= 1) {
-              anim.delete(key);
-              // draw the dot now that the entry is cleaned up
-              ctx.beginPath();
-              ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
-              ctx.fillStyle = DOT_COLOR;
-              ctx.fill();
-              continue;
-            }
+            ctx.shadowBlur = 0;
           }
 
-          // distance-based opacity falloff while active
-          if (entry.active && mouse) {
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < HOVER_R) {
-              alpha *= Math.pow(1 - dist / HOVER_R, 1.2);
-            }
-          }
-
-          if (scale < 0.01 || alpha < 0.01) continue;
-
-          const drawSize = CIRCLE_SIZE * scale;
-          const radius = drawSize / 2;
-
-          ctx.save();
-          ctx.globalAlpha = alpha;
           ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-
-          if (earthImg && earthImg.naturalWidth > 0) {
-            ctx.clip();
-            const iw = earthImg.naturalWidth;
-            const ih = earthImg.naturalHeight;
-            const sampleW = (CIRCLE_SIZE / width) * iw;
-            const sampleH = (CIRCLE_SIZE / height) * ih;
-            const rawSx = (x / width) * iw - sampleW / 2;
-            const rawSy = (y / height) * ih - sampleH / 2;
-            const sx = Math.max(0, Math.min(rawSx, iw - sampleW));
-            const sy = Math.max(0, Math.min(rawSy, ih - sampleH));
-            ctx.drawImage(
-              earthImg,
-              sx, sy, sampleW, sampleH,
-              x - drawSize / 2, y - drawSize / 2, drawSize, drawSize,
-            );
-          } else {
-            ctx.fillStyle = FALLBACK_COLOR;
-            ctx.fill();
-          }
-
-          ctx.restore();
+          ctx.arc(x, y, r, 0, TAU);
+          ctx.fillStyle = heightToColor(h);
+          ctx.fill();
         }
+      }
+
+      ctx.shadowBlur = 0;
+
+      // ── 5. Draw contour rings ─────────────────────────────────────────────
+      if (mouseWeight > 0.05) {
+        ctx.save();
+        ctx.lineWidth = CONTOUR_W;
+        for (const hLevel of CONTOUR_LEVELS) {
+          if (hLevel * mouseWeight < 0.05) continue;
+          const ringR = contourRadius(hLevel);
+          ctx.beginPath();
+          ctx.arc(effectiveMx, effectiveMy, ringR, 0, TAU);
+          ctx.strokeStyle = heightToColor(hLevel);
+          ctx.globalAlpha = CONTOUR_OPACITY * mouseWeight;
+          ctx.stroke();
+        }
+        ctx.restore();
       }
     }
 
-    function loop() {
-      draw();
+    function loop(now: number) {
+      draw(now);
       rafRef.current = requestAnimationFrame(loop);
     }
 
@@ -181,11 +234,24 @@ export function HeroCanvas() {
     ro.observe(canvas);
 
     const parent = canvas.parentElement!;
+
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      rawMouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      if (!mouseActiveRef.current) {
+        smoothMouseRef.current = { ...rawMouseRef.current };
+        mouseActiveRef.current = true;
+        decayPeakRef.current   = 0;
+      }
     };
-    const onLeave = () => { mouseRef.current = null; };
+
+    const onLeave = () => {
+      if (!mouseActiveRef.current) return;
+      mouseActiveRef.current = false;
+      decayStartRef.current  = performance.now();
+      decayPeakRef.current   = 1.0;
+      rawMouseRef.current    = null;
+    };
 
     parent.addEventListener("mousemove", onMove);
     parent.addEventListener("mouseleave", onLeave);
