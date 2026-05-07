@@ -1,0 +1,1 @@
+.katex .katex-version:after{content:"0.16.25"}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .eqn-num:before{content:"("counter(katexEqnNo)")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"("counter(mmlEqnNo)")";counter-increment:mmlEqnNo}body{counter-reset:katexEqnNo mmlEqnNo}
