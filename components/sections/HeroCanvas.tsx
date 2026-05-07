@@ -177,64 +177,48 @@ export function HeroCanvas() {
       const cols = Math.ceil(width  / GRID) + 1;
       const rows = Math.ceil(height / GRID) + 1;
 
-      // ── Draw dots ───────────────────────────────────────────────────────────
+      // ── Background grid dots (at grid intersections, everywhere) ────────────
+      ctx.globalAlpha = 0.14;
+      ctx.fillStyle = toCSS(BG_DOT);
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-          const x  = col * GRID;
-          const y  = row * GRID;
+          ctx.beginPath();
+          ctx.arc(col * GRID, row * GRID, 1.0, 0, TAU);
+          ctx.fill();
+        }
+      }
+
+      // ── Earth dots (at half-grid offsets — between the grid dots) ────────────
+      // One extra col/row of earth dots to cover the shifted positions
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x  = col * GRID + GRID / 2;
+          const y  = row * GRID + GRID / 2;
           const dx = x - earthCx;
           const dy = y - earthCy;
 
-          if (dx * dx + dy * dy <= earthR * earthR) {
-            // ── Earth dot ────────────────────────────────────────────────────
-            const nx = dx / earthR;
-            const ny = dy / earthR;
-            const nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
+          if (dx * dx + dy * dy > earthR * earthR) continue;
 
-            // Spherical projection: longitude rotates with rotRef
-            const lon    = Math.atan2(nx, nz) + rotRef.current;
-            const lat    = Math.asin(-ny); // canvas y is inverted
-            const lonDeg = ((lon * 180 / Math.PI) % 360 + 540) % 360 - 180;
-            const latDeg = lat * 180 / Math.PI;
+          const nx = dx / earthR;
+          const ny = dy / earthR;
+          const nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
 
-            // Dots are slightly larger near the sphere centre (3D depth cue)
-            const r = 1.8 + nz * 1.4;
+          const lon    = Math.atan2(nx, nz) + rotRef.current;
+          const lat    = Math.asin(-ny);
+          const lonDeg = ((lon * 180 / Math.PI) % 360 + 540) % 360 - 180;
+          const latDeg = lat * 180 / Math.PI;
 
-            ctx.globalAlpha = earthAlpha;
-            ctx.beginPath();
-            ctx.arc(x, y, r, 0, TAU);
-            ctx.fillStyle = earthColor(lonDeg, latDeg, nz);
-            ctx.fill();
-          } else {
-            // ── Background dot (subtle grid texture) ─────────────────────────
-            ctx.globalAlpha = 0.14;
-            ctx.beginPath();
-            ctx.arc(x, y, 1.0, 0, TAU);
-            ctx.fillStyle = toCSS(BG_DOT);
-            ctx.fill();
-          }
+          const r = 1.8 + nz * 1.4;
+
+          ctx.globalAlpha = earthAlpha;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, TAU);
+          ctx.fillStyle = earthColor(lonDeg, latDeg, nz);
+          ctx.fill();
         }
       }
 
       ctx.globalAlpha = 1;
-
-      // ── Atmosphere glow ──────────────────────────────────────────────────────
-      if (earthAlpha > 0.05) {
-        const grad = ctx.createRadialGradient(
-          earthCx, earthCy, earthR * 0.86,
-          earthCx, earthCy, earthR * 1.20,
-        );
-        grad.addColorStop(0,    "rgba(85,130,234,0)");
-        grad.addColorStop(0.35, `rgba(85,130,234,${0.14 * earthAlpha})`);
-        grad.addColorStop(1,    "rgba(85,130,234,0)");
-        ctx.save();
-        ctx.globalAlpha = earthAlpha;
-        ctx.beginPath();
-        ctx.arc(earthCx, earthCy, earthR * 1.20, 0, TAU);
-        ctx.fillStyle = grad;
-        ctx.fill();
-        ctx.restore();
-      }
     }
 
     function loop(now: number) {
