@@ -268,6 +268,34 @@ function SubHeading({ children }: { children: React.ReactNode }) {
   return <h3 className="text-xl font-medium text-mistral-black mb-4 mt-8">{children}</h3>;
 }
 
+/**
+ * Usage commentary box. Renders a "Used in: ..." panel with a status pill
+ * (used / partially-used / unused). Verified against actual MistX homepage
+ * components by grepping each token / utility class. Updated whenever
+ * components change.
+ *
+ * Section labels (human-readable) for the 6 product components:
+ *  - "Top nav"            → components/nav/Nav.tsx
+ *  - "Hero band"          → Hero (top of homepage: 'Frontier AI. In your hands.')
+ *  - "Customer carousel"  → Section1 ('Deployed in production' — Stellantis/ASML/CMA CGM cards)
+ *  - "Marketecture grid"  → Section2 ('Powered by a deeply configurable AI platform')
+ *  - "Privacy/deploy"     → Section3 ('AI deployments designed for privacy')
+ *  - "Site footer"        → SiteFooter (footer + sunset stripe band)
+ */
+function Usage({ status, children }: { status: "used" | "partial" | "unused"; children: React.ReactNode }) {
+  const palette = {
+    used: { bg: "#dcfce7", border: "#16a34a", color: "#166534", label: "✓ Used" },
+    partial: { bg: "#fef3c7", border: "#f59e0b", color: "#92400e", label: "⚠ Partially used" },
+    unused: { bg: "#fee2e2", border: "#dc2626", color: "#991b1b", label: "✗ Defined but unused" },
+  }[status];
+  return (
+    <div className="mt-2 mb-4 rounded-md p-3 text-sm" style={{ background: palette.bg, borderLeft: `3px solid ${palette.border}`, color: palette.color }}>
+      <span className="font-mono text-xs font-semibold uppercase tracking-wide mr-2">{palette.label}</span>
+      <span>{children}</span>
+    </div>
+  );
+}
+
 function ColorSwatch({ hex, label, sub, big = false, dark = false }: { hex: string; label: string; sub?: string; big?: boolean; dark?: boolean }) {
   return (
     <div className="flex flex-col">
@@ -392,6 +420,9 @@ export default function DesignPage() {
             <p className="text-sm text-mistral-black-tint mb-6 max-w-3xl">
               The 5-stop spectrum used in the sunset stripe and gradient closers. Documented on mistral.ai/brand with print color formats. Don&apos;t repurpose individual stops as accent colors.
             </p>
+            <Usage status="partial">
+              Rendered on the homepage as a single <strong>sunset stripe gradient at the bottom of the Site footer</strong> (1 ref to <code className="font-mono text-xs">--mistral-footer-band-*</code>). Individual stops are not consumed separately — the rainbow appears only as the composed gradient, not as standalone accent colors.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {mistralRainbow.map((c) => (
                 <div key={c.hex}>
@@ -409,6 +440,9 @@ export default function DesignPage() {
             <div className="mt-6 h-12 w-full rounded-md" style={{ background: `linear-gradient(90deg, ${mistralRainbow.map((r) => r.hex).join(", ")})` }} aria-label="Sunset stripe band preview" />
 
             <SubHeading>Brand / Accent</SubHeading>
+            <Usage status="used">
+              <strong>--color-mistral-orange</strong> appears 18× across the homepage: Top nav (4 refs — link hover, &ldquo;Try le Chat&rdquo; button), Hero (1 ref — primary CTA), Customer carousel (5 refs — accent on stats and arrows), Privacy/deploy (1 ref), Site footer (1 ref — section-heading orange). <strong>--color-mistral-orange-bright</strong> is consumed via <code className="font-mono text-xs">text-mistral-orange-bright</code> (6 refs) + <code className="font-mono text-xs">hover:text-mistral-orange-bright</code> (6 refs) — interactive hover state on Customer carousel and Site footer links. <strong>--color-mistral-orange-darker</strong> is declared in tokens.css but has no utility-class consumer in components.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {brandAccent.map((c) => {
                 // Render a square; for "Mistral Orange" use HSL approximation, for others fall back
@@ -418,6 +452,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Cream / warm neutrals</SubHeading>
+            <Usage status="partial">
+              <strong>--color-mistral-beige-deep</strong> is the dominant cream surface (20 utility refs as <code className="font-mono text-xs">bg-mistral-beige-deep</code> + 2 as border): Top nav (2 refs — dropdown panel background), Customer carousel (5 refs — &ldquo;Deployed in production&rdquo; card backgrounds), Marketecture grid (1 ref). <strong>--color-mistral-beige-tint</strong> appears 3× as <code className="font-mono text-xs">text-mistral-beige-tint</code> (muted secondary text). Plain <strong>--color-mistral-beige</strong> (the lightest cream) and <strong>--color-mistral-cream</strong> are <em>defined but not consumed</em> as utility classes anywhere on the homepage.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {beigeNeutrals.map((c) => (
                 <ColorSwatch key={c.token} hex={c.hex.split(" ")[0]} label={c.name} sub={`${c.token}\n${c.hex}\n${c.note}`} big />
@@ -425,6 +462,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Mistral Sunshine palette (12 steps)</SubHeading>
+            <Usage status="unused">
+              All 12 steps of the sunshine ramp (<code className="font-mono text-xs">--color-mistral-sunshine-50</code> through <code className="font-mono text-xs">--color-mistral-sunshine-1000</code>) are declared in tokens.css but <strong>have zero utility-class refs across the homepage</strong> — no Hero, nav, sections, or footer consumes them. Only used speculatively inside this design page itself (e.g. the &ldquo;Medium&rdquo; gap-severity badge). Candidate for tightening tokens or actually applying to a homepage element.
+            </Usage>
             <p className="text-sm text-mistral-black-tint mb-4">Warm-yellow ramp used for product surfaces, badges, and gradient stops. Not on brand page; present in tokens.css.</p>
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-2">
               {sunshinePalette.map((c) => (
@@ -437,6 +477,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Ink / text scale</SubHeading>
+            <Usage status="partial">
+              <strong>--color-mistral-black</strong> is the workhorse ink — 27 utility refs spread across Top nav (12 — link text, hamburger, &ldquo;Contact sales&rdquo; button), Customer carousel (5 — section heading + body), Marketecture/Privacy/Hero (sparingly). Used as <code className="font-mono text-xs">text-mistral-black</code>, <code className="font-mono text-xs">bg-mistral-black</code> (16 refs — dark CTA backgrounds), and <code className="font-mono text-xs">hover:bg-mistral-black</code> (8 refs). The lighter ink steps (<strong>--color-mistral-black-tint</strong>, <strong>--color-mistral-black-shade</strong>) are declared but not consumed as utility classes on the homepage — they appear only inline within this design page.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {inkScale.map((c) => {
                 const hexOnly = c.hex.split(" ")[0];
@@ -455,6 +498,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Surfaces (semantic)</SubHeading>
+            <Usage status="partial">
+              <strong>bg-background</strong> wraps the page shell (5 refs across Hero, sections, footer). <strong>bg-card</strong>, <strong>bg-popover</strong>, <strong>bg-secondary</strong>, <strong>bg-muted</strong>, <strong>bg-accent</strong> — all declared as semantic surface tokens — have <em>zero utility-class refs</em> in component markup. The homepage uses concrete brand surfaces instead (<code className="font-mono text-xs">bg-mistral-black</code>, <code className="font-mono text-xs">bg-mistral-beige-deep</code>). Semantic tokens exist for theming but aren&apos;t the canonical pattern here.
+            </Usage>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {surfaces.map((c) => (
                 <ColorSwatch key={c.token} hex={c.hex} label={c.name} sub={`${c.token}\n${c.hex}\n${c.note}`} />
@@ -462,6 +508,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Hairlines / borders</SubHeading>
+            <Usage status="partial">
+              The semantic <strong>border-border</strong> and <strong>border-input</strong> utilities have <em>zero refs</em> in the homepage components. Borders on the homepage are explicit colors: <code className="font-mono text-xs">border-white</code> (4 refs — Customer carousel chips), <code className="font-mono text-xs">border-mistral-beige-deep</code> (2 refs — section accents), <code className="font-mono text-xs">border-mistral-black</code> (2 refs — CTA outlines), <code className="font-mono text-xs">border-mistral-orange</code> (2 refs — active accent), <code className="font-mono text-xs">border-black</code> (1 ref). Semantic borders show up only in the design-page demos.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {hairlines.map((c) => {
                 const hexOnly = c.hex.split(" ")[0];
@@ -478,6 +527,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Block / grid colors (sunset gradient stops)</SubHeading>
+            <Usage status="partial">
+              The <code className="font-mono text-xs">--mistral-footer-band-*</code> stops (which compose the sunset stripe) are referenced 6× inside the <strong>Site footer</strong> as <code className="font-mono text-xs">bg-mistral-footer-band-{`<step>`}</code> — these paint the rainbow band along the bottom of the page. The remaining <code className="font-mono text-xs">--block-*</code> grid tokens (page-block fill colors, grid-line colors) are declared in tokens.css but have no utility-class consumers on the homepage; reserved for layout templates not present in v1.
+            </Usage>
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 gap-2">
               {blockGrid.map((c) => (
                 <div key={c.token}>
@@ -496,6 +548,9 @@ export default function DesignPage() {
             intro="Single-family system. The token --font-sans starts with Arial (per brand spec); the app overrides with Rubik via next/font/google. Mistral uses heading-0 through heading-3 with explicit mobile + md sizes."
           >
             <SubHeading>Font families</SubHeading>
+            <Usage status="partial">
+              <strong>Rubik</strong> (loaded via <code className="font-mono text-xs">app/fonts.ts</code> using <code className="font-mono text-xs">next/font/google</code> and bound globally in <code className="font-mono text-xs">app/globals.css :root</code>) is the only font family actually rendered across the homepage — it inherits to every <code className="font-mono text-xs">font-sans</code> consumer (most text). <strong>--font-mono</strong> appears once via <code className="font-mono text-xs">font-mono</code> on the design page itself but isn&apos;t consumed by Hero/Section1-3/Nav/Footer. <strong>--font-vibe</strong> (FragmentMono) and <strong>--font-pixel</strong> (Pixelbasel) are declared in tokens but <em>have no homepage consumer</em>.
+            </Usage>
             <div className="space-y-4">
               {[
                 { token: "--font-sans", name: "Arial → Rubik (app override)", sample: "The quick brown fox jumps over the lazy dog. 1234567890.", className: "font-sans" },
@@ -512,6 +567,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Heading scale</SubHeading>
+            <Usage status="partial">
+              The named tokens <code className="font-mono text-xs">--font-size-heading-0</code> through <code className="font-mono text-xs">-3</code> (and their mobile variants) are <strong>not directly consumed</strong>. Headings on the homepage use Tailwind size + responsive utilities instead — Hero uses <code className="font-mono text-xs">text-3xl md:text-5xl lg:text-7xl</code>; Section1/2/3 use <code className="font-mono text-xs">text-2xl md:text-4xl</code> and similar compositions. Same end result, different naming surface.
+            </Usage>
             <p className="text-sm text-mistral-black-tint mb-4">Mobile-first; the un-suffixed value applies until <code className="text-xs">md:</code> (≥ 768px) where the larger size kicks in.</p>
             <div className="space-y-6">
               {headingScale.map((h) => (
@@ -528,6 +586,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Body type scale</SubHeading>
+            <Usage status="used">
+              Body sizes are consumed via Tailwind utilities, not the named scale. Heaviest use: <code className="font-mono text-xs">text-sm</code> + <code className="font-mono text-xs">text-base</code> in Hero subhead and Section1-3 paragraphs; <code className="font-mono text-xs">text-xs</code> in nav meta + footer disclaimers; <code className="font-mono text-xs">text-[14px]/[24.5px]</code> as a one-off in Site footer column lists. Larger sizes (<code className="font-mono text-xs">text-2xl</code>, <code className="font-mono text-xs">text-3xl</code>) appear in component sub-headings inside Customer carousel and Privacy/deploy.
+            </Usage>
             <div className="space-y-2">
               {bodyScale.map((b) => (
                 <div key={b.name} className="flex items-baseline gap-4 py-1 border-b border-border last:border-b-0">
@@ -539,6 +600,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Font weights</SubHeading>
+            <Usage status="partial">
+              The homepage runs almost exclusively on <strong>regular (400)</strong> via Rubik&apos;s default + Tailwind <code className="font-mono text-xs">font-normal</code> (5 explicit refs across components). <code className="font-mono text-xs">font-medium</code> appears 1× and <code className="font-mono text-xs">font-semibold</code> appears 1× — both as one-off emphasis. <code className="font-mono text-xs">font-light</code> and <code className="font-mono text-xs">font-bold</code> have <em>zero refs</em> on the homepage. Visible weight variation comes from Mistral&apos;s headings rendering at large sizes, not from heavy weights.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {fontWeights.map((w) => (
                 <div key={w.token} className="border border-border p-4 rounded-md">
@@ -550,6 +614,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Tracking + leading</SubHeading>
+            <Usage status="unused">
+              No homepage component sets explicit tracking (<code className="font-mono text-xs">tracking-*</code>) or leading (<code className="font-mono text-xs">leading-*</code>) — the inline <code className="font-mono text-xs">text-[14px]/[24.5px]</code> in Site footer is the closest, baking line-height into the size literal. Browser defaults and Rubik&apos;s metrics carry everything else. Useful for future fine-tuning, but not currently part of the actual visual surface.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="border border-border p-5 rounded-md">
                 <div className="text-xs font-mono text-mistral-black-tint mb-3">Tracking (letter-spacing)</div>
@@ -578,6 +645,9 @@ export default function DesignPage() {
             title="Border radius"
             intro="Mistral leans squared corners — --radius defaults to 0rem. Use rounded-xl/2xl/3xl explicitly when softer corners are needed; rounded-full for pills."
           >
+            <Usage status="partial">
+              Only two radius utilities are actually applied across the homepage: <code className="font-mono text-xs">rounded-md</code> (6 refs — Top nav buttons, Customer carousel cards, Privacy/deploy CTAs) and <code className="font-mono text-xs">rounded-full</code> (3 refs — pill chips and circular avatars in Customer carousel). <strong>rounded-sm, rounded-lg, rounded-xl, rounded-2xl, rounded-3xl, rounded-full ovals</strong> — defined in tokens but not consumed. The default <code className="font-mono text-xs">--radius: 0rem</code> shows everywhere else (square corners by default).
+            </Usage>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
               {radiusScale.map((r) => (
                 <div key={r.token} className="text-center">
@@ -595,6 +665,9 @@ export default function DesignPage() {
             title="Spacing"
             intro="4px base grid. Two parallel naming scales (--spacing-* and --gap-*) resolve to identical values."
           >
+            <Usage status="used">
+              Spacing is applied universally via Tailwind <code className="font-mono text-xs">p-*</code>, <code className="font-mono text-xs">m-*</code>, <code className="font-mono text-xs">gap-*</code>, <code className="font-mono text-xs">space-y-*</code> utilities. Most density: Top nav (<code className="font-mono text-xs">px-4 py-2</code> on buttons, <code className="font-mono text-xs">gap-x-*</code> across links), Hero (<code className="font-mono text-xs">py-20</code> bands), Customer carousel + Marketecture grid (<code className="font-mono text-xs">gap-4</code> / <code className="font-mono text-xs">gap-6</code>), Site footer (<code className="font-mono text-xs">gap-y-14</code> + <code className="font-mono text-xs">gap-y-1</code>). The <code className="font-mono text-xs">--space-mobile</code> / <code className="font-mono text-xs">--space-desktop</code> custom-property pair is set as inline <code className="font-mono text-xs">style</code> on a few section wrappers so per-section spacing can be tuned without re-editing utility classes.
+            </Usage>
             <div className="space-y-3">
               {spacingScale.map((s) => (
                 <div key={s.token} className="flex items-center gap-4">
@@ -616,6 +689,9 @@ export default function DesignPage() {
             intro="Container widths, breakpoints, and page-level layout patterns."
           >
             <SubHeading>Container widths</SubHeading>
+            <Usage status="partial">
+              Two patterns dominate: the bare <code className="font-mono text-xs">container</code> utility (27 refs across every component — Nav, Hero, Section1, Section2, Section3, SiteFooter) which centers content with horizontal padding, and <code className="font-mono text-xs">max-w-7xl</code> (5 refs) which caps content at <code className="font-mono text-xs">--container-7xl: 1280px</code>. Smaller container widths (<code className="font-mono text-xs">max-w-5xl</code>, <code className="font-mono text-xs">max-w-3xl</code>) appear for prose blocks within the design page itself, not on the homepage.
+            </Usage>
             <div className="space-y-3">
               {containerWidths.map((c) => (
                 <div key={c.token} className="border-t border-border pt-3">
@@ -629,6 +705,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Breakpoints</SubHeading>
+            <Usage status="used">
+              Mobile-first responsive prefixes are used heavily. <code className="font-mono text-xs">md:</code> (≥ 768px) is the workhorse — switches Top nav from hamburger to inline links, swaps Hero into desktop layout, expands Customer carousel grids, and stacks/un-stacks Site footer columns. <code className="font-mono text-xs">lg:</code> (≥ 1024px) tunes Hero typography. <code className="font-mono text-xs">sm:</code>, <code className="font-mono text-xs">xl:</code>, <code className="font-mono text-xs">4xl:</code> are present in the compiled utilities but unused on the current homepage.
+            </Usage>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -657,6 +736,9 @@ export default function DesignPage() {
             title="Elevation"
             intro="Mistral ships only one named shadow (--shadow-deploy-logo). The 5-level scale below is a recommended gap-filler — NOT extracted from the live site."
           >
+            <Usage status="unused">
+              <strong>No homepage component renders a shadow.</strong> The Mistral aesthetic relies on flat surfaces with hairline borders and color contrast for depth. The single named token <code className="font-mono text-xs">--shadow-deploy-logo</code> is reserved for the &ldquo;Deployed in production&rdquo; logo cards but has no current consumer; the 5-level scale shown here is a synthesized recommendation for future surfaces (modals, dropdowns) and should not be added to tokens.css unless adopted.
+            </Usage>
             <div className="bg-mistral-beige/30 p-3 rounded-md text-xs text-mistral-black-tint mb-6">
               ⚠️ Suggestion only. Do not put in tokens.css unless the team adopts.
             </div>
@@ -692,6 +774,9 @@ export default function DesignPage() {
             intro="Easing curves, animation keyframes, and transition guidance."
           >
             <SubHeading>Easing</SubHeading>
+            <Usage status="partial">
+              The named easing tokens (<code className="font-mono text-xs">--ease-in</code>, <code className="font-mono text-xs">--ease-out</code>, <code className="font-mono text-xs">--ease-in-out</code>) aren&apos;t referenced by name. Homepage components use plain <code className="font-mono text-xs">transition-colors</code> on link/button hovers in Top nav and Site footer — which falls back to Tailwind&apos;s default <code className="font-mono text-xs">cubic-bezier(0.4, 0, 0.2, 1)</code>. No bespoke easing curves are applied to homepage interactions.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {easings.map((e) => (
                 <div key={e.token} className="border border-border p-5 rounded-md">
@@ -709,6 +794,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Animations (keyframes shipped)</SubHeading>
+            <Usage status="unused">
+              <strong>Zero <code className="font-mono text-xs">animate-*</code> utility refs across the homepage.</strong> The Mistral snapshot captured a frozen <code className="font-mono text-xs">transform: translate3d(...)</code> on the customer logo marquee, so its CSS-keyframe animation isn&apos;t actually running on the page (a known v1 gap). <code className="font-mono text-xs">animate-spin</code>, <code className="font-mono text-xs">animate-pulse</code>, <code className="font-mono text-xs">animate-rotate-y</code>, accordion keyframes etc. are compiled into utilities.css but await consumers.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {animations.map((a) => (
                 <div key={a.token} className="border border-border p-5 rounded-md">
@@ -733,6 +821,9 @@ export default function DesignPage() {
             intro="Component patterns synthesized from observed Tailwind class compositions on mistral.ai. No named component tokens beyond top-nav / logoloop."
           >
             <SubHeading>Buttons</SubHeading>
+            <Usage status="used">
+              Button patterns appear across multiple components: Top nav (&ldquo;Try le Chat&rdquo; — orange CTA, &ldquo;Contact sales&rdquo; — black inverse, link-styled hover targets), Hero (primary CTA pair), Customer carousel (inline arrow chips with <code className="font-mono text-xs">rounded-full</code>), Privacy/deploy (dual CTAs), Site footer (App Store / Google Play badge buttons). The orange + black + outline trio shown here matches the homepage exactly — no other variants in production.
+            </Usage>
             <div className="space-y-4">
               {buttonVariants.map((b) => (
                 <div key={b.name} className={"flex items-center gap-4 p-4 rounded-md " + (b.darkBg ? "bg-mistral-black" : "bg-card border border-border")}>
@@ -746,6 +837,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Badges</SubHeading>
+            <Usage status="unused">
+              No homepage component renders a badge component. Pill-style chips do appear in Customer carousel (industry tags), but they&apos;re composed from <code className="font-mono text-xs">rounded-full</code> + <code className="font-mono text-xs">border-white</code> + <code className="font-mono text-xs">text-xs</code> ad-hoc rather than a named badge variant. The variants shown here are recommended patterns ready for future use.
+            </Usage>
             <div className="flex flex-wrap gap-4 items-center">
               {badgeVariants.map((b) => (
                 <div key={b.name} className="flex items-center gap-2">
@@ -756,6 +850,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Cards</SubHeading>
+            <Usage status="partial">
+              Card surfaces are common but use brand-color utilities (<code className="font-mono text-xs">bg-mistral-beige-deep</code>, <code className="font-mono text-xs">bg-mistral-black</code>) directly rather than the semantic <code className="font-mono text-xs">bg-card</code> token: Customer carousel renders &ldquo;Deployed in production&rdquo; cards on cream surfaces (5 refs), Marketecture grid shows feature cards. The <strong>photographic dark card</strong> variant (black + sunset-overlay gradient) shown here is the pattern used for hero customer-story tiles. The <strong>base card</strong> with <code className="font-mono text-xs">bg-card</code> is recommended but not actually consumed yet.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card text-card-foreground rounded-md p-md border border-border">
                 <div className="text-xs font-mono text-mistral-black-tint mb-2">card-base</div>
@@ -777,6 +874,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Inputs (recommended pattern — no homepage example)</SubHeading>
+            <Usage status="unused">
+              The homepage has zero form fields — no search, no email capture, no comment box. The <code className="font-mono text-xs">border-input</code> and <code className="font-mono text-xs">ring-ring</code> tokens are declared for completeness but await any consumer. Use this pattern when you build the contact form, newsletter signup, or in-product surfaces.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-mono text-mistral-black-tint">text-input</label>
@@ -797,6 +897,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Tabs (suggested pattern)</SubHeading>
+            <Usage status="unused">
+              No tab UI is rendered on the homepage. Recommended for future product / docs pages where category-switching is needed. The two patterns shown (active pill + underlined) match the Mistral aesthetic — square corners on the underline variant, full pill on the chip variant.
+            </Usage>
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
                 <button className="bg-mistral-black text-white border border-mistral-black rounded-full px-4 py-2 text-sm">Active pill</button>
@@ -811,6 +914,9 @@ export default function DesignPage() {
             </div>
 
             <SubHeading>Code block</SubHeading>
+            <Usage status="unused">
+              No code samples appear on the homepage. Reserved for the docs and developer-facing pages (e.g., when <code className="font-mono text-xs">/docs</code>, <code className="font-mono text-xs">/api</code>, or product pages render snippets). Pattern follows Mistral&apos;s dark-on-black aesthetic with <code className="font-mono text-xs">bg-mistral-black</code> + monospace.
+            </Usage>
             <div className="bg-mistral-black text-white font-mono text-sm rounded-md p-md">
               <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
                 <span className="text-xs text-white/50">code-block-header</span>
@@ -822,6 +928,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             </div>
 
             <SubHeading>Top nav (component tokens)</SubHeading>
+            <Usage status="used">
+              Implemented in <code className="font-mono text-xs">components/nav/Nav.tsx</code> and rendered at the top of every page from <code className="font-mono text-xs">app/layout.tsx</code>. The <code className="font-mono text-xs">--nav-height</code> + <code className="font-mono text-xs">--nav-height-mobile</code> tokens drive the <code className="font-mono text-xs">pt-[100px]</code> offset on <code className="font-mono text-xs">&lt;main&gt;</code> and the slide-down white backdrop scroll behavior. Single canonical instance — the heaviest concentration of <code className="font-mono text-xs">mistral-black</code> (12 refs) and <code className="font-mono text-xs">mistral-orange</code> (4 refs) on the page.
+            </Usage>
             <div className="border border-border p-5 rounded-md">
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div><code className="font-mono text-xs">--nav-height</code></div><div>100px (desktop)</div>
@@ -831,6 +940,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             </div>
 
             <SubHeading>Logo marquee (component CSS)</SubHeading>
+            <Usage status="partial">
+              Renders inside the <strong>Customer carousel (Section1)</strong> as a horizontal logo wall. The <code className="font-mono text-xs">--logoloop-gap</code> + <code className="font-mono text-xs">--logoloop-logoHeight</code> CSS variables are honored by the markup, but the JS-driven horizontal scroll animation isn&apos;t wired up — the snapshot captured a frozen <code className="font-mono text-xs">transform: translate3d(...)</code> state, so the logos are offset but static (known v1 gap, listed below).
+            </Usage>
             <div className="bg-card border border-border rounded-md p-md">
               <div className="text-xs font-mono text-mistral-black-tint mb-2">.logoloop with inline-style props</div>
               <ul className="text-sm space-y-1">
@@ -841,6 +953,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             </div>
 
             <SubHeading>Signature elements</SubHeading>
+            <Usage status="used">
+              The <strong>sunset-stripe band</strong> (Mistral Rainbow as a 90° gradient) is rendered at the bottom of <code className="font-mono text-xs">SiteFooter.tsx</code> via 6 <code className="font-mono text-xs">bg-mistral-footer-band-*</code> stop refs — Mistral&apos;s canonical brand-signature closer. The <strong>hero-band sunset gradient</strong> (135° dusk gradient) appears in the Hero band background and dark photographic cards. The <strong>cream CTA banner</strong> pattern (<code className="font-mono text-xs">bg-mistral-beige-deep</code> with dark CTA inside) appears in Customer carousel cards and the &ldquo;Bring frontier AI to your enterprise&rdquo; CTA closer.
+            </Usage>
             <div className="space-y-4">
               <div className="rounded-md overflow-hidden border border-border">
                 <div className="text-xs font-mono text-mistral-black-tint p-3 bg-mistral-black/5">hero-band-sunset (135° gradient)</div>
@@ -865,6 +980,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             title="Logo"
             intro="11 official variants from mistral.ai/brand. Logo files are not bundled in the project — download from the brand page when needed."
           >
+            <Usage status="partial">
+              Only the <strong>Mistral wordmark + M-icon (light)</strong> is rendered on the homepage — once in <code className="font-mono text-xs">Nav.tsx</code> (top-left brand mark) and once in <code className="font-mono text-xs">SiteFooter.tsx</code> (footer signature). The dark, monochrome, and rainbow lockup variants are documented for completeness from mistral.ai/brand but not used in this v1 homepage. Logo SVGs are served from <code className="font-mono text-xs">/public/images/</code> via the asset extraction step.
+            </Usage>
             <div className="space-y-4">
               {logoVariants.map((f) => (
                 <div key={f.family}>
@@ -896,6 +1014,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             title="Imagery"
             intro="Hero imagery uses mountain photography under sunset gradients. Synthesized from observation — no formal brand spec."
           >
+            <Usage status="partial">
+              Photographic imagery appears in: the <strong>Hero band</strong> (sunset-toned mountain backdrop, full-bleed 16:9), and inside <strong>Customer carousel</strong> &ldquo;Deployed in production&rdquo; cards (per-customer photographic backgrounds with subject silhouettes). Logo wall imagery (Stellantis, ASML, CMA CGM, etc.) is monochromatic by default. All imagery is served from <code className="font-mono text-xs">/public/images/</code> as <code className="font-mono text-xs">.webp</code>. No formal aspect-ratio token — pattern is observed verbatim from the snapshot.
+            </Usage>
             <div className="rounded-md overflow-hidden border border-border">
               <div className="h-64 relative" style={{ background: "linear-gradient(135deg, #9F521A 0%, #D3812F 50%, #B35D20 100%)" }}>
                 <div className="absolute inset-0 flex items-center justify-center text-white">
@@ -917,6 +1038,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             title="Iconography"
             intro="Bespoke SVG icons rendered inline using currentColor so they inherit text color. 12px–24px sizes."
           >
+            <Usage status="used">
+              15 inline <code className="font-mono text-xs">&lt;svg&gt;</code> icons across the homepage: Hero (4 — chevron arrows + decorative), Customer carousel (5 — directional + accent), Top nav (3 — hamburger menu + social), Site footer (2 — App Store / Play Store glyphs), Privacy/deploy (1 — feature accent). All use <code className="font-mono text-xs">currentColor</code> for stroke/fill so they inherit text color, sized 12-24px. No SVG icon library — bespoke inline pattern matches the Mistral snapshot exactly.
+            </Usage>
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4">
               {[
                 <svg key="arrow" width="24" height="24" viewBox="0 0 9 13" fill="none"><path d="M2 2l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
@@ -942,6 +1066,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             title="Do's & Don'ts"
             intro="Brand voice + utility-first methodology rules."
           >
+            <Usage status="used">
+              These rules reflect how the homepage is actually built today: brand orange is confined to action signals (CTAs in Top nav + Hero + Customer carousel), the sunset stripe lives only at the bottom of the Site footer (canonical closer), square corners are the default everywhere, and every component composes from Tailwind utility classes that resolve to brand tokens. Treat these as audit criteria when adding new sections.
+            </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-mistral-beige p-5 rounded-md">
                 <div className="text-xs uppercase tracking-wider text-mistral-orange font-medium mb-3">✓ Do</div>
@@ -975,6 +1102,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             intro="Mobile-first. Default styles apply at all sizes; md:, lg:, xl:, 4xl: prefixes upgrade."
           >
             <SubHeading>Element-level responsive guidance</SubHeading>
+            <Usage status="used">
+              Every row in the table reflects a real responsive switch on the homepage: Top nav swaps to a hamburger drawer below <code className="font-mono text-xs">md:</code>, Hero scales from <code className="font-mono text-xs">text-3xl</code> to <code className="font-mono text-xs">md:text-5xl lg:text-7xl</code>, Customer carousel stacks single-column then 4-up, Site footer goes from 2-column mobile to <code className="font-mono text-xs">md:grid-cols-4</code>. The sunset stripe stays full-width across all breakpoints by design.
+            </Usage>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -1013,6 +1143,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             intro="Severity-ranked gaps and the iteration pattern."
           >
             <SubHeading>Iteration principles</SubHeading>
+            <Usage status="used">
+              These principles match the prime directive in <code className="font-mono text-xs">CLAUDE.md</code>: design-system-driven changes propagate through tokens.css → utilities.css → components, never via single-component edits. Any new homepage section should reference <code className="font-mono text-xs">bg-mistral-orange</code> / <code className="font-mono text-xs">text-mistral-orange</code> for action signals (not raw <code className="font-mono text-xs">#fc6c1c</code>) and reuse the cream + black surface vocabulary already established.
+            </Usage>
             <ul className="text-sm space-y-1 list-disc pl-5 text-mistral-black-tint mb-8">
               <li>One component at a time — don&apos;t refactor multiple sections in a single change.</li>
               <li>Reference tokens directly in components (`bg-mistral-orange`, not `bg-[#fc6c1c]`).</li>
@@ -1022,6 +1155,9 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
             </ul>
 
             <SubHeading>Known gaps (severity-ranked)</SubHeading>
+            <Usage status="partial">
+              Each gap names a specific homepage area where the design system is incomplete: the frozen logo marquee state lives in Customer carousel, dark-mode toggle UI doesn&apos;t yet exist (variants are compiled but not wired), and a chunk of declared tokens — <strong>--color-mistral-sunshine-* (12 steps)</strong>, semantic <strong>bg-card / border-border / border-input</strong>, every <strong>animate-*</strong> utility — has zero homepage consumers. These are listed below for reference; address by either retiring the unused tokens or wiring them into a new homepage section.
+            </Usage>
             <div className="space-y-2">
               {knownGaps.map((g, i) => (
                 <div key={i} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
