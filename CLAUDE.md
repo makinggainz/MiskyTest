@@ -2,6 +2,58 @@
 
 This is a Next.js 16 + TypeScript + Tailwind v4 reconstruction of the Mistral AI homepage.
 
+---
+
+## ⚠️ MUST-READ: design-system-driven changes (the prime directive)
+
+> The user wants this rule enforced **across all chats and all instances, always**. Honor it on every visual / element-level change in this project.
+
+**When the user asks to change an element on any page, the change is to be reflected in the design system, not in a single component.**
+
+The default mental model is *"every page is built FROM the design system, so the change should propagate everywhere the rule or element applies."*
+
+### The workflow
+
+1. **Identify the design-system rule that produces the requested element.**
+   - Is it a token (color, spacing, radius, font-size)?
+   - Is it a component pattern (button variant, card style, badge)?
+   - Is it a utility class composition?
+   - Is it a typography style (heading-large, body-medium)?
+2. **Figure out every instance affected.** A single CTA button might map to 1 occurrence — or 5. Don't guess; grep / search the codebase to find them all.
+3. **Make the change at the design-system level** — update the relevant token in [`design-system/styles/tokens.css`](design-system/styles/tokens.css) (or the active token file), the design-system spec in [`design-system/design-system.md`](design-system/design-system.md), and any component patterns documented there.
+4. **Update the showcase pages** ([/design](app/design/page.tsx), [/ColumbusDesign](app/ColumbusDesign/page.tsx), [/compareM-C](app/compareM-C/page.tsx)) so they reflect the new state.
+5. **Verify the change actually propagated** — run `npm run build`, then visually check (or curl + grep) each place the changed token/pattern is consumed. The change should affect *every* page where the rule applies.
+6. **If anything's unclear, ASK BEFORE CHANGING.** Better to clarify than to silently apply the change in the wrong scope.
+
+### When to scope a change to a single place
+
+**Only when the user explicitly says** "only here," "just this one," "single place," "don't propagate," or similar. Otherwise: assume system-wide.
+
+### Result quality is the highest priority
+
+- Don't take shortcuts that produce a "looks right on this page" result if the design-system rule wasn't actually updated.
+- Double-check after the work: re-grep, re-verify the build, re-load the relevant pages. If the change didn't propagate to all expected sites, the work isn't done.
+- Documentation drift (design-system.md not matching tokens.css not matching components) is a defect, not acceptable trade-off.
+
+### What this looks like in practice
+
+| User says | Right interpretation |
+|---|---|
+| "Change the CTA button's hover color" | Find the CTA token / utility class. Update it in tokens.css + design-system.md + showcase. Verify every CTA across all pages reflects the change. |
+| "Make the card padding tighter" | Find the card padding token. Update it. Verify every card (homepage carousel, marketecture frame, footer CTA, etc.) gets the new padding. |
+| "Change the orange to a redder orange" | Update `--color-mistral-orange` (or whichever brand color is being changed). Verify everywhere `bg-mistral-orange` / `text-mistral-orange` is used. Consider whether `--mistral-footer-band-*` rainbow stops also need adjusting (they're related). |
+| **"Make the hero CTA bigger — only on the homepage"** | Explicit single-place. Don't propagate. Apply locally to that one component. |
+
+### Pre-change checklist (run mentally every time)
+
+- [ ] What design-system rule does this element come from?
+- [ ] How many places consume that rule?
+- [ ] Am I editing the rule, not a single instance?
+- [ ] Have I updated tokens / spec / showcase together?
+- [ ] Did I verify the change actually propagated?
+
+---
+
 ## Design system: Mistral's tokens (NOT M3, NOT Hebbia BEM)
 
 Don't confuse this project with sibling projects:
