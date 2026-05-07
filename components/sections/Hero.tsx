@@ -16,20 +16,6 @@ export function Hero() {
   <div className="absolute inset-0">
     <HeroOceanMesh />
   </div>
-  <img
-    src="/images/skyBackground.png"
-    alt=""
-    aria-hidden
-    className="absolute inset-x-0 top-0 w-full pointer-events-none select-none"
-    style={{
-      height: "65%",
-      objectFit: "cover",
-      objectPosition: "top center",
-      zIndex: 0,
-      WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
-      maskImage: "linear-gradient(to bottom, black 0%, black 70%, transparent 100%)",
-    }}
-  />
   <div
     className="absolute left-0 right-0 pointer-events-none"
     aria-hidden
