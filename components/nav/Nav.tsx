@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type DropdownId = "products" | "solutions" | "research" | "blog" | "customers" | "company" | "studio";
 
@@ -112,10 +112,18 @@ function ArrowDot({ className = "" }: { className?: string }) {
 }
 
 export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navColor = "text-mistral-black";
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const navColor = scrolled ? "text-mistral-black" : "text-white";
 
   const navItemTriggerProps = (id: DropdownId) => ({
     onMouseEnter: () => setOpenDropdown(id),
@@ -124,10 +132,10 @@ export function Nav() {
 
   return (
     <header className="fixed z-999 top-0 left-0 w-full">
-      {/* The sliding-down backdrop. Mistral animates this height on scroll. */}
+      {/* Backdrop: invisible over hero, solid once scrolled into content */}
       <div
         className="absolute left-0 top-0 w-full pointer-events-none z-0 bg-background transition-[height] duration-300"
-        style={{ height: "100%" }}
+        style={{ height: scrolled ? "100%" : "0%" }}
       />
 
       <div className="px-4 md:px-auto md:container flex items-center gap-6 justify-between py-6 relative z-10">
@@ -142,7 +150,9 @@ export function Nav() {
               className="object-contain transition-[filter] duration-300"
               style={{
                 color: "transparent",
-                filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
+                filter: scrolled
+                  ? "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)"
+                  : "brightness(0) invert(1)",
               }}
               src="/images/Columbo.png"
             />
@@ -209,22 +219,26 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white"
+            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
+              scrolled
+                ? "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white"
+                : "bg-white/10 text-white hover:bg-white/20"
+            }`}
             href="https://mistral.ai/contact"
           >
             Contact Sales
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
-              <ArrowDot className="text-mistral-black group-hover:text-white" />
+              <ArrowDot className={scrolled ? "text-mistral-black group-hover:text-white" : "text-white"} />
             </span>
           </a>
 
           {/* Try Studio — split button: link on left, chevron-dropdown on right */}
           <div className="relative hidden md:block" {...navItemTriggerProps("studio")}>
-            <div className="group flex items-center overflow-hidden rounded-full text-sm transition-colors bg-mistral-black text-white">
+            <div className={`group flex items-center overflow-hidden rounded-full text-sm transition-colors ${scrolled ? "bg-mistral-black text-white" : "bg-white/10 text-white"}`}>
               <a
                 target="_blank"
                 rel="noopener"
-                className="group/link px-5 py-2 transition-colors truncate flex items-center gap-3 hover:bg-black/80"
+                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-black/80" : "hover:bg-white/20"}`}
                 href="https://console.mistral.ai/?utm_source=website&utm_medium=header_cta"
               >
                 Try Studio
