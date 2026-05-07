@@ -3,77 +3,71 @@
 import { useEffect, useState } from "react";
 
 const COLS = 6;
-const ROWS = 3;
 const CELL_W = 100 / COLS;
-const CELL_H = 100 / ROWS;
+const CELL_H = 100 / 3;
 
+// Dense final state — words fill cols 0–4, col 5 always empty
 const FINAL: (string | null)[] = [
-  "The",       null,      "frontier", null,       "research",   null,
-  null,        "Lab",     null,       "building", null,         "geospatial",
-  "reasoning", null,      "for",      "the",      "real",       "world.",
+  "The",        "frontier",  "research",  "Lab",       "building",  null,
+  "geospatial", "reasoning", "for",       "the",       "real",      null,
+  "world.",     null,        null,        null,        null,        null,
+];
+
+// Row 1 shifted one position right — open slot at index 6
+const SCRAMBLED: (string | null)[] = [
+  "The",        "frontier",  "research",  "Lab",       "building",  null,
+  null,         "geospatial","reasoning", "for",       "the",       "real",
+  "world.",     null,        null,        null,        null,        null,
+];
+
+// 5 deterministic moves: row-1 cascade left, each word landing exactly on its final cell
+const SOLVE_MOVES = [
+  { word: "geospatial", from: 7,  to: 6  },
+  { word: "reasoning",  from: 8,  to: 7  },
+  { word: "for",        from: 9,  to: 8  },
+  { word: "the",        from: 10, to: 9  },
+  { word: "real",       from: 11, to: 10 },
 ];
 
 const WORDS = FINAL.filter((w): w is string => w !== null);
 
-function getAdjacent(idx: number): number[] {
-  const row = Math.floor(idx / COLS);
-  const col = idx % COLS;
-  const adj: number[] = [];
-  if (row > 0) adj.push(idx - COLS);
-  if (row < ROWS - 1) adj.push(idx + COLS);
-  if (col > 0) adj.push(idx - 1);
-  if (col < COLS - 1) adj.push(idx + 1);
-  return adj;
+const FINAL_POS: Record<string, number> = {};
+FINAL.forEach((w, i) => { if (w !== null) FINAL_POS[w] = i; });
+
+// Words already in their final position in the starting state
+function initialArrived(): Set<string> {
+  const s = new Set<string>();
+  SCRAMBLED.forEach((w, i) => { if (w !== null && FINAL_POS[w] === i) s.add(w); });
+  return s;
 }
 
-function buildShuffle(n: number) {
-  const state = [...FINAL];
-  const moves: { from: number; to: number }[] = [];
-  for (let i = 0; i < n; i++) {
-    const empties = state.flatMap((v, i) => (v === null ? [i] : []));
-    const empty = empties[Math.floor(Math.random() * empties.length)];
-    const neighbours = getAdjacent(empty).filter(j => state[j] !== null);
-    if (!neighbours.length) continue;
-    const from = neighbours[Math.floor(Math.random() * neighbours.length)];
-    moves.push({ from, to: empty });
-    const tmp = state[empty];
-    state[empty] = state[from];
-    state[from] = tmp;
-  }
-  const solveMoves = [...moves].reverse().map(m => ({ from: m.to, to: m.from }));
-  return { scrambled: state as (string | null)[], solveMoves };
-}
+const START_DELAY = 1000;
+const MOVE_INTERVAL = 500;
+const TRANSITION_MS = 300;
 
 export function HeroWordGrid() {
-  const [wordCell, setWordCell] = useState<Record<string, number>>(
-    () => Object.fromEntries(WORDS.map(w => [w, FINAL.indexOf(w)]))
-  );
+  const [wordCell, setWordCell] = useState<Record<string, number>>(() => {
+    const init: Record<string, number> = {};
+    SCRAMBLED.forEach((w, i) => { if (w !== null) init[w] = i; });
+    return init;
+  });
   const [ready, setReady] = useState(false);
+  const [arrived, setArrived] = useState<Set<string>>(initialArrived);
 
   useEffect(() => {
-    const { scrambled, solveMoves } = buildShuffle(48);
-
-    const init: Record<string, number> = {};
-    scrambled.forEach((w, i) => { if (w !== null) init[w] = i; });
-    setWordCell(init);
-
     const timeouts: ReturnType<typeof setTimeout>[] = [];
-
     timeouts.push(setTimeout(() => setReady(true), 60));
 
-    const START_DELAY = 560;
-    const MOVE_INTERVAL = 135;
-
-    solveMoves.forEach((move, idx) => {
-      timeouts.push(
-        setTimeout(() => {
-          setWordCell(prev => {
-            const word = Object.keys(prev).find(k => prev[k] === move.from);
-            if (word === undefined) return prev;
-            return { ...prev, [word]: move.to };
-          });
-        }, START_DELAY + idx * MOVE_INTERVAL)
-      );
+    SOLVE_MOVES.forEach((move, idx) => {
+      const t = START_DELAY + idx * MOVE_INTERVAL;
+      // Slide the word
+      timeouts.push(setTimeout(() => {
+        setWordCell(prev => ({ ...prev, [move.word]: move.to }));
+      }, t));
+      // Blur fires just after the CSS transition completes
+      timeouts.push(setTimeout(() => {
+        setArrived(a => new Set([...a, move.word]));
+      }, t + TRANSITION_MS + 20));
     });
 
     return () => { timeouts.forEach(clearTimeout); };
@@ -91,6 +85,7 @@ export function HeroWordGrid() {
         const cellIdx = wordCell[word] ?? 0;
         const col = cellIdx % COLS;
         const row = Math.floor(cellIdx / COLS);
+        const isArrived = arrived.has(word);
         return (
           <div
             key={word}
@@ -108,7 +103,11 @@ export function HeroWordGrid() {
               fontWeight: 400,
               letterSpacing: "-0.01em",
               boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.25)",
-              transition: ready ? "left 0.11s ease-in-out, top 0.11s ease-in-out" : "none",
+              background: isArrived ? "rgba(255,255,255,0.12)" : "transparent",
+              backdropFilter: isArrived ? "blur(12px)" : "none",
+              transition: ready
+                ? `left ${TRANSITION_MS}ms ease-in-out, top ${TRANSITION_MS}ms ease-in-out, background 0.5s ease`
+                : "none",
               opacity: ready ? 1 : 0,
               zIndex: 2,
               pointerEvents: "none",
