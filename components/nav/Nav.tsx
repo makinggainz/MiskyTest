@@ -126,7 +126,7 @@ export function Nav() {
     <header className="fixed z-999 top-0 left-0 w-full">
       {/* The sliding-down backdrop. Mistral animates this height on scroll. */}
       <div
-        className="absolute left-0 top-0 w-full pointer-events-none z-0 bg-background transition-[height] duration-300"
+        className="absolute left-0 top-0 w-full pointer-events-none z-0 transition-[height] duration-300"
         style={{ height: "100%" }}
       />
 
@@ -144,7 +144,7 @@ export function Nav() {
                 color: "transparent",
                 filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
               }}
-              src="/images/Columbo.png"
+              src="/images/img-64a36dfdce2c.svg"
             />
           </a>
 
