@@ -205,8 +205,8 @@ const buttonVariants = [
 ];
 
 const badgeVariants = [
-  { name: "Orange", className: "bg-mistral-orange text-white rounded-full px-3 py-1 text-xs", label: "New" },
-  { name: "Cream", className: "bg-mistral-beige border border-mistral-black/20 rounded-full px-3 py-1 text-xs text-mistral-black", label: "Beta" },
+  { name: "Brand Blue", className: "bg-mistral-orange text-white rounded-full px-3 py-1 text-xs", label: "New" },
+  { name: "Pale Surface", className: "bg-mistral-beige border border-mistral-black/20 rounded-full px-3 py-1 text-xs text-mistral-black", label: "Beta" },
   { name: "Dark", className: "bg-mistral-black text-white rounded-full px-3 py-1 text-xs", label: "Enterprise" },
   { name: "Outline", className: "rounded-full border border-current px-3 py-1 text-xs text-mistral-black", label: "Manufacturing" },
 ];
@@ -223,9 +223,9 @@ const dosDonts = [
   { do: "Pair surfaces with their `*-foreground` companion", dont: "Use `text-white` on `bg-card` (white-on-light fails contrast)" },
   { do: "Use `--space-*` / `--gap-*` for spacing (always 4px multiples)", dont: "Introduce non-grid values like `5px`, `7px`, `11px`" },
   { do: "Use Mistral's square corners (`--radius: 0rem`) by default", dont: "Round everything by default — Mistral leans squared" },
-  { do: "Keep orange to CTAs and active states only", dont: "Use orange decoratively (it's a signal color)" },
-  { do: "Always include the sunset-stripe band as a page closer", dont: "Drop the rainbow stripe — it's the brand signature" },
-  { do: "Use Rainbow tokens (`--mistral-footer-band-2..6`) wherever a rainbow is needed", dont: "Repurpose individual rainbow stops as accent colors" },
+  { do: "Keep brand blue to CTAs and active states only", dont: "Use brand blue decoratively (it's a signal color)" },
+  { do: "Always include the MistX rainbow band as a page closer", dont: "Drop the rainbow stripe — it's the brand signature" },
+  { do: "Use Rainbow tokens (`--mistral-footer-band-1..6`) wherever a rainbow is needed", dont: "Repurpose individual rainbow stops as accent colors" },
   { do: "Use `aria-haspopup` + `aria-expanded` on dropdown triggers", dont: "Render dropdown content unconditionally" },
   { do: "Add new tokens to `tokens.css` AND document them here", dont: "Sneak undocumented `--my-thing` into a component" },
   { do: "Confirm minimum 44×44px touch targets on mobile", dont: "Make tap targets smaller than 40px" },
@@ -281,7 +281,7 @@ function SubHeading({ children }: { children: React.ReactNode }) {
  *  - "Customer carousel"  → Section1 ('Deployed in production' — Stellantis/ASML/CMA CGM cards)
  *  - "Marketecture grid"  → Section2 ('Powered by a deeply configurable AI platform')
  *  - "Privacy/deploy"     → Section3 ('AI deployments designed for privacy')
- *  - "Site footer"        → SiteFooter (footer + sunset stripe band)
+ *  - "Site footer"        → SiteFooter (footer + MistX rainbow band)
  */
 function Usage({ status, children }: { status: "used" | "partial" | "unused"; children: React.ReactNode }) {
   const palette = {
@@ -351,13 +351,13 @@ export default function DesignPage() {
           </div>
         </div>
         <p className="mt-6 text-base md:text-lg text-mistral-black-tint max-w-3xl">
-          Faithful Next.js + TS reconstruction of Mistral AI&apos;s homepage. Atmospheric sunset gradients, cream-yellow surfaces, the Mistral Rainbow as the brand signature, square corners by default, single-family typography. This page is a self-demo: it&apos;s built using the tokens it documents.
+          MistX rebrand of the Mistral AI homepage clone — cool blue spectrum, pale-blue surfaces, the MistX Rainbow (pale-sky → deep-navy) as the brand signature, square corners by default, single-family typography. This page is a self-demo: it&apos;s built using the tokens it documents.
         </p>
         <div className="mt-6 flex flex-wrap gap-2 text-xs font-mono">
           <span className="px-2 py-1 bg-mistral-black/5 rounded-sm">235 tokens</span>
           <span className="px-2 py-1 bg-mistral-black/5 rounded-sm">~63 KB compiled utilities</span>
           <span className="px-2 py-1 bg-mistral-black/5 rounded-sm">Tailwind v4 utility-first</span>
-          <span className="px-2 py-1 bg-mistral-orange/10 text-mistral-orange rounded-sm">brand: #ff8205</span>
+          <span className="px-2 py-1 bg-mistral-orange/10 text-mistral-orange rounded-sm">brand: #154ACC</span>
         </div>
       </header>
 
@@ -395,7 +395,7 @@ export default function DesignPage() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { label: "Brand color", value: "#ff8205", note: "Rainbow Orange" },
+                { label: "Brand color", value: "#154ACC", note: "MistX Brand Blue" },
                 { label: "Type stack", value: "Rubik (app) / Arial (brand)", note: "see §2.1 inconsistency" },
                 { label: "Default radius", value: "0rem (square)", note: "Mistral leans squared" },
                 { label: "Spacing base", value: "4px grid", note: "All tokens are multiples of 4 or 8" },
@@ -415,16 +415,16 @@ export default function DesignPage() {
           <Section
             id="color"
             title="Color"
-            intro="48 unique brand color tokens plus the 12-step Mistral Sunshine ramp. All Mistral colors are HSL custom properties wrapped in hsl(var(--name)) so dark-mode variants work without re-declaration."
+            intro="48 unique brand color tokens plus the 12-step Ocean ramp. All MistX brand colors are HSL custom properties wrapped in hsl(var(--name)) so dark-mode variants work without re-declaration."
           >
-            <SubHeading>🌈 Mistral Rainbow — the brand signature</SubHeading>
+            <SubHeading>🌊 MistX Rainbow — the brand signature</SubHeading>
             <p className="text-sm text-mistral-black-tint mb-6 max-w-3xl">
-              The 5-stop spectrum used in the sunset stripe and gradient closers. Documented on mistral.ai/brand with print color formats. Don&apos;t repurpose individual stops as accent colors.
+              The 6-stop blue spectrum used in the footer stripe and gradient closers. Pale sky → deep navy. Don&apos;t repurpose individual stops as accent colors.
             </p>
             <Usage status="partial">
-              Rendered on the homepage as a single <strong>sunset stripe gradient at the bottom of the Site footer</strong> (1 ref to <code className="font-mono text-xs">--mistral-footer-band-*</code>). Individual stops are not consumed separately — the rainbow appears only as the composed gradient, not as standalone accent colors.
+              Rendered on the homepage as a single <strong>blue stripe gradient at the bottom of the Site footer</strong> (1 ref to <code className="font-mono text-xs">--mistral-footer-band-*</code>). Individual stops are not consumed separately — the rainbow appears only as the composed gradient, not as standalone accent colors.
             </Usage>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
               {mistralRainbow.map((c) => (
                 <div key={c.hex}>
                   <div className="h-32 rounded-md" style={{ backgroundColor: c.hex }} />
@@ -438,23 +438,23 @@ export default function DesignPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 h-12 w-full rounded-md" style={{ background: `linear-gradient(90deg, ${mistralRainbow.map((r) => r.hex).join(", ")})` }} aria-label="Sunset stripe band preview" />
+            <div className="mt-6 h-12 w-full rounded-md" style={{ background: `linear-gradient(90deg, ${mistralRainbow.map((r) => r.hex).join(", ")})` }} aria-label="MistX rainbow band preview" />
 
             <SubHeading>Brand / Accent</SubHeading>
             <Usage status="used">
-              <strong>--color-mistral-orange</strong> appears 18× across the homepage: Top nav (4 refs — link hover, &ldquo;Try le Chat&rdquo; button), Hero (1 ref — primary CTA), Customer carousel (5 refs — accent on stats and arrows), Privacy/deploy (1 ref), Site footer (1 ref — section-heading orange). <strong>--color-mistral-orange-bright</strong> is consumed via <code className="font-mono text-xs">text-mistral-orange-bright</code> (6 refs) + <code className="font-mono text-xs">hover:text-mistral-orange-bright</code> (6 refs) — interactive hover state on Customer carousel and Site footer links. <strong>--color-mistral-orange-darker</strong> is declared in tokens.css but has no utility-class consumer in components.
+              <strong>--color-mistral-orange</strong> (now MistX Blue, token name retained for compatibility) appears 18× across the homepage: Top nav (4 refs — link hover, &ldquo;Try le Chat&rdquo; button), Hero (1 ref — primary CTA), Customer carousel (5 refs — accent on stats and arrows), Privacy/deploy (1 ref), Site footer (1 ref — section heading). <strong>--color-mistral-orange-bright</strong> is consumed via <code className="font-mono text-xs">text-mistral-orange-bright</code> (6 refs) + <code className="font-mono text-xs">hover:text-mistral-orange-bright</code> (6 refs) — interactive hover state on Customer carousel and Site footer links. <strong>--color-mistral-orange-darker</strong> is declared in tokens.css but has no utility-class consumer in components.
             </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {brandAccent.map((c) => {
-                // Render a square; for "Mistral Orange" use HSL approximation, for others fall back
-                const bg = c.token === "--color-mistral-orange" ? "#fc6c1c" : c.token === "--color-mistral-orange-bright" ? "#ff7400" : "#cc3a05";
+                // Render a square; map to the new blue palette
+                const bg = c.token === "--color-mistral-orange" ? "#154ACC" : c.token === "--color-mistral-orange-bright" ? "#2663EB" : "#0E256E";
                 return <ColorSwatch key={c.token} hex={bg} label={c.name} sub={`${c.token}\n${c.hex}\n${c.note}`} big />;
               })}
             </div>
 
-            <SubHeading>Cream / warm neutrals</SubHeading>
+            <SubHeading>Pale-blue surfaces</SubHeading>
             <Usage status="partial">
-              <strong>--color-mistral-beige-deep</strong> is the dominant cream surface (20 utility refs as <code className="font-mono text-xs">bg-mistral-beige-deep</code> + 2 as border): Top nav (2 refs — dropdown panel background), Customer carousel (5 refs — &ldquo;Deployed in production&rdquo; card backgrounds), Marketecture grid (1 ref). <strong>--color-mistral-beige-tint</strong> appears 3× as <code className="font-mono text-xs">text-mistral-beige-tint</code> (muted secondary text). Plain <strong>--color-mistral-beige</strong> (the lightest cream) and <strong>--color-mistral-cream</strong> are <em>defined but not consumed</em> as utility classes anywhere on the homepage.
+              <strong>--color-mistral-beige-deep</strong> (now a blue-tinted surface; token name retained) is the dominant secondary surface (20 utility refs as <code className="font-mono text-xs">bg-mistral-beige-deep</code> + 2 as border): Top nav (2 refs — dropdown panel background), Customer carousel (5 refs — &ldquo;Deployed in production&rdquo; card backgrounds), Marketecture grid (1 ref). Plain <strong>--color-mistral-beige</strong> (the lightest tint) and <strong>--color-mistral-cream</strong> are <em>defined but not consumed</em> as utility classes anywhere on the homepage.
             </Usage>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {beigeNeutrals.map((c) => (
@@ -462,11 +462,11 @@ export default function DesignPage() {
               ))}
             </div>
 
-            <SubHeading>Mistral Sunshine palette (12 steps)</SubHeading>
+            <SubHeading>Ocean palette (12 steps)</SubHeading>
             <Usage status="unused">
-              All 12 steps of the sunshine ramp (<code className="font-mono text-xs">--color-mistral-sunshine-50</code> through <code className="font-mono text-xs">--color-mistral-sunshine-1000</code>) are declared in tokens.css but <strong>have zero utility-class refs across the homepage</strong> — no Hero, nav, sections, or footer consumes them. Only used speculatively inside this design page itself (e.g. the &ldquo;Medium&rdquo; gap-severity badge). Candidate for tightening tokens or actually applying to a homepage element.
+              All 12 steps of the ocean ramp (<code className="font-mono text-xs">--color-mistral-sunshine-50</code> through <code className="font-mono text-xs">--color-mistral-sunshine-950</code> — token name retained from the original Mistral system) are declared in tokens.css but <strong>have zero utility-class refs across the homepage</strong> — no Hero, nav, sections, or footer consumes them. Only used speculatively inside this design page itself (e.g. the &ldquo;Medium&rdquo; gap-severity badge). Candidate for tightening tokens or actually applying to a homepage element.
             </Usage>
-            <p className="text-sm text-mistral-black-tint mb-4">Warm-yellow ramp used for product surfaces, badges, and gradient stops. Not on brand page; present in tokens.css.</p>
+            <p className="text-sm text-mistral-black-tint mb-4">Cool-blue 12-step ramp interpolated from the MistX rainbow stops. Used for product surfaces, badges, and gradient stops.</p>
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-2">
               {sunshinePalette.map((c) => (
                 <div key={c.token}>
@@ -527,9 +527,9 @@ export default function DesignPage() {
               })}
             </div>
 
-            <SubHeading>Block / grid colors (sunset gradient stops)</SubHeading>
+            <SubHeading>Block / grid colors (rainbow gradient stops)</SubHeading>
             <Usage status="partial">
-              The <code className="font-mono text-xs">--mistral-footer-band-*</code> stops (which compose the sunset stripe) are referenced 6× inside the <strong>Site footer</strong> as <code className="font-mono text-xs">bg-mistral-footer-band-{`<step>`}</code> — these paint the rainbow band along the bottom of the page. The remaining <code className="font-mono text-xs">--block-*</code> grid tokens (page-block fill colors, grid-line colors) are declared in tokens.css but have no utility-class consumers on the homepage; reserved for layout templates not present in v1.
+              The <code className="font-mono text-xs">--mistral-footer-band-*</code> stops (which compose the MistX rainbow band) are referenced 6× inside the <strong>Site footer</strong> as <code className="font-mono text-xs">bg-mistral-footer-band-{`<step>`}</code> — these paint the rainbow band along the bottom of the page. The remaining <code className="font-mono text-xs">--block-*</code> grid tokens (page-block fill colors, grid-line colors) are declared in tokens.css but have no utility-class consumers on the homepage; reserved for layout templates not present in v1.
             </Usage>
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 gap-2">
               {blockGrid.map((c) => (
@@ -823,8 +823,9 @@ export default function DesignPage() {
           >
             <SubHeading>Buttons</SubHeading>
             <Usage status="used">
-              <strong>Pill rule:</strong> every rectangular CTA on the homepage uses <code className="font-mono text-xs">rounded-full</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons), Privacy/deploy (&ldquo;Discover more&rdquo;). Layout containers (cards, surfaces, sections) stay square — pill shape is reserved for interactive primitives so they pop against the squared layout. The <em>Link</em> variant below (border-bottom underline) is a text-link pattern, not a button shape, and keeps no radius.
-              {" "}<strong>Horizontal padding:</strong> all pills use <code className="font-mono text-xs">px-5</code> (20px) instead of the more conventional <code className="font-mono text-xs">px-4</code> — the rounded edges visually consume a few pixels of the apparent inset, so the bumped padding keeps text from crowding the curve. Chip-labels use <code className="font-mono text-xs">px-5 py-3</code> for the same reason.
+              <strong>Pill rule:</strong> every interactive primitive on the homepage uses <code className="font-mono text-xs">rounded-full</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons, Prev/Next icon-only nav buttons), chip-labels, badges. Layout containers stay square — pill shape signals interactivity against a squared layout. The <em>Link</em> variant (border-bottom underline) is a text-link pattern and keeps no radius.
+              {" "}<strong>Icon buttons</strong> (carousel Prev/Next) follow the same pill rule: <code className="font-mono text-xs">size-12 rounded-full</code> with no label — documented as <code className="font-mono text-xs">button-icon</code> in design-system.md §8.1.
+              {" "}<strong>Horizontal padding:</strong> all text pills use <code className="font-mono text-xs">px-5</code> (20px) — the rounded edges visually consume a few pixels of the apparent inset, so the bumped padding keeps text from crowding the curve. Chip-labels use <code className="font-mono text-xs">px-5 py-3</code> for the same reason.
             </Usage>
             <div className="space-y-4">
               {buttonVariants.map((b) => (
@@ -853,7 +854,7 @@ export default function DesignPage() {
 
             <SubHeading>Cards</SubHeading>
             <Usage status="partial">
-              Card surfaces are common but use brand-color utilities (<code className="font-mono text-xs">bg-mistral-beige-deep</code>, <code className="font-mono text-xs">bg-mistral-black</code>) directly rather than the semantic <code className="font-mono text-xs">bg-card</code> token: Customer carousel renders &ldquo;Deployed in production&rdquo; cards on cream surfaces (5 refs), Marketecture grid shows feature cards. The <strong>photographic dark card</strong> variant (black + sunset-overlay gradient) shown here is the pattern used for hero customer-story tiles. The <strong>base card</strong> with <code className="font-mono text-xs">bg-card</code> is recommended but not actually consumed yet.
+              Card surfaces are common but use brand-color utilities (<code className="font-mono text-xs">bg-mistral-beige-deep</code>, <code className="font-mono text-xs">bg-mistral-black</code>) directly rather than the semantic <code className="font-mono text-xs">bg-card</code> token: Customer carousel renders &ldquo;Deployed in production&rdquo; cards on cream surfaces, Marketecture grid shows feature cards. The <strong>photographic dark card</strong> variant (black + sunset-overlay gradient) uses <code className="font-mono text-xs">rounded-[28px]</code> — the canonical CSS approximation of Apple&apos;s squircle (superellipse) — on all three customer story tiles (Stellantis, ASML, CMA CGM) paired with <code className="font-mono text-xs">overflow-hidden</code> so the background photo clips to the curved corners. The <strong>base card</strong> with <code className="font-mono text-xs">bg-card</code> is recommended but not yet consumed on the homepage.
             </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card text-card-foreground rounded-md p-md border border-border">
@@ -866,11 +867,11 @@ export default function DesignPage() {
                 <h4 className="text-lg font-medium">Feature card (cream)</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Cream surface for feature blocks and value props.</p>
               </div>
-              <div className="bg-mistral-black text-white p-6 rounded-md md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #fa500f 200%)" }}>
-                <div className="text-xs font-mono text-white/70">card-photographic</div>
+              <div className="bg-mistral-black text-white p-6 rounded-[28px] md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #fa500f 200%)" }}>
+                <div className="text-xs font-mono text-white/70">card-photographic · rounded-[28px] (squircle approximation)</div>
                 <div>
                   <h4 className="text-2xl font-medium">Photographic dark card</h4>
-                  <p className="text-sm text-white/70 mt-2">Customer story pattern. Black background with optional photo overlay.</p>
+                  <p className="text-sm text-white/70 mt-2">Customer story pattern. 28px radius ≈ Apple superellipse on large photographic surfaces. overflow-hidden clips the photo to the rounded corners.</p>
                 </div>
               </div>
             </div>

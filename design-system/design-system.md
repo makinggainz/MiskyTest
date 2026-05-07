@@ -1,27 +1,26 @@
 ---
 project: MistX
-version: 0.1.0
+version: 0.2.0
 status: alpha
 description: |
-  Faithful Next.js + TS reconstruction of Mistral AI's homepage. Atmospheric
-  sunset gradients (mustard / orange / deep red) over mountain photography,
-  horizontal "sunset stripe" closer band, cream-yellow surfaces, saturated
-  orange CTA, near-serif voice for hero displays. The "Mistral Rainbow"
-  (red → orange-dark → orange → orange-light → yellow) is the brand's
-  signature palette and ships in tokens.css as `--mistral-footer-band-2`
-  through `-6`.
+  MistX rebrand of the Mistral AI homepage clone. Cool blue spectrum,
+  pale-blue surfaces, the "MistX Rainbow" (pale-sky → bright-blue →
+  brand-blue → deep-blue → navy → deep-navy) as the signature horizontal
+  band that closes every page. Square corners by default, single-family
+  typography. The 6-stop blue rainbow ships in tokens.css as
+  `--mistral-footer-band-1` through `-6` (token names retained from the
+  original Mistral system for compatibility — values are now blue).
 brand_voice: |
-  "Use these assets with responsibility and respect." (mistral.ai/brand)
-  Brand chose Arial for "universal appeal and captivating simplicity."
+  Cool, technical, restrained. Saturated brand blue is reserved for
+  CTAs and active states; pale-blue surfaces carry the warmth.
 font_stack:
-  declared: "Rubik (next/font/google)" — used by the homepage we cloned
-  brand_spec: "Arial" — declared on mistral.ai/brand
-  inconsistency: yes — the token --font-sans starts with Arial, but app/layout.tsx forces Rubik via next/font
+  declared: "Rubik (next/font/google)" — unchanged from the clone
+  inconsistency: none for typography (the rebrand is colors-only)
 brand_color:
-  hex: "#ff8205"
-  rgb: "255/130/5"
-  cmyk: "0/49/98/0"
-  name: "Mistral Orange"
+  hex: "#154ACC"
+  rgb: "21/74/204"
+  cmyk: "90/64/0/20"
+  name: "MistX Blue"
 methodology: Tailwind v4 utility-first + CSS custom-property tokens
 canonical_files:
   tokens: design-system/styles/tokens.css
@@ -66,58 +65,61 @@ If a token doesn't exist for the value you need, **don't invent one**. Either co
 
 ## 1. Color
 
-48 unique color tokens in tokens.css plus a 12-step Mistral Sunshine ramp. All Mistral brand colors are HSL custom properties wrapped in `hsl(var(--name))`, so dark-mode variants can override the inner HSL components without re-declaring the outer token.
+48 unique color tokens in tokens.css plus a 12-step Ocean ramp. All MistX brand colors are HSL custom properties wrapped in `hsl(var(--name))`, so dark-mode variants can override the inner HSL components without re-declaring the outer token.
 
-### 1.1 Mistral Rainbow — the brand signature 🌈
+**Naming note:** several token names retain their original Mistral-clone identifiers (`--color-mistral-orange`, `--color-mistral-beige`, `--color-mistral-sunshine-*`) even though their values are now blue. Renaming would require regenerating the precompiled `utilities.css`. The token names persist; the *values* are the rebrand.
 
-The Mistral Rainbow is the **primary brand color story**. It runs across the page as a horizontal stripe (the "sunset band" / footer rainbow) and the gradient at the closer of every page. mistral.ai/brand specifies these 5 stops with exact print color formats:
+### 1.1 MistX Rainbow — the brand signature 🌊
 
-| # | Brand name | Hex | RGB | CMYK | Token in our system |
+The MistX Rainbow is the **primary brand color story**. It runs across the page as a horizontal stripe (the footer rainbow band) and the gradient at the closer of every page. The 6-stop blue spectrum fades pale-sky → deep-navy:
+
+| # | Name | Hex | RGB | CMYK | Token in our system |
 |---|---|---|---|---|---|
-| 1 | Red | `#e10500` | 225/5/0 | 0/98/100/12 | `--color-mistral-footer-band-6` |
-| 2 | Orange Dark | `#fa500f` | 250/80/15 | 0/68/94/2 | `--color-mistral-footer-band-5` (≈ matches HSL `17 96% 52%`) |
-| 3 | Orange | `#ff8205` | 255/130/5 | 0/49/98/0 | `--color-mistral-footer-band-4` (HSL `30 100% 51%`) |
-| 4 | Orange Light | `#ffaf00` | 255/175/0 | 0/31/100/0 | `--color-mistral-footer-band-3` (HSL `41 100% 50%`) |
-| 5 | Yellow | `#ffd800` | 255/216/0 | 0/15/100/0 | `--color-mistral-footer-band-2` (HSL `51 100% 50%`) |
+| 1 | Pale Sky | `#E8EFFD` | 232/239/253 | 8/6/0/1 | `--color-mistral-footer-band-1` (HSL `220 79% 95%`) |
+| 2 | Bright Blue | `#2663EB` | 38/99/235 | 84/58/0/8 | `--color-mistral-footer-band-2` (HSL `219 84% 54%`) |
+| 3 | Brand Blue | `#154ACC` | 21/74/204 | 90/64/0/20 | `--color-mistral-footer-band-3` (HSL `220 81% 44%`) |
+| 4 | Deep Blue | `#12369C` | 18/54/156 | 88/65/0/39 | `--color-mistral-footer-band-4` (HSL `222 79% 34%`) |
+| 5 | Navy | `#0E256E` | 14/37/110 | 87/66/0/57 | `--color-mistral-footer-band-5` (HSL `225 78% 25%`) |
+| 6 | Deep Navy | `#091442` | 9/20/66 | 86/70/0/74 | `--color-mistral-footer-band-6` (HSL `228 76% 15%`) |
 
-⚠️ **Token name vs. brand semantics**: in tokens.css these are named `--mistral-footer-band-N` (because they were originally only used in the rainbow footer), but they ARE the official brand rainbow. Use them anywhere the rainbow gradient is needed — not just the footer.
+⚠️ **Token name vs. brand semantics**: in tokens.css these are named `--mistral-footer-band-N` (legacy from the original Mistral clone, retained for compatibility). Use them anywhere the rainbow gradient is needed — not just the footer.
 
 ### 1.2 Brand / Accent (3 tokens)
 
-| Token | Resolves to | Hex | RGB | CMYK | Usage |
-|---|---|---|---|---|---|
-| `--color-mistral-orange` | `hsl(17 96% 52%)` | ≈ `#fc6c1c` | 252/108/28 | 0/57/89/1 | Primary brand accent for CTAs, highlights, hover states. ⚠️ Note: matches "Orange Dark" from brand spec, NOT brand's primary "Orange" #ff8205 — see §1.1. |
-| `--color-mistral-orange-bright` | `hsl(30 100% 51%)` | ≈ `#ff7400` | 255/116/0 | 0/55/100/0 | Brighter dark-mode-friendly variant. |
-| `--color-mistral-orange-darker` | (declared inline only) | — | — | — | Hover/pressed state. |
-
-### 1.3 Cream / warm neutrals (3 tokens + 12-step Sunshine palette)
-
-**Beige tokens (semantic):**
-
-| Token | Resolves to | Approx hex | Brand-spec equivalent |
+| Token | Resolves to | Hex | Usage |
 |---|---|---|---|
-| `--color-mistral-beige` | `hsl(45 100% 96%)` | ≈ `#fffaeb` | **Beige Light** (#fffaeb in brand) ✓ exact match |
-| `--color-mistral-beige-deep` | `hsl(45 100% 88%)` | ≈ `#ffefc1` | (close to Beige Medium #fff0c3) |
-| `--color-mistral-beige-deeper` | `hsl(45.4 66.07% 78.04%)` | ≈ `#e6dbbe` | ≈ Beige Dark `#e9e2cb` (slight tint diff) |
+| `--color-mistral-orange` | `hsl(220 81% 44%)` | `#154ACC` | Primary brand accent for CTAs, highlights, active states. Token name retained from Mistral clone; value is now MistX Blue. |
+| `--color-mistral-orange-bright` | `hsl(219 84% 54%)` | `#2663EB` | Hover/active variant. |
+| `--color-mistral-orange-darker` | (declared inline only) | — | Hover/pressed state (legacy token name; unused). |
 
-**Mistral Sunshine palette (12 steps — undocumented in brand page but present in tokens.css):**
+### 1.3 Pale-blue surfaces (3 tokens + 12-step Ocean palette)
+
+**Surface tokens (semantic — token names `--color-mistral-beige*` retained for compatibility):**
+
+| Token | Resolves to | Approx hex | Role |
+|---|---|---|---|
+| `--color-mistral-beige` | `hsl(220 89% 97%)` | `#F1F5FE` | Page background — pale-blue tint |
+| `--color-mistral-beige-deep` | `hsl(217 81% 92%)` | `#DCE7FB` | Secondary blue-tinted surface |
+| `--color-mistral-beige-deeper` | `hsl(218 76% 84%)` | `#B8CCF5` | Border / soft divider tint |
+
+**Ocean palette (12 steps — interpolated from the rainbow stops; tokens still named `--color-mistral-sunshine-*`):**
 
 | Token | Hex |
 |---|---|
-| `--color-mistral-sunshine-50` | `#fff0c3` |
-| `--color-mistral-sunshine-100` | `#ffe295` |
-| `--color-mistral-sunshine-200` | `#ffdd8a` |
-| `--color-mistral-sunshine-300` | `#ffd06a` |
-| `--color-mistral-sunshine-400` | `#ffc452` |
-| `--color-mistral-sunshine-500` | `#ffb83e` |
-| `--color-mistral-sunshine-600` | `#ffad2e` |
-| `--color-mistral-sunshine-700` | `#ffa110` |
-| `--color-mistral-sunshine-750` | `#f2920b` |
-| `--color-mistral-sunshine-800` | `#ff9500` |
-| `--color-mistral-sunshine-900` | `#ff8a00` |
-| `--color-mistral-sunshine-950` | `#ff7f00` |
+| `--color-mistral-sunshine-50` | `#EEF3FE` |
+| `--color-mistral-sunshine-100` | `#DCE7FB` |
+| `--color-mistral-sunshine-200` | `#C7D7F8` |
+| `--color-mistral-sunshine-300` | `#A8C0F4` |
+| `--color-mistral-sunshine-400` | `#7EA0EE` |
+| `--color-mistral-sunshine-500` | `#5582EA` |
+| `--color-mistral-sunshine-600` | `#2663EB` |
+| `--color-mistral-sunshine-700` | `#1B57DC` |
+| `--color-mistral-sunshine-750` | `#154ACC` |
+| `--color-mistral-sunshine-800` | `#1340B3` |
+| `--color-mistral-sunshine-900` | `#12369C` |
+| `--color-mistral-sunshine-950` | `#0E256E` |
 
-This is the warm-yellow ramp used in product surfaces, badges, and gradient stops. Sunshine-50 (`#fff0c3`) is the same as the brand-page's "Beige Medium" — a designated cream surface.
+Cool-blue ramp used for product surfaces, badges, and gradient stops. Sunshine-100 (`#DCE7FB`) matches `--mistral-beige-deep` — the designated secondary surface tint.
 
 ### 1.4 Ink / text scale
 
@@ -143,14 +145,14 @@ mistral.ai/brand documents two black variants:
 
 | Token | HSL | Hex | Use |
 |---|---|---|---|
-| `--color-background` | `45 100% 96%` | ≈ `#fffaeb` | Page background. Cream by default. |
+| `--color-background` | `220 89% 97%` | `#F1F5FE` | Page background. Pale-blue by default. |
 | `--color-card` | `0 0% 100%` | `#ffffff` | Card surface (white). |
 | `--color-popover` | `0 0% 100%` | `#ffffff` | Popover/dropdown surface. |
-| `--color-primary` | `17 96% 52%` | ≈ `#fc6c1c` | Primary action background. |
-| `--color-secondary` | `45 100% 88%` | ≈ `#ffefc1` | Secondary action surface (cream). |
-| `--color-muted` | `45 100% 96%` | ≈ `#fffaeb` | Muted/disabled surface. |
-| `--color-accent` | `17 96% 52%` | ≈ `#fc6c1c` | Accent surface (orange — same as primary). |
-| `--color-destructive` | `1 100% 44%` | ≈ `#e10500` | Destructive (red — same as Rainbow Red). |
+| `--color-primary` | `220 81% 44%` | `#154ACC` | Primary action background (MistX Blue). |
+| `--color-secondary` | `217 81% 92%` | `#DCE7FB` | Secondary action surface (blue-tinted). |
+| `--color-muted` | `220 89% 97%` | `#F1F5FE` | Muted/disabled surface. |
+| `--color-accent` | `220 81% 44%` | `#154ACC` | Accent surface (= primary). |
+| `--color-destructive` | `0 75% 50%` | ≈ `#dc3030` | Destructive — **deliberately kept red** for error/danger semantic in an otherwise blue-only palette. |
 
 ### 1.6 Foreground / on-color tokens (6 tokens)
 
@@ -161,9 +163,9 @@ For every semantic surface there's a `*-foreground` companion. **Honor the pairi
 | `--color-background` | `--color-foreground` | ≈ `#1f1f1f` (mistral-black) |
 | `--color-card` | `--color-card-foreground` | ≈ `#0a0a0b` |
 | `--color-popover` | `--color-popover-foreground` | ≈ `#0a0a0b` |
-| `--color-primary` | `--color-primary-foreground` | ≈ `#fffaeb` (cream) |
+| `--color-primary` | `--color-primary-foreground` | `#F1F5FE` (pale blue) |
 | `--color-secondary` | `--color-secondary-foreground` | `#000` |
-| `--color-accent` | `--color-accent-foreground` | ≈ `#ffefc1` |
+| `--color-accent` | `--color-accent-foreground` | `#DCE7FB` |
 | `--color-muted` | `--color-muted-foreground` | ≈ `#3d3d3d` |
 | `--color-destructive` | `--color-destructive-foreground` | ≈ `#fafafa` |
 
@@ -171,31 +173,31 @@ For every semantic surface there's a `*-foreground` companion. **Honor the pairi
 
 | Token | HSL | Use |
 |---|---|---|
-| `--color-border` | `45 100% 96%` (= cream) | Default hairline color. Very subtle on cream backgrounds. |
+| `--color-border` | `220 89% 97%` (= pale blue) | Default hairline color. Very subtle on pale-blue backgrounds. |
 | `--color-input` | `240 5.9% 90%` ≈ `#e3e3ea` | Form input border. |
-| `--color-ring` | `45 100% 96%` | Focus ring color. |
+| `--color-ring` | `220 89% 97%` | Focus ring color. |
 
-⚠️ **Gap**: no graded hairline scale (soft/strong). For more contrast use `border-mistral-beige-deep` or `border-mistral-black/20` (utility classes) inline.
+⚠️ **Gap**: no graded hairline scale (soft/strong). For more contrast use `border-mistral-beige-deep` (now `#DCE7FB`) or `border-mistral-black/20` (utility classes) inline.
 
 ### 1.8 Block / grid colors (12 tokens)
 
-The marketecture diagram in section 2 uses a 7-color block system:
+The marketecture diagram in section 2 uses a 7-color block system, now blue-tinted:
 
 | Token | Hex | Note |
 |---|---|---|
-| `--block-1-color` | `#ffe295` | sunshine-100 |
-| `--block-2-color` | `#ffd900` | bright yellow ≈ Rainbow Yellow |
-| `--block-3-color` | `#ff8d06` | orange ≈ Rainbow Orange |
-| `--block-4-color` | `#fef2cb` | pale cream |
-| `--block-5-color` | `#ffe295` | sunshine-100 |
-| `--block-6-color` | `#ffd900` | bright yellow |
-| `--block-7-color` | `#ff8105` | brand Orange ✓ exact |
-| `--block-grid-color` | `#fff0c3` | sunshine-50 |
-| `--block-grid-color-2` | `#fef1c3` | near-sunshine-50 |
+| `--block-1-color` | `#DCE7FB` | sunshine-100 (pale blue tint) |
+| `--block-2-color` | `#A8C0F4` | mid-tone blue |
+| `--block-3-color` | `#2663EB` | bright blue ≈ Rainbow Bright |
+| `--block-4-color` | `#EEF3FE` | very pale blue (lightest tint) |
+| `--block-5-color` | `#DCE7FB` | sunshine-100 |
+| `--block-6-color` | `#A8C0F4` | mid-tone blue |
+| `--block-7-color` | `#154ACC` | brand Blue ✓ exact |
+| `--block-grid-color` | `#EEF3FE` | sunshine-50 |
+| `--block-grid-color-2` | `#F1F5FE` | near-sunshine-50 |
 | `--block-size` | `25px` | base grid cell size |
 | `--block-size-2` / `-3` | `25px` | duplicates |
 
-These are also the **sunset gradient** stops — the horizontal sunset stripe band that appears as a closer at the bottom of pages (block-5 → block-6 → block-7 = yellow → bright-yellow → orange).
+These are also the **rainbow gradient** stops — the horizontal blue stripe band that appears as a closer at the bottom of pages (block-5 → block-6 → block-7 = pale → mid → brand blue).
 
 ### 1.9 Tailwind palette (slate / gray / blue / amber / zinc / red / green / orange / yellow / lime / neutral)
 
@@ -460,6 +462,7 @@ These are conventions, not extracted from the live site. The live site uses `tra
 | `button-split` (link + chevron pill) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container so both halves clip into one pill (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square so it reads as a separate affordance inside the pill |
 | `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *not a button shape, no horizontal padding override* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
+| `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-full` — no label, icon only; fill varies by state (`bg-black/10` disabled, `bg-mistral-beige-deep` active/hover `bg-primary`) |
 | `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-full` — used for the "Production-ready / Secure codebase / …" rows next to product CTAs |
 
 **Heights:** `h-10` (40px) standard / `h-11` (44px) touch-friendly. Hit target ≥ 44px.
@@ -474,7 +477,7 @@ These are conventions, not extracted from the live site. The live site uses `tra
 | `card-feature` | `bg-mistral-beige-deep p-xl rounded-md` |
 | `card-cream` | `bg-mistral-beige p-md` |
 | `card-cream-soft` | `bg-mistral-beige p-xl border border-mistral-beige-deep` |
-| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden` (matches Stellantis/ASML/CMA CGM customer cards) |
+| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden rounded-[28px]` — 28px radius approximates Apple's superellipse (squircle) on large photographic surfaces; `overflow-hidden` is required so the background image clips to the rounded corners. Used on Stellantis/ASML/CMA CGM customer cards. |
 | `card-feature-product` | (TBD — pattern not in MistX yet) |
 | `pricing-card` | (TBD) |
 | `pricing-card-featured` | (TBD) |
