@@ -108,7 +108,7 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 |---|---|---|
 | Buttons, chips, badges, interactive labels | **pill** | `rounded-full` |
 | Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
-| Cards, dialogs, medium containers | 10px | `rounded-[10px]` / `--radius-lg` |
+| Cards, dialogs, medium containers | 20px (squircle) | `rounded-[20px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
 | Hero containers | 9px | `rounded-[9px]` / `--radius-2xl` |
 | Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |

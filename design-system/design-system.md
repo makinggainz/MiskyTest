@@ -289,7 +289,7 @@ Mistral's voice (per brand page + observed homepage usage):
 | `--radius` | `9999px` | — | Base anchor (pill) |
 | `--radius-sm` | `9999px` | `rounded-full` | **Buttons, chips, badges, interactive labels** — pill shape |
 | `--radius-md` | `0.3125rem` (5px) | `rounded-md` | Inputs, info panels, small surfaces |
-| `--radius-lg` | `0.625rem` (10px) | `rounded-lg` | Cards, dialogs, medium containers |
+| `--radius-lg` | `1.25rem` (20px) | `rounded-[20px]` | Cards, dialogs, medium containers (squircle) |
 | `--radius-xl` | `0.5rem` (8px) | `rounded-xl` | Large photographic/decorative surfaces |
 | `--radius-2xl` | `0.5625rem` (9px) | `rounded-2xl` | Hero containers |
 | `--radius-3xl` | `0.625rem` (10px) | `rounded-3xl` | Maximum size |
@@ -298,7 +298,7 @@ Mistral's voice (per brand page + observed homepage usage):
 - **All buttons, chips, badges, and interactive labels use `rounded-full`** — pill shape. No exceptions.
 - **Layout containers are square** (no `rounded-*` on `<section>`, `<main>`, full-width `<div>` blocks).
 - **Scale by visual size:** interactive elements → pill; medium panel → 5px; card → 10px; large photo surface → 8px.
-- The customer carousel cards (600px tall photographic panels) use `rounded-[8px]` (decorative container, not interactive).
+- The customer carousel cards (600px tall photographic panels) use `rounded-[20px]` (squircle card shape).
 - Never write `border-radius` inline — always use a token class or `rounded-[Npx]` explicit value.
 - `rounded-full` is the **standard for all interactive elements**; purely decorative circles (e.g. `size-2 rounded-full` color swatches) also use it.
 
@@ -481,7 +481,7 @@ These are conventions, not extracted from the live site. The live site uses `tra
 | `card-feature` | `bg-mistral-beige-deep p-xl rounded-md` |
 | `card-cream` | `bg-mistral-beige p-md` |
 | `card-cream-soft` | `bg-mistral-beige p-xl border border-mistral-beige-deep` |
-| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden rounded-[8px]` — 8px (`--radius-xl`) for large photographic surfaces; `overflow-hidden` clips the background image to the rounded corners. Used on Stellantis/ASML/CMA CGM customer cards. |
+| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden rounded-[20px]` — 20px squircle; `overflow-hidden` clips the background image to the rounded corners. Used on Stellantis/ASML/CMA CGM customer cards. |
 | `logo-tile` | `aspect-square bg-white shadow-deploy-logo rounded-[6px]` — medium white square containers (~94–179px) that display partner/deployment logos; `rounded-[6px]` (`--radius-lg`) for medium decorative surfaces. Used in Section 3 (AI deployments privacy section). |
 | `card-feature-product` | (TBD — pattern not in MistX yet) |
 | `pricing-card` | (TBD) |

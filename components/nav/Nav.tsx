@@ -118,7 +118,7 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navColor = scrolled ? "text-mistral-black" : "text-white";
+  const navColor = "text-mistral-black";
 
   const navItemTriggerProps = (id: DropdownId) => ({
     onMouseEnter: () => setOpenDropdown(id),
@@ -145,9 +145,7 @@ export function Nav() {
               className="object-contain transition-[filter] duration-300"
               style={{
                 color: "transparent",
-                filter: scrolled
-                  ? "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)"
-                  : "brightness(0) invert(1)",
+                filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
               }}
               src="/images/Columbo.png"
             />
@@ -186,7 +184,7 @@ export function Nav() {
                   {isOpen && (
                     <div
                       role="menu"
-                      className="absolute left-0 top-full min-w-[240px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50"
+                      className="absolute left-0 top-full min-w-[240px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50 rounded-b-[20px] overflow-hidden"
                     >
                       <ul>
                         {dd.items.map((item) => (
@@ -215,9 +213,7 @@ export function Nav() {
           <a
             target="_self"
             className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
-              scrolled
-                ? "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
-                : "border border-white/30 bg-transparent text-white hover:bg-white/10"
+              "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
             }`}
             href="/ColumbusDesign"
           >
@@ -232,9 +228,7 @@ export function Nav() {
             target="_blank"
             rel="noopener"
             className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
-              scrolled
-                ? "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
-                : "border border-white/30 bg-transparent text-white hover:bg-white/10"
+              "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
             }`}
             href="#"
           >

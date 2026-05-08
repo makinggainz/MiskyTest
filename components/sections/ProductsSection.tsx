@@ -87,7 +87,7 @@ export function ProductsSection() {
           {products.map((product, i) => (
             <div
               key={product.tagline}
-              className="flex flex-col border border-[#C7D7F8] rounded-[10px] overflow-hidden bg-white"
+              className="flex flex-col border border-[#C7D7F8] rounded-[20px] overflow-hidden bg-white"
               data-reveal
               data-reveal-delay={String(i + 1)}
             >
@@ -100,7 +100,7 @@ export function ProductsSection() {
 
               {/* Product image — floating, inset with rounded corners */}
               <div className="px-4 pb-2">
-                <div className="relative h-44 w-full overflow-hidden rounded-[8px]">
+                <div className="relative h-44 w-full overflow-hidden rounded-[20px]">
                   <img
                     src={product.image}
                     alt={product.tagline}
