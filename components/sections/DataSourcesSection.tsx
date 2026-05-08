@@ -33,8 +33,8 @@ export function DataSourcesSection() {
         }
       `}</style>
 
-      <section className="my-10 md:my-24">
-        <div className="container">
+      <section className="py-10 md:py-[100px]">
+        <div className="container bg-grid-pattern">
 
           {/* Header */}
           <div className="mb-10 md:mb-20" data-reveal>

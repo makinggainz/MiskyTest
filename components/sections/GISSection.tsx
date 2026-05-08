@@ -14,8 +14,8 @@ function ArrowIcon() {
 
 export function GISSection() {
   return (
-    <section className="my-10 md:my-24">
-      <div className="container">
+    <section className="py-10 md:py-[100px]">
+      <div className="container bg-grid-pattern">
         <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
 
           {/* Left: image */}

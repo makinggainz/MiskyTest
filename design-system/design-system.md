@@ -38,7 +38,7 @@ sources_ranked:
 coverage:
   - homepage (this project ports it)
   - "(out of scope) Le Studio, Coding solutions, news article, contact form, services tier page"
-last_updated: 2026-05-06
+last_updated: 2026-05-08
 ---
 
 # MistX — Design System
@@ -60,6 +60,25 @@ MistX is a **utility-first** system, not a component-token system. You write Tai
 If a token doesn't exist for the value you need, **don't invent one**. Either compose existing utilities or extend the token set in `tokens.css` and document it here.
 
 **Brand philosophy (from mistral.ai/brand):** treat brand assets with responsibility and respect. The chosen typeface (Arial) is meant to convey *universal appeal and captivating simplicity*.
+
+### 0.1 Brand design principles
+
+These principles govern every visual decision in MistX. When in doubt, defer to them.
+
+**1. Roundness everywhere.**
+Every visible surface has roundness. Buttons, cards, panels, icon containers, inputs — all rounded. This is a deliberate future-focused design language choice. The only exceptions are full-width structural layout containers (`<section>`, `<main>`, edge-to-edge `<div>` bands) where square edges are invisible by definition. If a surface is contained and has visual weight, it has a border radius.
+
+**2. Typography as confidence.**
+72px hero headlines at weight 400 (Regular). No heavy bold needed to make an impact — the scale does the work. This is editorial maturity: whitespace and size over decorative weight. Bold (`font-weight: 700`) is reserved only for section sub-headers and a small number of CTA labels. Nearly everything else is 400.
+
+**3. Filled vs. outlined oscillation.**
+The page alternates between solid-filled sections and border-only outlined cards. This oscillation creates visual rhythm, spatial hierarchy, and prevents monotony across a long scroll. The three card patterns (§8.11) encode this rule. New sections should continue the established rhythm — don't introduce two consecutive filled or two consecutive outlined sections without intent.
+
+**4. Restrained colour.**
+Brand blue (`--color-mistral-orange` = `#154ACC`) is a signal colour — reserved for CTAs, active states, and accent icon containers. It should not appear decoratively. The vast majority of surfaces use pale-blue (`--color-background`) or secondary blue (`--color-mistral-beige-deep`). Colour contrast comes from the oscillation pattern, not from introducing new hues.
+
+**5. Declarative headlines with periods.**
+Every major section heading ends with a period: *"We're all about maps and data."* This grammatical choice signals confidence, completeness, and finality. We are stating facts, not selling possibilities. Apply this to all `<h2>` section headings and hero `<h1>` text.
 
 ---
 
@@ -278,11 +297,35 @@ Mistral's voice (per brand page + observed homepage usage):
 - **Code/mono**: ui-monospace stack
 - The brand favors **single-family pairing** (no editorial-serif + sans pairing). Don't introduce a second family unless the brand spec changes.
 
+### 2.7 Typographic confidence rules
+
+These rules are authoritative for all new UI. They encode the brand's editorial maturity (see §0.1 principle 2).
+
+**Weight discipline:**
+- Default weight: `font-weight: 400` (Regular) for nearly everything — body, headings, nav links, labels
+- `font-weight: 700` (Bold) only for: section sub-headers and a small number of CTA button labels
+- Never use bold to compensate for small type; increase scale instead
+
+**Hero heading specifics (H1):**
+- Letter-spacing: `-1.8px` (at 72px this equals `--tracking-tight: -0.025em`; apply `tracking-tight` on display headings)
+- Line-height: `1.0` (72px/72px = 1.0) — tightly tracked. Multi-line headlines read as dense, compact blocks
+- At smaller heading sizes (48px), line-height opens slightly to ~0.95× font-size — still tight
+
+**Text alignment:**
+- Hero heading (`<h1>`) and hero subtitle: **centred** on all breakpoints, or left-aligned when paired with a right-side image (current MistX hero)
+- All section headings (`<h2>`, `<h3>`) and body content: **left-aligned**
+- This "centred for brand moments, left for content" pattern creates scroll rhythm
+
+**Text colour:**
+- Text colour never changes: `--color-mistral-black` (`hsl(0 0% 12%)` ≈ `rgb(31,31,31)`) for all body and headings
+- No link-blue, no secondary grey body text — a monochromatic text system keeps focus on the palette
+- The only permitted text-colour departure is `--color-mistral-orange` (MistX Blue) for footer category headings and CTA arrow accents
+
 ---
 
 ## 3. Border Radius (6 tokens)
 
-**System anchor: pill (rounded-full) for all interactive elements (buttons, chips, badges, labels). Larger non-interactive surfaces scale by visual weight.**
+**System anchor: roundness everywhere. Every visible surface has a border radius — this is the MistX design language (see §0.1 principle 1). Pill (rounded-full) for interactive elements; graduated scale for containers and cards. The only exception is full-width structural layout bands which are square by definition.**
 
 | Token | Value | `rounded-*` class | Use |
 |---|---|---|---|
@@ -296,11 +339,12 @@ Mistral's voice (per brand page + observed homepage usage):
 
 **Rules:**
 - **All buttons, chips, badges, and interactive labels use `rounded-full`** — pill shape. No exceptions.
-- **Layout containers are square** (no `rounded-*` on `<section>`, `<main>`, full-width `<div>` blocks).
-- **Scale by visual size:** interactive elements → pill; medium panel → 5px; card → 10px; large photo surface → 8px.
-- The customer carousel cards (600px tall photographic panels) use `rounded-[20px]` (squircle card shape).
+- **Full-width structural bands are square** (no `rounded-*` on `<section>`, `<main>`, edge-to-edge `<div>` bands) — they span the full viewport so corners are invisible anyway.
+- **Every other surface is rounded.** Cards, panels, inputs, icon containers, modals, tooltips — all get a radius from the scale below.
+- **Scale by visual size:** interactive → pill; small panel/input → 5px; card/dialog → 20px; large photo → 8px; hero container → 9px.
+- The photographic cards (600px tall) use `rounded-[20px]` (squircle).
 - Never write `border-radius` inline — always use a token class or `rounded-[Npx]` explicit value.
-- `rounded-full` is the **standard for all interactive elements**; purely decorative circles (e.g. `size-2 rounded-full` color swatches) also use it.
+- `rounded-full` is the **standard for all interactive elements**; purely decorative circles (e.g. `size-2 rounded-full` colour dots) also use it.
 
 ---
 
@@ -330,6 +374,20 @@ Mistral uses **two parallel** spacing scales that resolve to identical values (T
 Applied via `style={{ '--space-mobile': '32px', '--space-desktop': '96px' }}` on layout wrappers.
 
 **Touch targets:** buttons 40–44px height minimum; inputs 44px; pill tabs 32px desktop / 44px mobile.
+
+### 4.1 Section rhythm
+
+The page uses **generous vertical spacing** — each section feels like its own contained moment before the next begins.
+
+| Gap location | px range | Tokens to use |
+|---|---|---|
+| Between major sections | 200px desktop / 80px mobile | `py-10 md:py-[100px]` — padding (not margin) so adjacent section gaps are additive, never collapsed. 100px top + 100px bottom = 200px visual gap between content areas. |
+| Between section heading and content grid below it | 80px desktop / 40px mobile | `mb-10 md:mb-20` — consistent across all sections |
+| Between h2 and a subtitle paragraph within the same heading block | 24px mobile / 48px desktop | `mt-6 md:mt-12` — matches `--gap-xl` / `--gap-3xl` |
+| Between individual cards in a grid | ~24px | `--spacing-xl` / `--gap-xl` (24px) |
+
+- Content width is capped at `--container-7xl` (1280px) on wide screens, creating visible side margins and keeping reading comfortable (newspaper-column discipline).
+- The page begins sections with an explicit breathing gap — do not collapse section margins to save space.
 
 ---
 
@@ -566,6 +624,52 @@ Implementation in [`components/nav/Nav.tsx`](../components/nav/Nav.tsx). Nav sli
 
 Set on the wrapping `<div>` inline; not in tokens.css. The horizontal scroll animation is JS-driven (currently frozen at the snapshot's `transform` value).
 
+### 8.11 Card oscillation patterns (filled vs. outlined)
+
+One of the most distinctive systematic decisions in MistX: the page **alternates** between card treatment styles to create rhythmic visual contrast between sections (see §0.1 principle 3). Three patterns — maintain the oscillation when building new sections.
+
+#### Pattern A — Border-Only / Outlined Cards
+
+Used for choice-moment grids (product cards, model cards, feature-value cards).
+
+| Property | Value |
+|---|---|
+| Background | `bg-background` — transparent to page (shows `#F1F5FE`) |
+| Border | `border border-[#C7D7F8]` — one step darker than background (`--color-mistral-sunshine-200`) |
+| Border-radius | `rounded-[20px]` — squircle per MistX round rule |
+| Hover | `hover:bg-mistral-beige-deep` — fills with `#DCE7FB` secondary surface |
+
+The border is deliberately subtle — only one step darker than the background. Cards read as areas of structured emptiness, gently delineated. On hover they fill, providing feedback without aggression.
+
+#### Pattern B — Filled Content Areas
+
+Used for featured/highlighted content blocks: pricing callouts, AI studio screenshot containers, "Build the next big thing" support cards.
+
+| Property | Value |
+|---|---|
+| Background | `bg-mistral-beige-deep` — `#DCE7FB` secondary blue-tinted fill |
+| Border | None — fill provides the separation |
+| Border-radius | `rounded-[20px]` |
+
+Against the page background (`#F1F5FE`), the difference is about 10 luminance units — visually clear but harmonious. Content areas feel highlighted without introducing jarring colour breaks.
+
+#### Pattern C — Accent Icon Containers
+
+Used for feature icon anchors in "Why?" and feature-tooling sections.
+
+| Property | Value |
+|---|---|
+| Size | 48×48px |
+| Background | `bg-mistral-orange` — MistX Brand Blue `#154ACC` |
+| Border-radius | `rounded-[10px]` — medium squircle for icon containers |
+| Icon colour | `text-white` |
+
+These are the most concentrated colour elements on the page — pure saturated blue against the pale surface. They anchor each feature card visually and allow icon imagery to read clearly. Use sparingly; one per feature card.
+
+> **The oscillation rule:** the rhythm across the page is: outlined → filled → outlined → filled. New sections should continue this pattern. If two consecutive sections would both be outlined (Pattern A), make one use Pattern B filled cards instead.
+
+---
+
 ### 8.10 Signature elements
 
 The defining brand visuals — never modify these without designer review:
@@ -638,8 +742,11 @@ Observed pattern: **simple line / 2-state icons** rendered inline as SVG. 12px�
 | Use Tailwind utilities that resolve to tokens (`bg-mistral-orange`, `text-mistral-black`) | Hardcode hex/RGB in JSX inline styles |
 | Pair surfaces with their `*-foreground` (e.g. `bg-card text-card-foreground`) | Use raw `text-white` on `bg-card` (white-on-light fails contrast) |
 | Use `--space-*` / `--gap-*` for spacing (always 4px multiples) | Introduce non-grid values like `5px`, `7px`, `11px` |
-| Use Mistral's square corners (`--radius: 0rem`) by default; opt into rounded explicitly | Round everything by default — Mistral leans squared |
-| Keep the orange to CTAs and active states only | Use orange decoratively (it's a signal color) |
+| Round every visible surface — roundness is a MistX design language principle (§0.1) | Leave contained surfaces with square corners (only full-width layout bands are square) |
+| Keep brand blue (`--color-mistral-orange`) to CTAs, active states, and Pattern C icon containers only | Use brand blue decoratively — it's a signal colour |
+| End every major section heading (`<h2>`) and hero `<h1>` with a period | Use hedging or question-mark headlines — state facts, don't ask |
+| Use `font-weight: 400` for headings and body; bold only for section sub-headers and CTA labels | Use heavy weights to compensate for small type — increase scale instead |
+| Alternate between outlined (Pattern A) and filled (Pattern B) card sections | Stack two consecutive same-treatment sections without intent |
 | Always include the sunset-stripe band as a page closer (`SiteFooter`) | Drop the rainbow stripe — it's the brand signature |
 | Use Rainbow tokens (`--mistral-footer-band-2..6`) outside the footer when a rainbow is needed | Repurpose individual rainbow stops as accent colors |
 | Use `aria-haspopup="menu"` + `aria-expanded` on dropdown triggers | Render dropdown content unconditionally |
@@ -690,6 +797,15 @@ Use Mistral's actual values, not the suggested scale.
 | Stat row | 1-up | 3-up |
 | Footer | Stacked columns | 4–6 columns |
 | **Sunset stripe** | Always full-width | Always full-width |
+
+### 5.4 Recurring grid patterns
+
+| Pattern | Description | Where used |
+|---|---|---|
+| **Three-column 1/3+1/3+1/3** | Primary recurring content grid. When the user encounters a 3-column block they understand: "choose from these options." | Model cards, feature-value cards, documentation/support cards, product cards |
+| **Two-column 1/3+2/3** | Description left, proof/illustration right. Communicates: "here's what it is / here's evidence." | Feature sections with product UI screenshots, deployability section (tab list + illustration) |
+| **Two-column ~40/60** | Slightly asymmetric split for feature tooling sections with text left, product UI right | Feature tooling sections |
+| **Full-width single column** | Hero band, marquee, rainbow stripe closer | Hero, logo wall, footer |
 
 ---
 
@@ -780,4 +896,9 @@ Imports flow through [`app/globals.css`](../app/globals.css) in cascade-correct 
 | §10 Imagery, §11 Iconography | Observed homepage style | Synthesized |
 | §12 Do's and Don'ts | Mistral brand voice + utility-first methodology | Synthesized |
 | §13 Responsive | tokens.css breakpoints + observed behavior | Authoritative + synthesized |
+| §0.1 Brand design principles | User-defined design intent (2026-05-08) | Authoritative — project owner |
+| §2.7 Typographic confidence rules | Design analysis of original Mistral homepage typography (weight, tracking, line-height, alignment, colour) | Authoritative — translated to MistX |
+| §4.1 Section rhythm | Design analysis of original Mistral homepage spacing | Authoritative — translated to MistX |
+| §5.4 Recurring grid patterns | Design analysis of original Mistral homepage layout | Authoritative — translated to MistX |
+| §8.11 Card oscillation patterns | Design analysis of original Mistral homepage card patterns; colours translated from warm beige → MistX blue palette | Authoritative — translated to MistX |
 | §14 Gaps | Audit | Authoritative |

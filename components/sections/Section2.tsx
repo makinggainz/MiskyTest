@@ -6,7 +6,7 @@
 export function Section2() {
   return (
     <>
-<section className="container my-20"><h2 className="text-3xl md:text-5xl text-center mb-10 md:mb-20">Powered by a deeply configurable AI platform.</h2><div className="bg-grid-size-md bg-grid-pattern border-b border-mistral-beige-deep p-4 md:p-20 flex flex-col justify-center items-center"><img alt="Marketecture Image" loading="lazy" width="1900" height="1080" decoding="async" data-nimg="1" className="md:block hidden" style={{color:'transparent'}}  src="/images/img-4dbad90ba424.webp" /><img alt="Marketecture Image" loading="lazy" width="1900" height="1080" decoding="async" data-nimg="1" className="md:hidden sf-hidden" style={{color:'transparent'}}  src="data:," /></div></section>
+<section className="container my-10 md:my-24"><h2 className="text-3xl md:text-5xl text-center mb-10 md:mb-20">Powered by a deeply configurable AI platform.</h2><div className="bg-grid-size-md bg-grid-pattern border-b border-mistral-beige-deep p-4 md:p-20 flex flex-col justify-center items-center"><img alt="Marketecture Image" loading="lazy" width="1900" height="1080" decoding="async" data-nimg="1" className="md:block hidden" style={{color:'transparent'}}  src="/images/img-4dbad90ba424.webp" /><img alt="Marketecture Image" loading="lazy" width="1900" height="1080" decoding="async" data-nimg="1" className="md:hidden sf-hidden" style={{color:'transparent'}}  src="data:," /></div></section>
     </>
   );
 }

@@ -9,18 +9,21 @@ const TABS = [
     label: "Map Chat",
     headline: "Conversational map chat",
     body: "Ask your chat directly about anything. Have a conversation like you're talking to your best analyst.",
+    cta: "Try map chat",
   },
   {
     id: "data-catalogue" as const,
     label: "Data Catalogue",
     headline: "Rich geospatial data catalogue",
     body: "Browse, filter, and layer thousands of curated datasets. Every source is documented, versioned, and ready to query.",
+    cta: "Explore datasets",
   },
   {
     id: "audits" as const,
     label: "Audits and site selection",
     headline: "AI-powered site intelligence",
     body: "Run automated site audits and score locations against your criteria. Surface the highest-scoring parcels in seconds.",
+    cta: "Run a site audit",
   },
 ] as const;
 
@@ -30,7 +33,7 @@ type TabId = typeof TABS[number]["id"];
 
 function MapChatVisual() {
   return (
-    <div className="relative h-full min-h-[380px] overflow-hidden" style={{ background: "#dde3ea" }}>
+    <div className="relative h-full min-h-[514px] overflow-hidden" style={{ background: "#dde3ea" }}>
       {/* Map dot grid */}
       <div
         className="absolute inset-0"
@@ -53,7 +56,7 @@ function MapChatVisual() {
       </svg>
 
       {/* Chat panel overlay */}
-      <div className="absolute right-6 bottom-6 left-[35%] flex flex-col gap-2.5">
+      <div className="absolute right-6 bottom-6 flex flex-col gap-2.5" style={{ maxWidth: "418px", width: "calc(100% - 48px)" }}>
         {/* User message */}
         <div className="self-end max-w-[90%] bg-white rounded-[16px] rounded-br-[5px] shadow-sm px-4 py-3">
           <p className="text-[11px] leading-relaxed text-mistral-black">
@@ -99,7 +102,7 @@ function DataCatalogueVisual() {
     { name: "Land use zoning", type: "Polygon", updated: "Quarterly", coverage: "EU" },
   ];
   return (
-    <div className="h-full min-h-[380px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
+    <div className="h-full min-h-[514px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
       {/* Search */}
       <div className="flex items-center gap-2.5 bg-white border border-[#C7D7F8] rounded-full px-4 py-2.5 shadow-sm">
         <svg className="size-3.5 shrink-0 text-mistral-black/30" fill="none" viewBox="0 0 16 16" aria-hidden="true">
@@ -144,7 +147,7 @@ function AuditsVisual() {
     { name: "Faubourg Saint-Honoré, Paris", score: 68, tag: "Medium" },
   ];
   return (
-    <div className="h-full min-h-[380px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
+    <div className="h-full min-h-[514px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-mistral-black">Top matching parcels</span>
         <span className="text-xs text-mistral-black/40">5 of 128 results</span>
@@ -187,27 +190,20 @@ export function ColumbusFeatures() {
   const active = TABS.find((t) => t.id === activeId)!;
 
   return (
-    <section className="my-10 md:my-20">
-      <div className="container">
+    <section className="py-10 md:py-[100px]">
+      <div className="container bg-grid-pattern">
 
-        {/* Header */}
-        <div className="flex flex-col items-center text-center mb-10 gap-2" data-reveal>
-          <div className="flex items-center gap-2.5">
-            <img
-              src="/images/Columbo.png"
-              alt="Columbus"
-              className="size-7"
-              style={{
-                filter:
-                  "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
-              }}
-            />
-            <span className="text-2xl font-semibold text-mistral-black">Columbus</span>
-          </div>
-          <p className="text-sm text-mistral-black/45 tracking-wide">All-in-one map intelligence platform</p>
+        {/* Section heading — centered, above panel */}
+        <div className="mb-10 md:mb-20 text-center" data-reveal>
+          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+            Your map intelligence platform.
+          </h2>
+          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
+            Columbus brings together conversational map chat, curated geospatial data, and AI-powered site intelligence — so your team moves from insight to decision, fast.
+          </p>
         </div>
 
-        {/* Panel */}
+        {/* Full-width panel */}
         <div
           className="border border-[#C7D7F8] rounded-[20px] overflow-hidden"
           data-reveal
@@ -233,19 +229,36 @@ export function ColumbusFeatures() {
             ))}
           </div>
 
-          {/* Content */}
+          {/* Content: left text + right visual */}
           <div className="flex flex-col md:flex-row">
-            {/* Left: text */}
-            <div className="flex flex-col justify-between p-8 md:p-10 md:w-[280px] lg:w-[320px] shrink-0 border-b md:border-b-0 md:border-r border-[#C7D7F8] bg-background">
+            {/* Left: tab-specific headline + body + CTA */}
+            <div
+              className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#C7D7F8] bg-background p-8 md:p-10 shrink-0"
+              style={{ width: "320px", maxWidth: "100%" }}
+            >
               <div className="flex flex-col gap-4">
-                <h3 className="text-3xl font-normal text-mistral-black leading-snug tracking-tight">
+                <h3 className="text-2xl font-normal text-mistral-black leading-snug tracking-tight">
                   {active.headline}
                 </h3>
                 <p className="text-sm leading-relaxed text-mistral-black/55">
                   {active.body}
                 </p>
               </div>
-              <p className="text-xs text-mistral-black/25 mt-10">Example for display purpose only</p>
+              <a
+                href="/ColumbusDesign"
+                className="group mt-8 rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+              >
+                <span>{active.cta}</span>
+                <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                  <svg className="size-3 shrink-0" viewBox="0 0 9 13" fill="none" aria-hidden="true">
+                    <circle cx="7.22"  cy="6.589" r="1.28" fill="currentColor" />
+                    <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+                    <circle cx="2.099" cy="1.46"  r="1.28" fill="currentColor" />
+                    <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+                    <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
+                  </svg>
+                </span>
+              </a>
             </div>
 
             {/* Right: visual */}

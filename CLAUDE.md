@@ -100,6 +100,19 @@ Two-font system loaded via [`app/fonts.ts`](app/fonts.ts) using `next/font/googl
 Opening Hours Sans only ships Regular weight — don't specify font-weight values other than 400 for body copy.
 Don't introduce other fonts without updating this table and `app/fonts.ts`.
 
+### Section spacing
+
+**Standing rule — enforce on every visual change, always.**
+
+| Gap location | Class | px |
+|---|---|---|
+| Between major sections | `py-10 md:py-[100px]` | 80px mobile (40+40) / 200px desktop (100+100) — padding not margin, so gaps never collapse |
+| Between section heading and its content grid | `mb-10 md:mb-20` | 40px mobile / 80px desktop |
+| Between h2 and a subtitle paragraph within a section heading block | `mt-6 md:mt-12` | 24px (`--gap-xl`) mobile / 48px (`--gap-3xl`) desktop |
+| Between individual cards in a grid | `gap-4 md:gap-6` | 16px mobile / 24px desktop |
+
+All sections must use these values. Never use `my-10 md:my-24` (margin-based section spacing — it collapses), `md:mb-12`, `md:gap-5`, or `mt-4` for heading-subtitle gaps — those are off-system values that caused inconsistency.
+
 ### Border radius
 
 **Standing rule — enforce on every visual change, always.**

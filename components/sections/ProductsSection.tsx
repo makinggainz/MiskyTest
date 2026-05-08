@@ -72,18 +72,18 @@ function ArrowIcon() {
 
 export function ProductsSection() {
   return (
-    <section className="my-10 md:my-20">
-      <div className="container">
+    <section className="py-10 md:py-[100px]">
+      <div className="container bg-grid-pattern">
 
         {/* Section heading — "Our current offerings:" removed */}
-        <div className="mb-10 md:mb-12" data-reveal>
-          <h2 className="text-3xl md:text-5xl font-normal">
+        <div className="mb-10 md:mb-20" data-reveal>
+          <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
             We&rsquo;re all about maps and data.
           </h2>
         </div>
 
         {/* Three cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {products.map((product, i) => (
             <div
               key={product.tagline}
@@ -93,7 +93,7 @@ export function ProductsSection() {
             >
               {/* Card label header */}
               <div className="px-5 pt-5 pb-3">
-                <span className="text-xs font-medium text-mistral-black-tint tracking-wide uppercase">
+                <span className="text-xs font-medium text-mistral-black tracking-wide uppercase">
                   {product.label}
                 </span>
               </div>
@@ -121,7 +121,7 @@ export function ProductsSection() {
                   {product.features.map((feature) => (
                     <div key={feature} className="flex items-start gap-2.5">
                       <CheckIcon />
-                      <span className="text-sm text-mistral-black-tint leading-relaxed">
+                      <span className="text-sm text-mistral-black leading-relaxed">
                         {feature}
                       </span>
                     </div>

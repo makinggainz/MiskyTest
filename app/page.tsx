@@ -13,7 +13,7 @@ export default function HomePage() {
     <main className="bg-background">
       <Hero />
       <ProductsSection />
-      <div className="bg-background pt-px">
+      <div className="bg-background">
         <ColumbusFeatures />
         <ProfessionallySection />
         <DataSourcesSection />

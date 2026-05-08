@@ -198,8 +198,8 @@ export function ProfessionallySection() {
   const active = FEATURES.find((f) => f.id === activeId)!;
 
   return (
-    <section className="my-10 md:my-24">
-      <div className="container">
+    <section className="py-10 md:py-[100px]">
+      <div className="container bg-grid-pattern">
 
         {/* Section heading */}
         <div className="mb-10 md:mb-20" data-reveal>
