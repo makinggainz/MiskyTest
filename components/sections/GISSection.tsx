@@ -22,7 +22,7 @@ export function GISSection() {
           <div className="w-full lg:flex-1" data-reveal>
             <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
               <img
-                src="/images/gis-hero.jpg"
+                src="/images/CityScape.png"
                 alt="Columbus GIS in action"
                 className="absolute inset-0 w-full h-full object-cover"
               />
