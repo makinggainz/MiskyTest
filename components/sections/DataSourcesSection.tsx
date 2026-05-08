@@ -1,12 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
-
 const DATA_SOURCES = [
-  { name: "Satellite Imagery",   image: "/images/data-residential.jpg" },
-  { name: "Consumer Behavior",   image: "/images/data-consumer.jpg" },
-  { name: "Commercial Activity", image: "/images/data-commercial.jpg" },
-  { name: "Urban Planning",      image: "/images/data-urban.jpg" },
-  { name: "Logistics Networks",  image: "/images/data-logistics.webp" },
-  { name: "Site Selection",      image: "/images/data-site-selection.jpg" },
+  "Satellite Imagery",
+  "Consumer Behavior",
+  "Commercial Activity",
+  "Urban Planning",
+  "Logistics Networks",
+  "Site Selection",
+  "Demographics",
+  "Land Use Zoning",
+  "Transit Accessibility",
+  "Office Vacancy",
+  "Luxury Retail Footfall",
+  "Flood Risk Layers",
 ];
 
 // Duplicate for seamless loop
@@ -50,25 +54,14 @@ export function DataSourcesSection() {
               <div
                 className="group-hover:blur-sm group-hover:opacity-60 transition-all duration-300 overflow-hidden whitespace-nowrap flex items-center w-full"
               >
-                <div className="ds-track flex items-stretch gap-4">
-                  {TRACK.map((source, i) => (
-                    <div
+                <div className="ds-track flex items-center gap-3">
+                  {TRACK.map((name, i) => (
+                    <span
                       key={i}
-                      className="relative flex-none rounded-[20px] overflow-hidden"
-                      style={{ width: "300px", height: "200px" }}
+                      className="flex-none px-5 py-2.5 rounded-full border border-[#C7D7F8] bg-background text-sm text-mistral-black/70 whitespace-nowrap"
                     >
-                      <img
-                        src={source.image}
-                        alt={source.name}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                      {/* Label */}
-                      <p className="absolute bottom-4 left-5 text-white text-sm font-semibold">
-                        {source.name}
-                      </p>
-                    </div>
+                      {name}
+                    </span>
                   ))}
                 </div>
               </div>
