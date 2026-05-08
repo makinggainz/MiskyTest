@@ -144,7 +144,7 @@ export function Nav() {
                 color: "transparent",
                 filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
               }}
-              src="/images/img-64a36dfdce2c.svg"
+              src="/images/Columbo.png"
             />
           </a>
 
