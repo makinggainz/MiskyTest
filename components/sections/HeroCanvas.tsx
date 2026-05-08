@@ -189,13 +189,6 @@ export function HeroCanvas() {
         }
       }
 
-      // ── Earth backdrop disc ──────────────────────────────────────────────────
-      ctx.globalAlpha = earthAlpha * 0.92;
-      ctx.beginPath();
-      ctx.arc(earthCx, earthCy, earthR, 0, TAU);
-      ctx.fillStyle = "rgb(10,28,90)"; // deep navy behind the globe
-      ctx.fill();
-
       // ── Earth dots (at half-grid offsets — between the grid dots) ────────────
       // One extra col/row of earth dots to cover the shifted positions
       for (let row = 0; row < rows; row++) {
