@@ -177,13 +177,14 @@ export function HeroCanvas() {
       const cols = Math.ceil(width  / GRID) + 1;
       const rows = Math.ceil(height / GRID) + 1;
 
-      // ── Background grid dots (at grid intersections, everywhere) ────────────
-      ctx.globalAlpha = 0.14;
+      // ── Background dots — same grid as Earth dots, full canvas ─────────────
+      // Faint everywhere; Earth disc + coloured dots make the globe obvious.
+      ctx.globalAlpha = 0.13;
       ctx.fillStyle = toCSS(BG_DOT);
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
           ctx.beginPath();
-          ctx.arc(col * GRID, row * GRID, 1.0, 0, TAU);
+          ctx.arc(col * GRID + GRID / 2, row * GRID + GRID / 2, 1.3, 0, TAU);
           ctx.fill();
         }
       }
