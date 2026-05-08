@@ -227,7 +227,7 @@ export function HeroCanvas() {
           const lonDeg = ((lon * 180 / Math.PI) % 360 + 540) % 360 - 180;
           const latDeg = lat * 180 / Math.PI;
 
-          const r = 2.4 + nz * 1.8;
+          const r = 1.3;
 
           ctx.globalAlpha = earthAlpha;
           ctx.beginPath();
