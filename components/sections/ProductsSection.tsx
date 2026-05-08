@@ -76,7 +76,7 @@ export function ProductsSection() {
       <div className="container">
 
         {/* Section heading — "Our current offerings:" removed */}
-        <div className="mb-10 md:mb-12">
+        <div className="mb-10 md:mb-12" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal">
             We&rsquo;re all about maps and data.
           </h2>
@@ -84,10 +84,12 @@ export function ProductsSection() {
 
         {/* Three cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-          {products.map((product) => (
+          {products.map((product, i) => (
             <div
               key={product.tagline}
               className="flex flex-col border border-[#C7D7F8] rounded-[10px] overflow-hidden bg-white"
+              data-reveal
+              data-reveal-delay={String(i + 1)}
             >
               {/* Card label header */}
               <div className="px-5 pt-5 pb-3">

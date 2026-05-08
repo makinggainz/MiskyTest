@@ -3,6 +3,7 @@ import "./globals.css";
 import { funnelDisplay, openingHoursSans } from "@/app/fonts";
 import { Nav } from "@/components/nav/Nav";
 import { SiteFooter } from "@/components/footer/SiteFooter";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Frontier AI LLMs, assistants, agents, services | Mistral AI",
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className={`${funnelDisplay.variable} ${openingHoursSans.variable} light`}>
       <body className="relative overflow-x-hidden font-sans">
         <Nav />
+        <ScrollReveal />
         {children}
         <SiteFooter />
       </body>
