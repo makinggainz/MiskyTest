@@ -15,82 +15,111 @@ function ArrowIcon() {
   );
 }
 
-// ── Feature visuals (scaled up for focused view) ──────────────────────────────
+// ── Map chat visual (ported from ColumbusPage Capabilities) ───────────────────
 
-function ResumeVisual() {
+const QUERY = "Where should the Transportation authority install a new road-signal for traffic?";
+const CONSIDERING = [
+  "Considering demographics of Miami",
+  "Considering lot prices",
+  "Considering trade area competition",
+  "Considering your customer target",
+];
+
+function MapChatVisual() {
   return (
-    <div className="h-full bg-[#f0f3f8] rounded-[14px] p-6 flex flex-col gap-4">
-      {/* Profile header */}
-      <div className="flex items-center gap-4">
-        <div className="size-12 rounded-full bg-[#C7D7F8] shrink-0" />
-        <div className="flex flex-col gap-1.5 flex-1">
-          <div className="h-2 w-32 rounded-full bg-mistral-black/20" />
-          <div className="h-1.5 w-24 rounded-full bg-mistral-black/10" />
-          <div className="h-1 w-40 rounded-full bg-mistral-black/10" />
+    <div className="h-full rounded-[14px] overflow-hidden relative" style={{ background: "linear-gradient(135deg, #111827 0%, #15203a 30%, #1a2d50 60%, #0f1a2e 100%)" }}>
+      {/* Map background */}
+      <img
+        src="/images/HK-Map-2.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: "grayscale(1) brightness(0.8) contrast(1.1)", mixBlendMode: "luminosity", opacity: 0.35 }}
+      />
+      {/* Overlay tint */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "rgba(18, 8, 52, 0.22)" }} />
+
+      {/* Chat panel */}
+      <div className="absolute inset-4 md:inset-6 bg-[#f5f5f7] shadow-xl rounded-[12px] p-5 md:p-7 flex flex-col">
+        {/* Thinking header */}
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src="/images/Columbo.png"
+            alt=""
+            aria-hidden="true"
+            className="size-4 shrink-0"
+            style={{ filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)", opacity: 0.5 }}
+          />
+          <span className="text-gray-400 text-[13px] font-mono">Columbus is thinking...</span>
         </div>
-        <div className="self-start bg-white border border-[#C7D7F8] rounded-full px-2.5 py-1 flex items-center gap-1.5 shadow-sm shrink-0">
-          <div className="size-1.5 rounded-full" style={{ background: "var(--color-mistral-orange)" }} />
-          <span className="text-[9px] text-mistral-black/50">AI optimized</span>
-        </div>
-      </div>
 
-      <div className="h-px bg-[#C7D7F8]" />
-
-      {/* Experience block */}
-      <div className="flex flex-col gap-2">
-        <div className="h-1.5 w-24 rounded-full bg-[#C7D7F8]" />
-        <div className="pl-3 border-l-2 border-[#C7D7F8] flex flex-col gap-1.5">
-          <div className="h-1.5 w-44 rounded-full bg-mistral-black/20" />
-          <div className="h-1 w-28 rounded-full bg-mistral-black/10" />
-          <div className="h-1 w-full rounded-full bg-mistral-black/10" />
-          <div className="h-1 w-5/6 rounded-full bg-mistral-black/10" />
-        </div>
-      </div>
-
-      <div className="h-px bg-[#C7D7F8]" />
-
-      {/* Skills block */}
-      <div className="flex flex-col gap-2 flex-1">
-        <div className="h-1.5 w-16 rounded-full bg-[#C7D7F8]" />
-        <div className="flex flex-wrap gap-1.5">
-          {[64, 80, 52, 72, 48, 68, 56].map((w, i) => (
-            <div key={i} className="h-5 rounded-full bg-white border border-[#C7D7F8]" style={{ width: `${w}px` }} />
+        {/* Considering steps */}
+        <div className="text-gray-400 text-[12px] space-y-1 mb-5 font-mono pl-7">
+          {CONSIDERING.map((step, i) => (
+            <p key={i}>{step}</p>
           ))}
+        </div>
+
+        {/* Response */}
+        <div className="text-gray-800 text-[13px] mb-4 leading-relaxed font-medium flex-1">
+          These areas <span className="text-red-700">marked,</span> have streets that often have had crashes.
+          There is poor road signal trafficking. Consumers have
+          expressed dissatisfaction with this section.
+        </div>
+
+        <div className="text-gray-700 text-[13px] leading-relaxed mb-5">
+          / Would you like to order a specific dataset and survey?
+          Our partner agents will be dispatched for the study.
+        </div>
+
+        {/* Input bar */}
+        <div className="bg-white rounded-[14px] shadow-sm px-4 py-3.5 flex items-center justify-between gap-4 mt-auto">
+          <span className="text-gray-500 text-[13px] leading-snug flex-1">{QUERY}</span>
+          <div
+            className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0"
+            style={{ background: "#0A1344" }}
+          >
+            <div className="w-4 h-4 rounded-sm bg-white" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function JobMatchVisual() {
-  const jobs = [
-    { title: "Senior Product Manager", company: "TechCorp", location: "London", score: 96 },
-    { title: "Growth Lead", company: "Elio Labs", location: "Remote", score: 88 },
-    { title: "Product Strategist", company: "Mapsurf", location: "Berlin", score: 81 },
-    { title: "Head of Product", company: "Northstar", location: "Paris", score: 74 },
+// ── Data catalogue visual ─────────────────────────────────────────────────────
+
+function DataCatalogueVisual() {
+  const rows = [
+    { name: "Urban density index", type: "Raster", updated: "Today", coverage: "Global" },
+    { name: "Office vacancy rates", type: "Vector", updated: "Weekly", coverage: "EU + US" },
+    { name: "Luxury retail footfall", type: "Point", updated: "Daily", coverage: "Key cities" },
+    { name: "Transit accessibility", type: "Network", updated: "Monthly", coverage: "Global" },
+    { name: "Land use zoning", type: "Polygon", updated: "Quarterly", coverage: "EU" },
   ];
   return (
-    <div className="h-full bg-[#f0f3f8] rounded-[14px] p-4 flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] font-semibold text-mistral-black uppercase tracking-wider">Matched for you</span>
-        <span className="text-[10px] text-mistral-black/40">4 of 312 results</span>
+    <div className="h-full flex flex-col gap-3 p-2 rounded-[14px]" style={{ background: "#f0f3f8" }}>
+      {/* Search */}
+      <div className="flex items-center gap-2.5 bg-white border border-[#C7D7F8] rounded-full px-4 py-2.5 shadow-sm">
+        <svg className="size-3.5 shrink-0 text-mistral-black/30" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="6.5" cy="6.5" r="4" stroke="currentColor" strokeWidth="1.5" />
+          <path d="m10 10 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+        <span className="text-xs text-mistral-black/30">Search 3,400+ datasets…</span>
       </div>
-      <div className="flex flex-col gap-2 flex-1">
-        {jobs.map((job, i) => (
-          <div key={i} className="flex-1 bg-white border border-[#C7D7F8] rounded-[12px] px-4 py-2.5 flex items-center gap-3">
-            <div className="size-7 rounded-full bg-mistral-beige-deep shrink-0 flex items-center justify-center">
-              <div className="size-3 rounded-full bg-[#C7D7F8]" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-medium text-mistral-black truncate">{job.title}</p>
-              <p className="text-[9px] text-mistral-black/40">{job.company} · {job.location}</p>
-            </div>
-            <div className="flex flex-col items-end shrink-0 gap-1">
-              <span className="text-[11px] font-bold text-mistral-black">{job.score}%</span>
-              <div className="w-14 h-1 rounded-full bg-[#C7D7F8] overflow-hidden">
-                <div className="h-full rounded-full bg-mistral-black" style={{ width: `${job.score}%` }} />
-              </div>
-            </div>
+      {/* Table */}
+      <div className="flex-1 bg-white border border-[#C7D7F8] rounded-[14px] overflow-hidden shadow-sm">
+        <div className="grid grid-cols-4 px-4 py-2.5 border-b border-[#C7D7F8] bg-mistral-beige-deep">
+          {["Dataset", "Type", "Updated", "Coverage"].map((h) => (
+            <span key={h} className="text-[10px] font-semibold uppercase tracking-wider text-mistral-black/50">{h}</span>
+          ))}
+        </div>
+        {rows.map((row, i) => (
+          <div key={i} className={`grid grid-cols-4 px-4 py-2.5 hover:bg-mistral-beige-deep/50 ${i < rows.length - 1 ? "border-b border-[#C7D7F8]/40" : ""}`}>
+            <span className="text-xs font-medium text-mistral-black truncate pr-2">{row.name}</span>
+            <span className="text-xs text-mistral-black/50">{row.type}</span>
+            <span className="text-xs text-mistral-black/50">{row.updated}</span>
+            <span className="text-xs text-mistral-black/50">{row.coverage}</span>
           </div>
         ))}
       </div>
@@ -98,73 +127,38 @@ function JobMatchVisual() {
   );
 }
 
-function NetworkVisual() {
-  const satellites = [
-    { cx: "20%", cy: "20%", r: 6 },
-    { cx: "78%", cy: "18%", r: 6 },
-    { cx: "88%", cy: "54%", r: 5 },
-    { cx: "66%", cy: "84%", r: 6 },
-    { cx: "28%", cy: "80%", r: 5 },
-    { cx: "10%", cy: "54%", r: 4 },
-    { cx: "50%", cy: "12%", r: 5 },
-  ];
-  return (
-    <div className="h-full bg-[#f0f3f8] rounded-[14px] overflow-hidden relative">
-      <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
-        {satellites.map((n, i) => (
-          <line key={i} x1="50%" y1="50%" x2={n.cx} y2={n.cy} stroke="#C7D7F8" strokeWidth="1.5" />
-        ))}
-        {satellites.map((n, i) => (
-          <circle key={i} cx={n.cx} cy={n.cy} r={n.r} fill="#C7D7F8" />
-        ))}
-        <circle cx="50%" cy="50%" r="24" fill="#154ACC" fillOpacity="0.07" />
-        <circle cx="50%" cy="50%" r="11" fill="#154ACC" fillOpacity="0.5" />
-      </svg>
-      <div className="absolute top-4 left-4 bg-white border border-[#C7D7F8] rounded-full px-3 py-1.5 shadow-sm flex items-center gap-1.5">
-        <div className="size-1.5 rounded-full opacity-60" style={{ background: "#154ACC" }} />
-        <span className="text-[9px] text-mistral-black/50">3 new introductions</span>
-      </div>
-      <div className="absolute bottom-4 right-4 bg-white border border-[#C7D7F8] rounded-full px-3 py-1.5 shadow-sm">
-        <span className="text-[9px] text-mistral-black/50">247 connections</span>
-      </div>
-    </div>
-  );
-}
+// ── Audits visual ─────────────────────────────────────────────────────────────
 
-function AnalyticsVisual() {
-  const bars = [42, 55, 50, 68, 60, 78, 88];
-  const stats = [
-    { label: "Market rank", value: "Top 12%" },
-    { label: "Skill gaps", value: "2 identified" },
+function AuditsVisual() {
+  const sites = [
+    { name: "Paseo de Gracia 42, Barcelona", score: 94, tag: "Premium" },
+    { name: "Friedrichstraße 85, Berlin", score: 87, tag: "High" },
+    { name: "Via Montenapoleone 12, Milan", score: 82, tag: "High" },
+    { name: "Kurfürstendamm 19, Berlin", score: 71, tag: "Medium" },
+    { name: "Faubourg Saint-Honoré, Paris", score: 68, tag: "Medium" },
   ];
   return (
-    <div className="h-full bg-[#f0f3f8] rounded-[14px] p-5 flex flex-col gap-4">
-      <div className="flex items-baseline justify-between">
-        <span className="text-[10px] text-mistral-black/40 uppercase tracking-wider">Market value</span>
-        <span className="text-sm font-semibold text-mistral-black">+18% YTD</span>
+    <div className="h-full flex flex-col gap-2.5 p-2 rounded-[14px]" style={{ background: "#f0f3f8" }}>
+      <div className="flex items-center justify-between px-2">
+        <span className="text-xs font-semibold text-mistral-black">Top matching parcels</span>
+        <span className="text-xs text-mistral-black/40">5 of 128 results</span>
       </div>
-      <div className="flex-1 flex items-end gap-2">
-        {bars.map((h, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-t-[4px]"
-            style={{
-              height: `${h}%`,
-              background: i === bars.length - 1 ? "#154ACC" : "#C7D7F8",
-            }}
-          />
-        ))}
-      </div>
-      <div className="flex">
-        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"].map((m) => (
-          <span key={m} className="text-[8px] text-mistral-black/30 flex-1 text-center">{m}</span>
-        ))}
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-white border border-[#C7D7F8] rounded-[10px] px-3 py-2">
-            <p className="text-[9px] text-mistral-black/40">{s.label}</p>
-            <p className="text-[11px] font-semibold text-mistral-black">{s.value}</p>
+      <div className="flex flex-col gap-2 flex-1">
+        {sites.map((site, i) => (
+          <div key={i} className="flex-1 bg-white border border-[#C7D7F8] rounded-[12px] px-4 py-2.5 flex items-center gap-3 shadow-sm">
+            <span className="size-7 rounded-full bg-mistral-beige-deep flex items-center justify-center text-[10px] font-bold text-mistral-black/60 shrink-0">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium text-mistral-black truncate mb-1">{site.name}</p>
+              <div className="h-1 rounded-full bg-[#C7D7F8] overflow-hidden">
+                <div className="h-full rounded-full bg-mistral-black" style={{ width: `${site.score}%` }} />
+              </div>
+            </div>
+            <div className="flex flex-col items-end gap-1 shrink-0 pl-2">
+              <span className="text-sm font-bold text-mistral-black leading-none">{site.score}</span>
+              <span className="text-[10px] bg-mistral-beige-deep text-mistral-black/50 px-2 py-0.5 rounded-full">{site.tag}</span>
+            </div>
           </div>
         ))}
       </div>
@@ -176,28 +170,22 @@ function AnalyticsVisual() {
 
 const FEATURES = [
   {
-    id: "resume",
-    name: "AI Resume Builder",
-    description: "Draft a polished, role-tailored resume in seconds. Backed by real hiring data from thousands of job postings.",
-    Visual: ResumeVisual,
+    id: "map-chat",
+    name: "Map Chat",
+    description: "Ask your map directly about anything. Have a conversation like you're talking to your best analyst.",
+    Visual: MapChatVisual,
   },
   {
-    id: "jobs",
-    name: "Smart Job Matching",
-    description: "Surface roles ranked by fit, not keywords. The right opportunity, delivered at the right moment.",
-    Visual: JobMatchVisual,
+    id: "data-catalogue",
+    name: "Data Catalogue",
+    description: "Browse, filter, and layer thousands of curated datasets. Every source is documented, versioned, and ready to query.",
+    Visual: DataCatalogueVisual,
   },
   {
-    id: "network",
-    name: "Network Intelligence",
-    description: "Know who to connect with and why. Warm paths, mutual contacts, and full relationship context.",
-    Visual: NetworkVisual,
-  },
-  {
-    id: "analytics",
-    name: "Career Analytics",
-    description: "Track your market value over time. Spot skill gaps before they hold you back.",
-    Visual: AnalyticsVisual,
+    id: "audits",
+    name: "Audits and site selection",
+    description: "Run automated site audits and score locations against your criteria. Surface the highest-scoring parcels in seconds.",
+    Visual: AuditsVisual,
   },
 ] as const;
 
@@ -206,7 +194,7 @@ type FeatureId = (typeof FEATURES)[number]["id"];
 // ── Section ───────────────────────────────────────────────────────────────────
 
 export function ProfessionallySection() {
-  const [activeId, setActiveId] = useState<FeatureId>("resume");
+  const [activeId, setActiveId] = useState<FeatureId>("map-chat");
   const active = FEATURES.find((f) => f.id === activeId)!;
 
   return (
@@ -216,7 +204,7 @@ export function ProfessionallySection() {
         {/* Section heading */}
         <div className="mb-10 md:mb-20" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
-            Meet Professionly.
+            Columbus — Agentic GIS.
           </h2>
         </div>
 
@@ -249,8 +237,24 @@ export function ProfessionallySection() {
           {/* Body: sidebar + focused view */}
           <div className="flex flex-col md:flex-row">
 
-            {/* Left: numbered feature list (desktop only) */}
-            <div className="hidden md:flex flex-col md:w-[220px] lg:w-[260px] shrink-0 border-r border-[#C7D7F8] bg-background">
+            {/* Left: Columbus branding + feature list (desktop only) */}
+            <div className="hidden md:flex flex-col md:w-[240px] lg:w-[280px] shrink-0 border-r border-[#C7D7F8] bg-background">
+
+              {/* Brand header */}
+              <div className="px-6 pt-7 pb-5 border-b border-[#C7D7F8]">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <img
+                    src="/images/Columbo.png"
+                    alt="Columbus"
+                    className="size-5 shrink-0"
+                    style={{ filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)" }}
+                  />
+                  <span className="text-base font-semibold text-mistral-black">Columbus</span>
+                </div>
+                <p className="text-xs text-mistral-black/40 tracking-wide">All-in-one map intelligence platform</p>
+              </div>
+
+              {/* Feature list */}
               <div className="flex-1">
                 {FEATURES.map((f, i) => (
                   <button
@@ -266,24 +270,24 @@ export function ProfessionallySection() {
                     <span className="text-[10px] font-medium text-mistral-black/25 shrink-0 w-5 tabular-nums">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span
-                      className={`text-sm leading-snug transition-colors ${
-                        activeId === f.id
-                          ? "font-medium text-mistral-black"
-                          : "text-mistral-black/50 group-hover:text-mistral-black/75"
-                      }`}
-                    >
+                    <span className={`text-sm leading-snug transition-colors ${
+                      activeId === f.id
+                        ? "font-medium text-mistral-black"
+                        : "text-mistral-black/50 group-hover:text-mistral-black/75"
+                    }`}>
                       {f.name}
                     </span>
                   </button>
                 ))}
               </div>
+
+              {/* CTA */}
               <div className="p-5 border-t border-[#C7D7F8]">
                 <a
-                  href="#"
+                  href="/ColumbusDesign"
                   className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                 >
-                  <span>Try Professionly</span>
+                  <span>Try Columbus</span>
                   <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                     <ArrowIcon />
                   </span>
@@ -295,7 +299,7 @@ export function ProfessionallySection() {
             {/* Right: focused feature */}
             <div className="flex-1 flex flex-col">
               {/* Visual area */}
-              <div className="flex-1 min-h-[300px] md:min-h-[340px] p-5 md:p-6">
+              <div className="flex-1 min-h-[300px] md:min-h-[400px] p-5 md:p-6">
                 <active.Visual />
               </div>
               {/* Description */}
@@ -305,10 +309,10 @@ export function ProfessionallySection() {
                 {/* Mobile CTA */}
                 <div className="mt-5 md:hidden">
                   <a
-                    href="#"
+                    href="/ColumbusDesign"
                     className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                   >
-                    <span>Try Professionly</span>
+                    <span>Try Columbus</span>
                     <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                       <ArrowIcon />
                     </span>
