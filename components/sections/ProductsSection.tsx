@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 
 const products = [
   {
-    number: "01",
     label: "Enterprise",
     name: "Columbus",
     description:
@@ -17,7 +16,6 @@ const products = [
     ],
   },
   {
-    number: "02",
     label: "Consumer",
     name: "Elio",
     description:
@@ -30,7 +28,6 @@ const products = [
     ],
   },
   {
-    number: "03",
     label: "Research",
     name: "Research",
     description:
@@ -60,7 +57,6 @@ export function ProductsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  /* Scroll-based activation ------------------------------------------------ */
   useEffect(() => {
     const handleScroll = () => {
       const el = scrollContainerRef.current;
@@ -78,7 +74,6 @@ export function ProductsSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Click nav item → smooth scroll to that product's position -------------- */
   const scrollToProduct = (index: number) => {
     const el = scrollContainerRef.current;
     if (!el) return;
@@ -105,14 +100,9 @@ export function ProductsSection() {
         <div className="md:hidden flex flex-col border border-[#B8CCF5] divide-y divide-[#B8CCF5]">
           {products.map((product) => (
             <div key={product.name} className="flex flex-col gap-4 p-6">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs border border-[#B8CCF5] text-mistral-black px-2 py-1 rounded-[3px]">
-                  {product.number}
-                </span>
-                <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px]">
-                  {product.label}
-                </span>
-              </div>
+              <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit">
+                {product.label}
+              </span>
               <h3 className="text-3xl font-semibold text-mistral-black leading-none">
                 {product.name}
               </h3>
@@ -132,152 +122,145 @@ export function ProductsSection() {
         </div>
 
         {/* ── Desktop: sticky 3-column scroll ── */}
-        {/* Outer tall container provides scroll distance (3× viewport height) */}
         <div
           ref={scrollContainerRef}
           className="hidden md:block relative"
           style={{ height: "300vh" }}
         >
-          {/* Sticky panel — fills viewport below the nav */}
+          {/*
+            Sticky wrapper spans the area below the nav.
+            flex items-center vertically centres the panel within that space.
+          */}
           <div
-            className="sticky border border-[#B8CCF5] overflow-hidden"
+            className="sticky flex items-center"
             style={{
-              top: "calc(var(--nav-height) + 16px)",
-              height: "calc(100vh - var(--nav-height) - 32px)",
+              top: "var(--nav-height)",
+              height: "calc(100vh - var(--nav-height))",
             }}
           >
-            <div className="flex h-full divide-x divide-[#B8CCF5]">
+            <div className="flex gap-12 xl:gap-16 items-center w-full">
 
-              {/* ── Col 1: Left numbered navigation ── */}
-              <div className="w-[200px] xl:w-[220px] shrink-0 flex flex-col divide-y divide-[#B8CCF5]">
+              {/* ── Left nav: standalone, no shared border ── */}
+              <div className="flex flex-col gap-1 shrink-0 w-[160px] xl:w-[180px]">
                 {products.map((product, i) => (
                   <button
                     key={product.name}
                     onClick={() => scrollToProduct(i)}
-                    className="flex items-center gap-3 w-full px-5 py-5 text-left transition-colors cursor-pointer"
+                    className="flex flex-col gap-0.5 py-3 text-left w-full cursor-pointer transition-all"
                     style={{
-                      backgroundColor:
-                        activeIndex === i ? "hsl(217 81% 92%)" : "transparent",
-                      borderLeft:
-                        activeIndex === i
-                          ? "2px solid hsl(0 0% 12%)"
-                          : "2px solid transparent",
+                      borderLeft: `2px solid ${activeIndex === i ? "hsl(0 0% 12%)" : "transparent"}`,
+                      paddingLeft: "12px",
                     }}
                   >
-                    <span className="font-mono text-xs text-mistral-black-tint shrink-0 tabular-nums">
-                      {product.number}
-                    </span>
                     <span
-                      className="text-xs font-semibold tracking-[0.12em] uppercase transition-colors"
-                      style={{
-                        color:
-                          activeIndex === i
-                            ? "hsl(0 0% 12%)"
-                            : "hsl(0 0% 24%)",
-                      }}
+                      className="text-sm font-semibold uppercase tracking-[0.1em] transition-colors leading-none"
+                      style={{ color: activeIndex === i ? "hsl(0 0% 12%)" : "hsl(0 0% 55%)" }}
                     >
                       {product.name}
                     </span>
+                    <span
+                      className="text-xs transition-colors"
+                      style={{ color: activeIndex === i ? "hsl(0 0% 35%)" : "hsl(0 0% 65%)" }}
+                    >
+                      {product.label}
+                    </span>
                   </button>
                 ))}
-
-                {/* Spacer so nav items don't stretch full height on 3-item list */}
-                <div className="flex-1 border-t border-[#B8CCF5]" />
               </div>
 
-              {/* ── Col 2: Center visual panel ── */}
+              {/* ── Right panel: visual + description at ~45vh, centred ── */}
               <div
-                className="flex-1 relative overflow-hidden"
-                style={{
-                  backgroundColor: "hsl(217 81% 92%)",
-                  backgroundImage:
-                    "linear-gradient(to right, rgba(199,215,248,0.55) 1px, transparent 1px)," +
-                    "linear-gradient(to bottom, rgba(199,215,248,0.55) 1px, transparent 1px)",
-                  backgroundSize: "36px 36px",
-                }}
+                className="flex-1 border border-[#B8CCF5] overflow-hidden flex divide-x divide-[#B8CCF5]"
+                style={{ height: "45vh" }}
               >
-                {products.map((product, i) => (
-                  <div
-                    key={product.name}
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-6 transition-opacity duration-500"
-                    style={{
-                      opacity: activeIndex === i ? 1 : 0,
-                      pointerEvents: activeIndex === i ? "auto" : "none",
-                    }}
-                  >
-                    {/* Product name as large typographic statement */}
-                    <span className="text-[clamp(4rem,9vw,8rem)] font-semibold text-mistral-black leading-none text-center select-none px-8">
-                      {product.name}
-                    </span>
 
-                    {/* Bottom progress indicator */}
-                    <div className="absolute bottom-8 left-8 right-8 flex gap-2">
-                      {products.map((_, j) => (
-                        <div
-                          key={j}
-                          className="h-px flex-1 transition-colors duration-500"
-                          style={{
-                            backgroundColor:
-                              j === activeIndex ? "hsl(0 0% 12%)" : "#C7D7F8",
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* ── Col 3: Right description panel ── */}
-              <div className="w-[280px] xl:w-[320px] shrink-0 relative overflow-hidden bg-background">
-                {products.map((product, i) => (
-                  <div
-                    key={product.name}
-                    className="absolute inset-0 flex flex-col justify-center px-8 py-10 transition-opacity duration-500"
-                    style={{
-                      opacity: activeIndex === i ? 1 : 0,
-                      pointerEvents: activeIndex === i ? "auto" : "none",
-                    }}
-                  >
-                    {/* Step number */}
-                    <span className="font-mono text-xs border border-[#B8CCF5] text-mistral-black px-2 py-1 rounded-[3px] w-fit mb-6">
-                      {product.number}
-                    </span>
-
-                    {/* Product name */}
-                    <h3 className="text-2xl xl:text-3xl font-semibold text-mistral-black leading-tight mb-4">
-                      {product.name}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed text-mistral-black-tint mb-8">
-                      {product.description}
-                    </p>
-
-                    {/* Feature list — left-bar bullets */}
-                    <div className="flex flex-col gap-4 mb-10">
-                      {product.features.map((feature) => (
-                        <div key={feature} className="flex gap-3">
-                          <div className="w-px shrink-0 bg-[#B8CCF5]" />
-                          <span className="text-sm text-mistral-black-tint leading-relaxed">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* CTA */}
-                    <a href={product.href} className="group inline-flex self-start">
-                      <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
-                        Explore {product.name}
-                        <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                          <ArrowIcon />
-                        </span>
+                {/* Center visual */}
+                <div
+                  className="flex-1 relative overflow-hidden"
+                  style={{
+                    backgroundColor: "hsl(217 81% 92%)",
+                    backgroundImage:
+                      "linear-gradient(to right, rgba(199,215,248,0.55) 1px, transparent 1px)," +
+                      "linear-gradient(to bottom, rgba(199,215,248,0.55) 1px, transparent 1px)",
+                    backgroundSize: "36px 36px",
+                  }}
+                >
+                  {products.map((product, i) => (
+                    <div
+                      key={product.name}
+                      className="absolute inset-0 flex items-center justify-center transition-opacity duration-500"
+                      style={{
+                        opacity: activeIndex === i ? 1 : 0,
+                        pointerEvents: activeIndex === i ? "auto" : "none",
+                      }}
+                    >
+                      <span className="text-[clamp(3rem,7vw,6rem)] font-semibold text-mistral-black leading-none text-center select-none px-8">
+                        {product.name}
                       </span>
-                    </a>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  ))}
 
+                  {/* Progress bars */}
+                  <div className="absolute bottom-5 left-6 right-6 flex gap-2">
+                    {products.map((_, j) => (
+                      <div
+                        key={j}
+                        className="h-px flex-1 transition-colors duration-500"
+                        style={{
+                          backgroundColor: j === activeIndex ? "hsl(0 0% 12%)" : "#C7D7F8",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right description */}
+                <div className="w-[260px] xl:w-[300px] shrink-0 relative overflow-hidden bg-background">
+                  {products.map((product, i) => (
+                    <div
+                      key={product.name}
+                      className="absolute inset-0 flex flex-col justify-center px-7 py-8 transition-opacity duration-500"
+                      style={{
+                        opacity: activeIndex === i ? 1 : 0,
+                        pointerEvents: activeIndex === i ? "auto" : "none",
+                      }}
+                    >
+                      <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit mb-5">
+                        {product.label}
+                      </span>
+
+                      <h3 className="text-xl xl:text-2xl font-semibold text-mistral-black leading-tight mb-3">
+                        {product.name}
+                      </h3>
+
+                      <p className="text-sm leading-relaxed text-mistral-black-tint mb-6">
+                        {product.description}
+                      </p>
+
+                      <div className="flex flex-col gap-3 mb-7">
+                        {product.features.map((feature) => (
+                          <div key={feature} className="flex gap-3">
+                            <div className="w-px shrink-0 bg-[#B8CCF5]" />
+                            <span className="text-sm text-mistral-black-tint leading-relaxed">
+                              {feature}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <a href={product.href} className="group inline-flex self-start">
+                        <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
+                          Explore {product.name}
+                          <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                            <ArrowIcon />
+                          </span>
+                        </span>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
