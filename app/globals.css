@@ -38,6 +38,14 @@
    widget). Kept verbatim. */
 @import "../design-system/styles/08-vendor-third-party.css";
 
+@font-face {
+  font-family: "Axiforma";
+  src: url("/fonts/Axiforma-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Body: Inter (stand-in for Opening Hours Sans — swap once font files are sourced) */
 :root {
   font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;

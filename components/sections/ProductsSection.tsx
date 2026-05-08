@@ -87,7 +87,7 @@ export function ProductsSection() {
           {products.map((product, i) => (
             <div
               key={product.tagline}
-              className="flex flex-col border border-[#C7D7F8] rounded-[20px] overflow-hidden bg-white"
+              className="flex flex-col border border-[#C7D7F8] rounded-[20px] overflow-hidden bg-background"
               data-reveal
               data-reveal-delay={String(i + 1)}
             >

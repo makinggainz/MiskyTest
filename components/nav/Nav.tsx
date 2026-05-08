@@ -114,11 +114,11 @@ export function Nav() {
       <div className="px-4 md:px-auto md:container flex items-center py-6 relative z-10">
         {/* Left: logo + wordmark */}
         <div className="flex-1 flex items-center gap-3">
-          <a rel="home" aria-label="Home" className="relative z-10 flex size-7 items-center justify-center" href="/">
+          <a rel="home" aria-label="Home" className="relative z-10 flex size-[34px] items-center justify-center" href="/">
             <img
               alt="Columbo Logo"
-              width={28}
-              height={28}
+              width={34}
+              height={34}
               decoding="async"
               className="object-contain transition-[filter] duration-300"
               style={{
@@ -130,7 +130,7 @@ export function Nav() {
           </a>
           <span
             className="hidden lg:flex items-center font-semibold leading-none whitespace-nowrap text-mistral-black"
-            style={{ fontFamily: "Axiforma, var(--font-display), sans-serif", fontSize: scrolled ? 20 : 24, transition: "font-size 500ms cubic-bezier(0.22,1,0.36,1)" }}
+            style={{ fontFamily: "Axiforma, var(--font-display), sans-serif", fontSize: scrolled ? 20 : 24, transition: "font-size 500ms cubic-bezier(0.22,1,0.36,1)", position: "relative", top: "3px" }}
           >
             Columbus Earth
           </span>
