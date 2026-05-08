@@ -63,7 +63,7 @@ export function ProductsSection() {
               {/* Content — sits directly on bg-background, no invented surface */}
               <div className="flex flex-col gap-xl p-6 md:p-8 flex-1">
                 {/* Label — identical construction to Section1 feature chips */}
-                <span className="w-fit bg-mistral-beige-deep text-mistral-black text-xs px-3 py-1 rounded-[8px]">
+                <span className="w-fit bg-mistral-beige-deep text-mistral-black text-xs px-3 py-1 rounded-[3px]">
                   {product.label}
                 </span>
 
@@ -73,7 +73,7 @@ export function ProductsSection() {
 
                 {/* Button — identical to every CTA on the page */}
                 <a href={product.href} className="group inline-flex self-start">
-                  <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[8px] transition-colors hover:bg-mistral-black/80">
+                  <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
                     Explore {product.name}
                     <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                       <ArrowIcon />

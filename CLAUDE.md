@@ -51,6 +51,7 @@ The default mental model is *"every page is built FROM the design system, so the
 - [ ] Am I editing the rule, not a single instance?
 - [ ] Have I updated tokens / spec / showcase together?
 - [ ] Did I verify the change actually propagated?
+- [ ] (For new UI) Did I read the neighboring sections and match their visual register?
 
 ---
 
@@ -96,18 +97,60 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 
 | Surface type | Radius | Token / class |
 |---|---|---|
-| Buttons, chips, badges, interactive labels | **8px** | `rounded-[8px]` |
-| Inputs, info panels, small surfaces | 12px | `rounded-[12px]` / `--radius-md` |
-| Cards, dialogs, medium containers | 16px | `rounded-[16px]` / `--radius-lg` |
-| Large photographic / decorative surfaces | 20px | `rounded-[20px]` / `--radius-xl` |
-| Hero containers | 24px | `rounded-[24px]` / `--radius-2xl` |
+| Buttons, chips, badges, interactive labels | **3px** | `rounded-[3px]` |
+| Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
+| Cards, dialogs, medium containers | 6px | `rounded-[6px]` / `--radius-lg` |
+| Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
+| Hero containers | 9px | `rounded-[9px]` / `--radius-2xl` |
 | Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |
 | Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
 
 - **`rounded-full` is banned on buttons, badges, and chips.** It is only allowed on elements that are geometrically circular (equal width and height, decorative only).
-- When in doubt, use the explicit px value (`rounded-[8px]`) rather than a named Tailwind class, so intent is unambiguous.
+- When in doubt, use the explicit px value (`rounded-[3px]`) rather than a named Tailwind class, so intent is unambiguous.
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
+
+## Visual design intent — read before building any new UI
+
+> This section exists because token knowledge alone is not enough. Knowing the palette doesn't tell you which part of the palette to use. These rules define the visual personality of the site and prevent generic, out-of-context design decisions.
+
+### The site's visual character
+
+MistX is **restrained and typography-forward**. Content sections feel quiet. The dominant impression when scrolling past Section1, Section2, and Section3 is:
+
+- Pale `bg-background` (`hsl(220 89% 97%)`) as the overwhelmingly dominant surface
+- Dark text carrying most of the meaning
+- Space and type scale doing the design work, not color or decoration
+- Strong brand color (the deep blues) used sparingly: hero band, CTAs, active states
+
+There is a deliberate high-contrast between the deep-blue hero and the quiet pale content sections beneath it. That contrast is intentional — it makes the hero feel powerful. New content sections should not compete with the hero.
+
+### Colour context rules
+
+| Zone | What's appropriate |
+|---|---|
+| Hero band | Deep/saturated blues, gradients, white text, the dot-canvas |
+| Content sections (everything below the hero) | `bg-background` or `bg-white` surfaces, dark text, minimal accent |
+| Cards in content sections | White or `bg-mistral-beige-deep` surface, thin `border-[#C7D7F8]` border |
+| Labels / badges in content sections | `bg-mistral-beige-deep` + dark text — same pattern as the feature chips in Section1 |
+| CTA buttons anywhere | `bg-mistral-black text-white` (primary) or outlined — no filled blue buttons outside the hero |
+
+**Gradients, saturated blue fills, frosted glass, and dark card backgrounds belong in the hero only.** If a new component uses any of these, that is a red flag — stop and question whether it actually fits.
+
+### The process before building any new section or component
+
+1. **Read the neighboring files first.** Open the section above and below where the new element will sit. Study their surfaces, type scale, label style, and button style.
+2. **Match the visual register.** A new section should feel indistinguishable from its neighbors in terms of visual weight and tone. If it looks like it came from a different product, it's wrong.
+3. **Default to the quietest valid option.** Pale surface, thin border, dark text, standard CTA button. Only add visual weight if the design explicitly calls for it.
+4. **Check for an existing pattern before inventing.** Building a card? Look at Section1's carousel cards. Building a label? Look at the `bg-mistral-beige-deep` feature chips. Extend what exists rather than inventing something new.
+
+### The "does this fit?" test
+
+Before finalising any new UI: imagine someone scrolling through the full page. Would the new section feel like a natural continuation, or would it feel like a mismatch — something louder, darker, or more decorated than everything around it? If the latter, simplify until it passes.
+
+### What to do when the brief is vague
+
+When a design instruction is vague ("add a section", "make it look good"), **the site itself is the brief**. The right answer is almost always the quieter, more restrained option that matches the existing sections — not the more visually impressive one.
 
 ## Component conventions
 

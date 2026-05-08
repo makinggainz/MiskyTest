@@ -136,12 +136,12 @@ const fontWeights = [
 ];
 
 const radiusScale = [
-  { token: "--radius-sm", value: "0.5rem (8px) — buttons, chips, badges", className: "rounded-sm" },
-  { token: "--radius-md", value: "0.75rem (12px) — inputs, info panels", className: "rounded-md" },
-  { token: "--radius-lg", value: "1rem (16px) — cards, dialogs", className: "rounded-lg" },
-  { token: "--radius-xl", value: "1.25rem (20px) — large photographic surfaces", className: "rounded-xl" },
-  { token: "--radius-2xl", value: "1.5rem (24px) — hero containers", className: "rounded-2xl" },
-  { token: "--radius-3xl", value: "1.75rem (28px) — max size", className: "rounded-3xl" },
+  { token: "--radius-sm", value: "0.1875rem (3px) — buttons, chips, badges", className: "rounded-sm" },
+  { token: "--radius-md", value: "0.3125rem (5px) — inputs, info panels", className: "rounded-md" },
+  { token: "--radius-lg", value: "0.375rem (6px) — cards, dialogs", className: "rounded-lg" },
+  { token: "--radius-xl", value: "0.5rem (8px) — large photographic surfaces", className: "rounded-xl" },
+  { token: "--radius-2xl", value: "0.5625rem (9px) — hero containers", className: "rounded-2xl" },
+  { token: "--radius-3xl", value: "0.625rem (10px) — max size", className: "rounded-3xl" },
   { token: "(Tailwind)", value: "9999px — decorative circles only", className: "rounded-full" },
 ];
 
@@ -196,19 +196,19 @@ const animations = [
 ];
 
 const buttonVariants = [
-  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-[8px] transition-colors", label: "Get started" },
-  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-[8px] transition-colors", label: "Try Studio" },
-  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-[8px] transition-colors", label: "Contact Sales", darkBg: true },
-  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-[8px] transition-colors", label: "Learn more" },
-  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-5 py-2 text-sm rounded-[8px] hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
+  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-[3px] transition-colors", label: "Get started" },
+  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-[3px] transition-colors", label: "Try Studio" },
+  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-[3px] transition-colors", label: "Contact Sales", darkBg: true },
+  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-[3px] transition-colors", label: "Learn more" },
+  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-5 py-2 text-sm rounded-[3px] hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
   { name: "Link", className: "border-b border-current pb-1 inline-flex items-center gap-3 text-mistral-black hover:text-mistral-orange transition-colors", label: "Read more →" },
 ];
 
 const badgeVariants = [
-  { name: "Brand Blue", className: "bg-mistral-orange text-white rounded-[8px] px-3 py-1 text-xs", label: "New" },
-  { name: "Pale Surface", className: "bg-mistral-beige border border-mistral-black/20 rounded-[8px] px-3 py-1 text-xs text-mistral-black", label: "Beta" },
-  { name: "Dark", className: "bg-mistral-black text-white rounded-[8px] px-3 py-1 text-xs", label: "Enterprise" },
-  { name: "Outline", className: "rounded-[8px] border border-current px-3 py-1 text-xs text-mistral-black", label: "Manufacturing" },
+  { name: "Brand Blue", className: "bg-mistral-orange text-white rounded-[3px] px-3 py-1 text-xs", label: "New" },
+  { name: "Pale Surface", className: "bg-mistral-beige border border-mistral-black/20 rounded-[3px] px-3 py-1 text-xs text-mistral-black", label: "Beta" },
+  { name: "Dark", className: "bg-mistral-black text-white rounded-[3px] px-3 py-1 text-xs", label: "Enterprise" },
+  { name: "Outline", className: "rounded-[3px] border border-current px-3 py-1 text-xs text-mistral-black", label: "Manufacturing" },
 ];
 
 const logoVariants = [
@@ -644,10 +644,10 @@ export default function DesignPage() {
           <Section
             id="radius"
             title="Border radius"
-            intro="Mistral leans squared corners — --radius defaults to 0rem. Use rounded-xl/2xl/3xl explicitly when softer corners are needed; rounded-[8px] for pills."
+            intro="Mistral leans squared corners — --radius defaults to 0rem. Use rounded-xl/2xl/3xl explicitly when softer corners are needed; rounded-[3px] for pills."
           >
             <Usage status="partial">
-              Two split rules: <strong>layout containers stay square</strong> (default <code className="font-mono text-xs">--radius: 0rem</code> — cards, sections, surfaces, the customer-carousel slide tiles); <strong>interactive primitives are pills</strong> (<code className="font-mono text-xs">rounded-[8px]</code> — every button, the 15 chip-labels in Customer carousel feature rows, badges, and the Try Studio split-button wrapper). Intermediate radii (<code className="font-mono text-xs">rounded-sm</code>, <code className="font-mono text-xs">rounded-lg</code>, <code className="font-mono text-xs">rounded-xl/2xl/3xl</code>) are declared in tokens but unused. See §8.1 in design-system.md for the canonical pill rule.
+              Two split rules: <strong>layout containers stay square</strong> (default <code className="font-mono text-xs">--radius: 0rem</code> — cards, sections, surfaces, the customer-carousel slide tiles); <strong>interactive primitives are pills</strong> (<code className="font-mono text-xs">rounded-[3px]</code> — every button, the 15 chip-labels in Customer carousel feature rows, badges, and the Try Studio split-button wrapper). Intermediate radii (<code className="font-mono text-xs">rounded-sm</code>, <code className="font-mono text-xs">rounded-lg</code>, <code className="font-mono text-xs">rounded-xl/2xl/3xl</code>) are declared in tokens but unused. See §8.1 in design-system.md for the canonical pill rule.
             </Usage>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
               {radiusScale.map((r) => (
@@ -785,7 +785,7 @@ export default function DesignPage() {
                   <div className="text-xs text-mistral-black-tint mt-1 mb-3">{e.value}</div>
                   <div className="h-1 bg-mistral-black/5 relative">
                     <div
-                      className="absolute top-0 size-3 bg-mistral-orange rounded-[8px] -mt-1 hover:translate-x-[200px] transition-transform duration-1000"
+                      className="absolute top-0 size-3 bg-mistral-orange rounded-[3px] -mt-1 hover:translate-x-[200px] transition-transform duration-1000"
                       style={{ transitionTimingFunction: e.value }}
                     />
                   </div>
@@ -805,10 +805,10 @@ export default function DesignPage() {
                   <div className="text-xs text-mistral-black-tint mt-1">{a.duration}</div>
                   <div className="text-xs text-mistral-black-tint">{a.use}</div>
                   {a.token === "--animate-spin" && (
-                    <div className="size-6 border-2 border-mistral-orange border-t-transparent rounded-[8px] mt-3" style={{ animation: "spin 1s linear infinite" }} />
+                    <div className="size-6 border-2 border-mistral-orange border-t-transparent rounded-[3px] mt-3" style={{ animation: "spin 1s linear infinite" }} />
                   )}
                   {a.token === "--animate-pulse" && (
-                    <div className="size-6 bg-mistral-orange rounded-[8px] mt-3" style={{ animation: "pulse 2s cubic-bezier(.4,0,.6,1) infinite" }} />
+                    <div className="size-6 bg-mistral-orange rounded-[3px] mt-3" style={{ animation: "pulse 2s cubic-bezier(.4,0,.6,1) infinite" }} />
                   )}
                 </div>
               ))}
@@ -823,8 +823,8 @@ export default function DesignPage() {
           >
             <SubHeading>Buttons</SubHeading>
             <Usage status="used">
-              <strong>Pill rule:</strong> every interactive primitive on the homepage uses <code className="font-mono text-xs">rounded-[8px]</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons, Prev/Next icon-only nav buttons), chip-labels, badges. Layout containers stay square — pill shape signals interactivity against a squared layout. The <em>Link</em> variant (border-bottom underline) is a text-link pattern and keeps no radius.
-              {" "}<strong>Icon buttons</strong> (carousel Prev/Next) follow the same pill rule: <code className="font-mono text-xs">size-12 rounded-[8px]</code> with no label — documented as <code className="font-mono text-xs">button-icon</code> in design-system.md §8.1.
+              <strong>Pill rule:</strong> every interactive primitive on the homepage uses <code className="font-mono text-xs">rounded-[3px]</code> — Top nav (&ldquo;Contact Sales&rdquo;, &ldquo;Try Studio&rdquo; split-button pill, mobile drawer CTAs), Customer carousel (5× &ldquo;Discover X&rdquo; product buttons, Prev/Next icon-only nav buttons), chip-labels, badges. Layout containers stay square — pill shape signals interactivity against a squared layout. The <em>Link</em> variant (border-bottom underline) is a text-link pattern and keeps no radius.
+              {" "}<strong>Icon buttons</strong> (carousel Prev/Next) follow the same pill rule: <code className="font-mono text-xs">size-12 rounded-[3px]</code> with no label — documented as <code className="font-mono text-xs">button-icon</code> in design-system.md §8.1.
               {" "}<strong>Horizontal padding:</strong> all text pills use <code className="font-mono text-xs">px-5</code> (20px) — the rounded edges visually consume a few pixels of the apparent inset, so the bumped padding keeps text from crowding the curve. Chip-labels use <code className="font-mono text-xs">px-5 py-3</code> for the same reason.
             </Usage>
             <div className="space-y-4">
@@ -841,7 +841,7 @@ export default function DesignPage() {
 
             <SubHeading>Badges</SubHeading>
             <Usage status="unused">
-              No homepage component renders a badge component. Pill-style chips do appear in Customer carousel (industry tags), but they&apos;re composed from <code className="font-mono text-xs">rounded-[8px]</code> + <code className="font-mono text-xs">border-white</code> + <code className="font-mono text-xs">text-xs</code> ad-hoc rather than a named badge variant. The variants shown here are recommended patterns ready for future use.
+              No homepage component renders a badge component. Pill-style chips do appear in Customer carousel (industry tags), but they&apos;re composed from <code className="font-mono text-xs">rounded-[3px]</code> + <code className="font-mono text-xs">border-white</code> + <code className="font-mono text-xs">text-xs</code> ad-hoc rather than a named badge variant. The variants shown here are recommended patterns ready for future use.
             </Usage>
             <div className="flex flex-wrap gap-4 items-center">
               {badgeVariants.map((b) => (
@@ -854,7 +854,7 @@ export default function DesignPage() {
 
             <SubHeading>Cards</SubHeading>
             <Usage status="partial">
-              Card surfaces are common but use brand-color utilities (<code className="font-mono text-xs">bg-mistral-beige-deep</code>, <code className="font-mono text-xs">bg-mistral-black</code>) directly rather than the semantic <code className="font-mono text-xs">bg-card</code> token: Customer carousel renders &ldquo;Deployed in production&rdquo; cards on cream surfaces, Marketecture grid shows feature cards. The <strong>photographic dark card</strong> variant (black + sunset-overlay gradient) uses <code className="font-mono text-xs">rounded-[20px]</code> — 20px is the system&apos;s XL corner radius (--radius-xl) for large photographic surfaces — on all three customer story tiles (Stellantis, ASML, CMA CGM) paired with <code className="font-mono text-xs">overflow-hidden</code> so the background photo clips to the curved corners. The <strong>base card</strong> with <code className="font-mono text-xs">bg-card</code> is recommended but not yet consumed on the homepage.
+              Card surfaces are common but use brand-color utilities (<code className="font-mono text-xs">bg-mistral-beige-deep</code>, <code className="font-mono text-xs">bg-mistral-black</code>) directly rather than the semantic <code className="font-mono text-xs">bg-card</code> token: Customer carousel renders &ldquo;Deployed in production&rdquo; cards on cream surfaces, Marketecture grid shows feature cards. The <strong>photographic dark card</strong> variant (black + sunset-overlay gradient) uses <code className="font-mono text-xs">rounded-[8px]</code> — 8px is the system&apos;s XL corner radius (--radius-xl) for large photographic surfaces — on all three customer story tiles (Stellantis, ASML, CMA CGM) paired with <code className="font-mono text-xs">overflow-hidden</code> so the background photo clips to the curved corners. The <strong>base card</strong> with <code className="font-mono text-xs">bg-card</code> is recommended but not yet consumed on the homepage.
             </Usage>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card text-card-foreground rounded-md p-md border border-border">
@@ -867,11 +867,11 @@ export default function DesignPage() {
                 <h4 className="text-lg font-medium">Feature card (cream)</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Cream surface for feature blocks and value props.</p>
               </div>
-              <div className="bg-mistral-black text-white p-6 rounded-[20px] md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #154ACC 200%)" }}>
-                <div className="text-xs font-mono text-white/70">card-photographic · rounded-[20px] (--radius-xl, large photographic surfaces)</div>
+              <div className="bg-mistral-black text-white p-6 rounded-[8px] md:col-span-2 h-48 flex flex-col justify-between relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1f1f1f 0%, #154ACC 200%)" }}>
+                <div className="text-xs font-mono text-white/70">card-photographic · rounded-[8px] (--radius-xl, large photographic surfaces)</div>
                 <div>
                   <h4 className="text-2xl font-medium">Photographic dark card</h4>
-                  <p className="text-sm text-white/70 mt-2">Customer story pattern. 20px (--radius-xl) for large photographic surfaces. overflow-hidden clips the photo to the rounded corners.</p>
+                  <p className="text-sm text-white/70 mt-2">Customer story pattern. 8px (--radius-xl) for large photographic surfaces. overflow-hidden clips the photo to the rounded corners.</p>
                 </div>
               </div>
             </div>
@@ -905,9 +905,9 @@ export default function DesignPage() {
             </Usage>
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
-                <button className="bg-mistral-black text-white border border-mistral-black rounded-[8px] px-4 py-2 text-sm">Active pill</button>
-                <button className="rounded-[8px] px-4 py-2 text-sm border border-current text-mistral-black hover:bg-mistral-black/5 transition-colors">Pill tab</button>
-                <button className="rounded-[8px] px-4 py-2 text-sm border border-current text-mistral-black hover:bg-mistral-black/5 transition-colors">Pill tab</button>
+                <button className="bg-mistral-black text-white border border-mistral-black rounded-[3px] px-4 py-2 text-sm">Active pill</button>
+                <button className="rounded-[3px] px-4 py-2 text-sm border border-current text-mistral-black hover:bg-mistral-black/5 transition-colors">Pill tab</button>
+                <button className="rounded-[3px] px-4 py-2 text-sm border border-current text-mistral-black hover:bg-mistral-black/5 transition-colors">Pill tab</button>
               </div>
               <div className="flex border-b border-border">
                 {["Overview", "Pricing", "Docs"].map((t, i) => (
@@ -972,7 +972,7 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
                 <div className="text-xs font-mono text-mistral-black-tint mb-2">cta-banner-pale</div>
                 <h4 className="text-2xl font-medium">Bring frontier AI to your enterprise.</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Pale-blue surfaced CTA panel near the page bottom.</p>
-                <button className="mt-4 bg-mistral-black text-white px-5 py-2 text-sm rounded-[8px] hover:bg-mistral-black/90 transition-colors">Contact Sales</button>
+                <button className="mt-4 bg-mistral-black text-white px-5 py-2 text-sm rounded-[3px] hover:bg-mistral-black/90 transition-colors">Contact Sales</button>
               </div>
             </div>
           </Section>

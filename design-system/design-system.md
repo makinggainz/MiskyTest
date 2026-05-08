@@ -6,7 +6,7 @@ description: |
   MistX rebrand of the Mistral AI homepage clone. Cool blue spectrum,
   pale-blue surfaces, the "MistX Rainbow" (pale-sky → bright-blue →
   brand-blue → deep-blue → navy → deep-navy) as the signature horizontal
-  band that closes every page. 8px corners on interactive elements (buttons, chips, badges), square layout containers, single-family
+  band that closes every page. 3px corners on interactive elements (buttons, chips, badges), square layout containers, single-family
   typography. The 6-stop blue rainbow ships in tokens.css as
   `--mistral-footer-band-1` through `-6` (token names retained from the
   original Mistral system for compatibility — values are now blue).
@@ -282,24 +282,24 @@ Mistral's voice (per brand page + observed homepage usage):
 
 ## 3. Border Radius (6 tokens)
 
-**System anchor: 8px for small interactive elements (buttons, chips, badges). Larger elements scale up from there.**
+**System anchor: 3px for small interactive elements (buttons, chips, badges). Larger elements scale up proportionally from there.**
 
 | Token | Value | `rounded-*` class | Use |
 |---|---|---|---|
-| `--radius` | `0.5rem` (8px) | — | Base anchor |
-| `--radius-sm` | `0.5rem` (8px) | `rounded-sm` | **Buttons, chips, badges** — the system's standard interactive shape |
-| `--radius-md` | `0.75rem` (12px) | `rounded-md` | Inputs, info panels, small surfaces |
-| `--radius-lg` | `1rem` (16px) | `rounded-lg` | Cards, dialogs, medium containers |
-| `--radius-xl` | `1.25rem` (20px) | `rounded-xl` | Large photographic/decorative surfaces |
-| `--radius-2xl` | `1.5rem` (24px) | `rounded-2xl` | Hero containers |
-| `--radius-3xl` | `1.75rem` (28px) | `rounded-3xl` | Maximum size |
+| `--radius` | `0.1875rem` (3px) | — | Base anchor |
+| `--radius-sm` | `0.1875rem` (3px) | `rounded-sm` | **Buttons, chips, badges** — the system's standard interactive shape |
+| `--radius-md` | `0.3125rem` (5px) | `rounded-md` | Inputs, info panels, small surfaces |
+| `--radius-lg` | `0.375rem` (6px) | `rounded-lg` | Cards, dialogs, medium containers |
+| `--radius-xl` | `0.5rem` (8px) | `rounded-xl` | Large photographic/decorative surfaces |
+| `--radius-2xl` | `0.5625rem` (9px) | `rounded-2xl` | Hero containers |
+| `--radius-3xl` | `0.625rem` (10px) | `rounded-3xl` | Maximum size |
 | `rounded-full` (Tailwind) | 9999px | `rounded-full` | **Decorative circles only** (e.g. 8×8px color-dot indicators) |
 
 **Rules:**
-- **All buttons, chips, and badges use `rounded-[8px]`** (explicit) — the 8px anchor. Do not use `rounded-full` (pills) for interactive elements.
+- **All buttons, chips, and badges use `rounded-[3px]`** (explicit) — the 3px anchor. Do not use `rounded-full` (pills) for interactive elements.
 - **Layout containers are square** (no `rounded-*` on `<section>`, `<main>`, full-width `<div>` blocks).
-- **Scale by visual size:** small interactive → 8px; medium panel → 12px; card → 16px; large photo surface → 20px.
-- The customer carousel cards (600px tall photographic panels) use `rounded-[20px]`.
+- **Scale by visual size:** small interactive → 3px; medium panel → 5px; card → 6px; large photo surface → 8px.
+- The customer carousel cards (600px tall photographic panels) use `rounded-[8px]`.
 - Never write `border-radius: 11px` inline — always use a token class or `rounded-[Npx]` explicit value.
 - `rounded-full` is reserved for purely decorative circles (e.g. `size-2 rounded-full` color swatches); never use it for clickable buttons or badges.
 
@@ -447,32 +447,32 @@ These are conventions, not extracted from the live site. The live site uses `tra
 
 ```html
 <button class="inline-flex items-center justify-center gap-md whitespace-nowrap
-               rounded-[8px] ring-offset-background transition-colors
+               rounded-[3px] ring-offset-background transition-colors
                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
                disabled:pointer-events-none disabled:opacity-50">
 ```
 
-> **8px rule:** all buttons, chips, and badges use `rounded-[8px]`. This is the system's interactive element shape — never use `rounded-full` (pills) for clickable elements. Layout containers remain square (no `rounded-*`).
+> **3px rule:** all buttons, chips, and badges use `rounded-[3px]`. This is the system's interactive element shape — never use `rounded-full` (pills) for clickable elements. Layout containers remain square (no `rounded-*`).
 
 **Variants observed:**
 
 | Variant name (suggested) | Class composition |
 |---|---|
-| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-[8px]` |
-| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-[8px]` |
-| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 rounded-[8px]` |
-| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-[8px]` |
-| `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-[8px]` |
-| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-[8px]` container (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
+| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/90 px-5 py-2 text-sm rounded-[3px]` |
+| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-[3px]` |
+| `button-on-dark` (white-glass) | `bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 rounded-[3px]` |
+| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-[3px]` |
+| `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-[3px]` |
+| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-[3px]` container (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
 | `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *text-link pattern, no background, no border-radius needed* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
-| `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-[8px]` — no label, icon only |
-| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-[8px]` — used for "Production-ready / Secure codebase / …" rows |
-| `badge` (industry / status) | `shrink-0 border border-current inline-block px-3 py-1 rounded-[8px]` |
+| `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-[3px]` — no label, icon only |
+| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-[3px]` — used for "Production-ready / Secure codebase / …" rows |
+| `badge` (industry / status) | `shrink-0 border border-current inline-block px-3 py-1 rounded-[3px]` |
 
 **Heights:** `h-10` (40px) standard / `h-11` (44px) touch-friendly. Hit target ≥ 44px.
 
-**Horizontal padding (`px-5` = 20px):** 8px-corner buttons still benefit from generous padding. Default `px-5` gives text comfortable breathing room. Chip-labels follow the same rule (`px-5 py-3`).
+**Horizontal padding (`px-5` = 20px):** 3px-corner buttons still benefit from generous padding. Default `px-5` gives text comfortable breathing room. Chip-labels follow the same rule (`px-5 py-3`).
 
 ### 8.2 Cards / Containers (synthesized)
 
@@ -482,8 +482,8 @@ These are conventions, not extracted from the live site. The live site uses `tra
 | `card-feature` | `bg-mistral-beige-deep p-xl rounded-md` |
 | `card-cream` | `bg-mistral-beige p-md` |
 | `card-cream-soft` | `bg-mistral-beige p-xl border border-mistral-beige-deep` |
-| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden rounded-[20px]` — 20px (`--radius-xl`) for large photographic surfaces; `overflow-hidden` clips the background image to the rounded corners. Used on Stellantis/ASML/CMA CGM customer cards. |
-| `logo-tile` | `aspect-square bg-white shadow-deploy-logo rounded-[16px]` — medium white square containers (~94–179px) that display partner/deployment logos; `rounded-[16px]` (`--radius-lg`) for medium decorative surfaces. Used in Section 3 (AI deployments privacy section). |
+| `card-photographic` | `bg-mistral-black text-white p-6 md:p-10 max-w-[1248px] h-[600px] relative overflow-hidden rounded-[8px]` — 8px (`--radius-xl`) for large photographic surfaces; `overflow-hidden` clips the background image to the rounded corners. Used on Stellantis/ASML/CMA CGM customer cards. |
+| `logo-tile` | `aspect-square bg-white shadow-deploy-logo rounded-[6px]` — medium white square containers (~94–179px) that display partner/deployment logos; `rounded-[6px]` (`--radius-lg`) for medium decorative surfaces. Used in Section 3 (AI deployments privacy section). |
 | `card-feature-product` | (TBD — pattern not in MistX yet) |
 | `pricing-card` | (TBD) |
 | `pricing-card-featured` | (TBD) |
