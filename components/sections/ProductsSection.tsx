@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const products = [
   {
-    label: "For Enterprise",
+    label: "Enterprise",
     name: "Columbus",
     tagline: "Columbus — Agentic GIS",
     cta: "Your new GIS",
@@ -19,7 +19,7 @@ const products = [
     ],
   },
   {
-    label: "For Consumer",
+    label: "Consumer",
     name: "Elio",
     tagline: "Elio — Smart & Social maps",
     cta: "Find your world now",
