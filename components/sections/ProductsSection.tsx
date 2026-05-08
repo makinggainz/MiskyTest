@@ -199,20 +199,6 @@ export function ProductsSection() {
                         alt={product.tagline}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
-
-                      {/* Progress bars */}
-                      <div className="absolute bottom-5 left-6 right-6 flex gap-2">
-                        {products.map((_, j) => (
-                          <div
-                            key={j}
-                            className="h-px flex-1 transition-colors duration-500"
-                            style={{
-                              backgroundColor:
-                                j === activeIndex ? "hsl(0 0% 12%)" : "#C7D7F8",
-                            }}
-                          />
-                        ))}
-                      </div>
                     </div>
                   ))}
                 </div>
