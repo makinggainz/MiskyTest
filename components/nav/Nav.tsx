@@ -3,9 +3,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 
-type DropdownId = "products" | "solutions" | "research" | "blog" | "customers" | "company" | "studio";
+type DropdownId = "products" | "solutions" | "research" | "blog" | "customers" | "company";
 
-const dropdowns: Record<Exclude<DropdownId, "studio">, { label: string; href?: string; items: { label: string; href: string }[] }> = {
+const dropdowns: Record<DropdownId, { label: string; href?: string; items: { label: string; href: string }[] }> = {
   products: {
     label: "Products",
     items: [
@@ -71,11 +71,6 @@ const dropdowns: Record<Exclude<DropdownId, "studio">, { label: string; href?: s
     ],
   },
 };
-
-const studioOptions = [
-  { label: "AI Studio", href: "https://console.mistral.ai/", description: "Build with our APIs" },
-  { label: "Le Chat", href: "https://chat.mistral.ai/", description: "Talk to our chatbot" },
-];
 
 /**
  * The double-stacked arrow icon Mistral uses on every nav item — slides up
@@ -159,7 +154,7 @@ export function Nav() {
           </a>
 
           <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
-            {(Object.keys(dropdowns) as Array<Exclude<DropdownId, "studio">>).map((id) => {
+            {(Object.keys(dropdowns) as Array<DropdownId>).map((id) => {
               const dd = dropdowns[id];
               const isOpen = openDropdown === id;
               const triggerClass = `group py-4 flex items-center text-sm gap-2 transition-opacity duration-500 opacity-80 hover:opacity-100 ${navColor}`;
@@ -216,58 +211,35 @@ export function Nav() {
 
         {/* Right-side CTAs */}
         <div className="flex items-center justify-end gap-2">
-          {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
+          {/* Try Columbus */}
           <a
             target="_self"
             className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
               scrolled
-                ? "border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5"
-                : "border border-white/60 bg-transparent text-white hover:bg-white/10"
+                ? "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
+                : "border border-white/30 bg-transparent text-white hover:bg-white/10"
             }`}
-            href="https://mistral.ai/contact"
+            href="/ColumbusDesign"
           >
-            Contact Sales
+            Try Columbus
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
               <ArrowDot className="text-mistral-orange" />
             </span>
           </a>
 
-          {/* Try Studio — split button: link on left, chevron-dropdown on right */}
-          <div className="relative hidden md:block" {...navItemTriggerProps("studio")}>
-            <div className={`group flex items-center overflow-hidden rounded-full text-sm transition-colors ${scrolled ? "border border-mistral-black bg-transparent text-mistral-black" : "border border-white/60 bg-transparent text-white"}`}>
-              <a
-                target="_blank"
-                rel="noopener"
-                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-mistral-black/5" : "hover:bg-white/10"}`}
-                href="https://console.mistral.ai/?utm_source=website&utm_medium=header_cta"
-              >
-                Try Studio
-              </a>
-              <button
-                aria-haspopup="menu"
-                aria-expanded={openDropdown === "studio"}
-                onClick={() => setOpenDropdown((d) => (d === "studio" ? null : "studio"))}
-                className={`size-9 border-l flex justify-center items-center transition-colors text-primary ${scrolled ? "border-mistral-black/20 hover:bg-mistral-black/5" : "border-white/20 hover:bg-white/10"}`}
-                aria-label="Open Studio options"
-              >
-                <NavArrowStack />
-              </button>
-            </div>
-            {openDropdown === "studio" && (
-              <div className="absolute right-0 top-full min-w-[240px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50">
-                <ul>
-                  {studioOptions.map((opt) => (
-                    <li key={opt.href}>
-                      <a className="block px-4 py-3 text-sm hover:bg-mistral-beige-deep transition-colors" href={opt.href}>
-                        <div className="font-medium">{opt.label}</div>
-                        <div className="text-xs opacity-70">{opt.description}</div>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+          {/* Try Elio */}
+          <a
+            target="_blank"
+            rel="noopener"
+            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
+              scrolled
+                ? "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
+                : "border border-white/30 bg-transparent text-white hover:bg-white/10"
+            }`}
+            href="#"
+          >
+            Try Elio
+          </a>
 
           {/* Mobile menu trigger */}
           <button
@@ -295,7 +267,7 @@ export function Nav() {
       {mobileOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-background text-mistral-black z-20 px-6 py-6 shadow-lg max-h-[calc(100vh-100px)] overflow-y-auto">
           <ul className="flex flex-col gap-1">
-            {(Object.keys(dropdowns) as Array<Exclude<DropdownId, "studio">>).map((id) => {
+            {(Object.keys(dropdowns) as Array<DropdownId>).map((id) => {
               const dd = dropdowns[id];
               return (
                 <li key={id}>
@@ -311,13 +283,13 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="https://mistral.ai/contact" className="block rounded-full px-5 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm text-center">
-                Contact Sales
+              <a href="/ColumbusDesign" className="block rounded-full px-5 py-2 border border-mistral-black/50 bg-transparent text-mistral-black text-sm text-center">
+                Try Columbus
               </a>
             </li>
             <li className="mt-2">
-              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-full px-5 py-2 bg-mistral-orange text-white text-sm text-center">
-                Try Studio
+              <a href="#" className="block rounded-full px-5 py-2 border border-mistral-black/50 bg-transparent text-mistral-black text-sm text-center">
+                Try Elio
               </a>
             </li>
           </ul>
