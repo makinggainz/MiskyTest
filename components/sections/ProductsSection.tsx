@@ -179,7 +179,7 @@ export function ProductsSection() {
 
               {/* ── Right panel: image + description at ~45vh ── */}
               <div
-                className="flex-1 border border-[#B8CCF5] overflow-hidden flex divide-x divide-[#B8CCF5]"
+                className="flex-1 border border-[#B8CCF5] overflow-hidden flex divide-x divide-[#B8CCF5] rounded-[6px]"
                 style={{ height: "45vh" }}
               >
 
