@@ -197,7 +197,7 @@ export function Nav() {
           {/* Contact */}
           <a
             target="_self"
-            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
+            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80 opacity-10 hover:opacity-100"
             href="/ColumbusDesign"
           >
             Contact
