@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type DropdownId = "products" | "solutions" | "research" | "blog" | "customers" | "company" | "studio";
 
@@ -114,13 +114,6 @@ function ArrowDot({ className = "" }: { className?: string }) {
 export function Nav() {
   const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const navColor = "text-mistral-black";
 
@@ -133,7 +126,7 @@ export function Nav() {
     <header className="fixed z-999 top-0 left-0 w-full">
       {/* The sliding-down backdrop. Mistral animates this height on scroll. */}
       <div
-        className={`absolute left-0 top-0 w-full pointer-events-none z-0 transition-all duration-300 ${scrolled ? "bg-background shadow-sm" : ""}`}
+        className="absolute left-0 top-0 w-full pointer-events-none z-0 bg-background transition-[height] duration-300"
         style={{ height: "100%" }}
       />
 
