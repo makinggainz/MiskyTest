@@ -59,7 +59,7 @@ The default mental model is *"every page is built FROM the design system, so the
 Don't confuse this project with sibling projects:
 - **ColumbusPage** uses Material Design 3 (`--md-sys-*` tokens) — different system.
 - **HebX** uses Hebbia's BEM modules + custom `--color-*` / `--space-*` / `--ff-*` token namespaces — different markup conventions.
-- **MistX (here)** uses Mistral's own design system: ~1284 design tokens compiled with Tailwind utilities + `dark:` variants. All loaded from [`design-system/styles/02-tokens-and-utilities.css`](design-system/styles/02-tokens-and-utilities.css).
+- **MistX (here)** uses Mistral's own design system: ~1284 design tokens compiled with Tailwind utilities + `dark:` variants. Tokens live in [`design-system/styles/tokens.css`](design-system/styles/tokens.css); compiled utilities in [`design-system/styles/utilities.css`](design-system/styles/utilities.css).
 
 ### Token namespaces present
 
@@ -71,7 +71,7 @@ Don't confuse this project with sibling projects:
 
 ### CSS architecture
 
-Tailwind utilities, **not BEM**. Class names look like `text-3xl md:text-5xl text-center mb-10` — composed utilities. The compiled CSS lives in [`02-tokens-and-utilities.css`](design-system/styles/02-tokens-and-utilities.css) and includes all the `dark:` and breakpoint variants Mistral generated.
+Tailwind utilities, **not BEM**. Class names look like `text-3xl md:text-5xl text-center mb-10` — composed utilities. The compiled utilities live in [`design-system/styles/utilities.css`](design-system/styles/utilities.css) and include all the `dark:` and breakpoint variants Mistral generated.
 
 When adding new markup, prefer Tailwind utilities. If a utility doesn't exist in the compiled CSS, you'll need to either:
 1. Use an inline `style={{}}` referencing the relevant CSS variable, or
@@ -79,7 +79,35 @@ When adding new markup, prefer Tailwind utilities. If a utility doesn't exist in
 
 ### Fonts
 
-Rubik (Google Font) via [`app/fonts.ts`](app/fonts.ts) using `next/font/google`. Don't introduce other fonts.
+Two-font system loaded via [`app/fonts.ts`](app/fonts.ts) using `next/font/google`:
+
+| Role | Font | CSS variable | Usage |
+|---|---|---|---|
+| Display / headings | **Funnel Display** | `--font-display` | `h1`–`h4`, hero titles, large UI labels |
+| Body / copy | **Opening Hours Sans** (`public/fonts/`, `next/font/local`) | `--font-body` | Base `font-family` on `:root` |
+
+`globals.css` applies `--font-body` at `:root` level and `--font-display` to `h1`–`h4`.
+Opening Hours Sans only ships Regular weight — don't specify font-weight values other than 400 for body copy.
+Don't introduce other fonts without updating this table and `app/fonts.ts`.
+
+### Border radius
+
+**Standing rule — enforce on every visual change, always.**
+
+| Surface type | Radius | Token / class |
+|---|---|---|
+| Buttons, chips, badges, interactive labels | **8px** | `rounded-[8px]` |
+| Inputs, info panels, small surfaces | 12px | `rounded-[12px]` / `--radius-md` |
+| Cards, dialogs, medium containers | 16px | `rounded-[16px]` / `--radius-lg` |
+| Large photographic / decorative surfaces | 20px | `rounded-[20px]` / `--radius-xl` |
+| Hero containers | 24px | `rounded-[24px]` / `--radius-2xl` |
+| Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |
+| Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
+
+- **`rounded-full` is banned on buttons, badges, and chips.** It is only allowed on elements that are geometrically circular (equal width and height, decorative only).
+- When in doubt, use the explicit px value (`rounded-[8px]`) rather than a named Tailwind class, so intent is unambiguous.
+- Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
+- Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
 
 ## Component conventions
 
@@ -100,7 +128,7 @@ The type augmentation in [`types/css.d.ts`](types/css.d.ts) makes TypeScript acc
 
 ## When to ask before changing
 
-- Editing [`design-system/styles/02-tokens-and-utilities.css`](design-system/styles/02-tokens-and-utilities.css) directly — tokens + compiled utilities live here together. Ask before mutating.
+- Editing [`design-system/styles/utilities.css`](design-system/styles/utilities.css) directly — this is compiled Tailwind output from Mistral's build. Ask before mutating. (`tokens.css` is safe to edit freely.)
 - Adding a new dependency — keep deps minimal (next, react, tailwind, types).
 - Changing the dev port — currently `3002`. ColumbusPage typically runs on 3000, HebX on 3001. Pick a non-conflicting port if you change it.
 

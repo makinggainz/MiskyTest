@@ -38,10 +38,14 @@
    widget). Kept verbatim. */
 @import "../design-system/styles/08-vendor-third-party.css";
 
-/* Bind the next/font Rubik variable so any rule using `var(--font-rubik)`
-   resolves to the optimized font. */
+/* Body: Inter (stand-in for Opening Hours Sans — swap once font files are sourced) */
 :root {
-  font-family: var(--font-rubik), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Display: Funnel Display for all headings h1–h4 */
+h1, h2, h3, h4 {
+  font-family: var(--font-display), system-ui, sans-serif;
 }
 
 /* The logoloop uses background-image (CSS vars) to load logos, so the <img>
