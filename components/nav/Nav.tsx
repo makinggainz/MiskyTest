@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 
-type DropdownId = "products" | "solutions" | "research" | "blog" | "customers" | "company";
+type DropdownId = "products" | "research" | "blog" | "company";
 
 const dropdowns: Record<DropdownId, { label: string; href?: string; items: { label: string; href: string }[] }> = {
   products: {
@@ -15,18 +15,6 @@ const dropdowns: Record<DropdownId, { label: string; href?: string; items: { lab
       { label: "Mistral AI Studio", href: "https://mistral.ai/products/mistral-studio" },
       { label: "Mistral Code", href: "https://mistral.ai/products/mistral-code" },
       { label: "Compute", href: "https://mistral.ai/products/compute" },
-    ],
-  },
-  solutions: {
-    label: "Solutions",
-    href: "https://mistral.ai/solutions",
-    items: [
-      { label: "Financial Services", href: "https://mistral.ai/solutions#financial-services" },
-      { label: "Healthcare", href: "https://mistral.ai/solutions#healthcare" },
-      { label: "Manufacturing & Logistics", href: "https://mistral.ai/solutions#manufacturing-logistics" },
-      { label: "Government", href: "https://mistral.ai/solutions#government" },
-      { label: "Defense & Intelligence", href: "https://mistral.ai/solutions#defense-intelligence" },
-      { label: "All Industries", href: "https://mistral.ai/solutions" },
     ],
   },
   research: {
@@ -47,17 +35,6 @@ const dropdowns: Record<DropdownId, { label: string; href?: string; items: { lab
       { label: "Product Updates", href: "https://mistral.ai/news/category/product" },
       { label: "Research", href: "https://mistral.ai/news/category/research" },
       { label: "Newsroom", href: "https://mistral.ai/news/category/newsroom" },
-    ],
-  },
-  customers: {
-    label: "Customers",
-    href: "https://mistral.ai/customers",
-    items: [
-      { label: "All Customers", href: "https://mistral.ai/customers" },
-      { label: "Financial Services", href: "https://mistral.ai/customers?industry=financial-services" },
-      { label: "Technology & Software", href: "https://mistral.ai/customers?industry=technology-software" },
-      { label: "Public Sector", href: "https://mistral.ai/customers?industry=public-sector" },
-      { label: "Manufacturing", href: "https://mistral.ai/customers?industry=manufacturing" },
     ],
   },
   company: {
@@ -109,6 +86,7 @@ function ArrowDot({ className = "" }: { className?: string }) {
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<DropdownId | null>(null);
+  const [elioOpen, setElioOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
@@ -133,14 +111,14 @@ export function Nav() {
         style={{ height: scrolled ? "100%" : "0%" }}
       />
 
-      <div className="px-4 md:px-auto md:container flex items-center gap-6 justify-between py-6 relative z-10">
-        {/* Brand + main nav */}
-        <div className="flex items-center gap-8">
-          <a rel="home" aria-label="Home" className="relative z-10 flex size-10 items-center justify-center" href="/">
+      <div className="px-4 md:px-auto md:container flex items-center py-6 relative z-10">
+        {/* Left: logo + wordmark */}
+        <div className="flex-1 flex items-center gap-3">
+          <a rel="home" aria-label="Home" className="relative z-10 flex size-7 items-center justify-center" href="/">
             <img
               alt="Columbo Logo"
-              width={100}
-              height={100}
+              width={28}
+              height={28}
               decoding="async"
               className="object-contain transition-[filter] duration-300"
               style={{
@@ -150,90 +128,119 @@ export function Nav() {
               src="/images/Columbo.png"
             />
           </a>
-
-          <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
-            {(Object.keys(dropdowns) as Array<DropdownId>).map((id) => {
-              const dd = dropdowns[id];
-              const isOpen = openDropdown === id;
-              const triggerClass = `group py-4 flex items-center text-sm gap-2 transition-opacity duration-500 opacity-80 hover:opacity-100 ${navColor}`;
-              return (
-                <div key={id} className="relative" {...navItemTriggerProps(id)}>
-                  {dd.href ? (
-                    <a
-                      role="menuitem"
-                      aria-haspopup="menu"
-                      aria-expanded={isOpen}
-                      href={dd.href}
-                      className={triggerClass}
-                    >
-                      {dd.label}
-                      <NavArrowStack />
-                    </a>
-                  ) : (
-                    <button
-                      role="menuitem"
-                      aria-haspopup="menu"
-                      aria-expanded={isOpen}
-                      onClick={() => setOpenDropdown((d) => (d === id ? null : id))}
-                      className={triggerClass}
-                    >
-                      {dd.label}
-                      <NavArrowStack />
-                    </button>
-                  )}
-                  {isOpen && (
-                    <div
-                      role="menu"
-                      className="absolute left-0 top-full min-w-[240px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50 rounded-b-[20px] overflow-hidden"
-                    >
-                      <ul>
-                        {dd.items.map((item) => (
-                          <li key={item.href} role="none">
-                            <a
-                              role="menuitem"
-                              className="block px-4 py-2 text-sm hover:bg-mistral-beige-deep transition-colors"
-                              href={item.href}
-                            >
-                              {item.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </nav>
+          <span
+            className="hidden lg:flex items-center font-semibold leading-none whitespace-nowrap text-mistral-black"
+            style={{ fontFamily: "Axiforma, var(--font-display), sans-serif", fontSize: scrolled ? 20 : 24, transition: "font-size 500ms cubic-bezier(0.22,1,0.36,1)" }}
+          >
+            Columbus Earth
+          </span>
         </div>
 
-        {/* Right-side CTAs */}
-        <div className="flex items-center justify-end gap-2">
-          {/* Try Columbus */}
+        {/* Center: main nav links */}
+        <nav className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2" aria-label="Main navigation">
+          {(Object.keys(dropdowns) as Array<DropdownId>).map((id) => {
+            const dd = dropdowns[id];
+            const isOpen = openDropdown === id;
+            const triggerClass = `group py-4 flex items-center text-sm gap-2 transition-opacity duration-500 opacity-80 hover:opacity-100 ${navColor}`;
+            return (
+              <div key={id} className="relative" {...navItemTriggerProps(id)}>
+                {dd.href ? (
+                  <a
+                    role="menuitem"
+                    aria-haspopup="menu"
+                    aria-expanded={isOpen}
+                    href={dd.href}
+                    className={triggerClass}
+                  >
+                    {dd.label}
+                    <NavArrowStack />
+                  </a>
+                ) : (
+                  <button
+                    role="menuitem"
+                    aria-haspopup="menu"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenDropdown((d) => (d === id ? null : id))}
+                    className={triggerClass}
+                  >
+                    {dd.label}
+                    <NavArrowStack />
+                  </button>
+                )}
+                {isOpen && (
+                  <div
+                    role="menu"
+                    className="absolute left-0 top-full min-w-[240px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50 rounded-b-[20px] overflow-hidden"
+                  >
+                    <ul>
+                      {dd.items.map((item) => (
+                        <li key={item.href} role="none">
+                          <a
+                            role="menuitem"
+                            className="block px-4 py-2 text-sm hover:bg-mistral-beige-deep transition-colors"
+                            href={item.href}
+                          >
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* Right: CTAs */}
+        <div className="flex-1 flex items-center justify-end gap-2">
+          {/* Contact */}
           <a
             target="_self"
-            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
-              "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
-            }`}
+            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
             href="/ColumbusDesign"
           >
-            Try Columbus
+            Contact
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
               <ArrowDot className="text-mistral-orange" />
             </span>
           </a>
 
-          {/* Try Elio */}
-          <a
-            target="_blank"
-            rel="noopener"
-            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
-              "border border-mistral-black/50 bg-transparent text-mistral-black hover:bg-mistral-black/5"
-            }`}
-            href="#"
+          {/* Try Elio dropdown */}
+          <div
+            className="relative hidden md:block"
+            onMouseEnter={() => setElioOpen(true)}
+            onMouseLeave={() => setElioOpen(false)}
           >
-            Try Elio
-          </a>
+            <button
+              className="group rounded-full px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
+              aria-haspopup="menu"
+              aria-expanded={elioOpen}
+            >
+              Try Elio
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
+                <NavArrowStack className="text-mistral-orange" />
+              </span>
+            </button>
+            {elioOpen && (
+              <div
+                role="menu"
+                className="absolute right-0 top-full mt-1 min-w-[180px] bg-background text-mistral-black shadow-lg border-t-2 border-mistral-orange py-2 z-50 rounded-b-[20px] overflow-hidden"
+              >
+                <ul>
+                  <li role="none">
+                    <a role="menuitem" className="block px-4 py-2 text-sm hover:bg-mistral-beige-deep transition-colors" href="#">Try Elio</a>
+                  </li>
+                  <li role="none">
+                    <a role="menuitem" className="block px-4 py-2 text-sm hover:bg-mistral-beige-deep transition-colors" href="#">Try Mapsurf</a>
+                  </li>
+                  <li role="none">
+                    <a role="menuitem" className="block px-4 py-2 text-sm hover:bg-mistral-beige-deep transition-colors" href="/ColumbusDesign">Try Columbus</a>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
 
           {/* Mobile menu trigger */}
           <button
@@ -277,12 +284,12 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="/ColumbusDesign" className="block rounded-full px-5 py-2 border border-mistral-black/50 bg-transparent text-mistral-black text-sm text-center">
+              <a href="/ColumbusDesign" className="block rounded-full px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
                 Try Columbus
               </a>
             </li>
             <li className="mt-2">
-              <a href="#" className="block rounded-full px-5 py-2 border border-mistral-black/50 bg-transparent text-mistral-black text-sm text-center">
+              <a href="#" className="block rounded-full px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
                 Try Elio
               </a>
             </li>

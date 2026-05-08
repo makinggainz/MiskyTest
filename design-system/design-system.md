@@ -451,18 +451,18 @@ These are conventions, not extracted from the live site. The live site uses `tra
                disabled:pointer-events-none disabled:opacity-50">
 ```
 
-> **Pill rule:** all buttons, chips, badges, and interactive labels use `rounded-full`. This is the system's interactive element shape. Layout containers remain square (no `rounded-*`).
+> **Pill rule:** all buttons, chips, badges, and interactive labels use `rounded-full`. Primary CTAs use `bg-mistral-black text-white`. Layout containers remain square (no `rounded-*`).
 
 **Variants observed:**
 
 | Variant name (suggested) | Class composition |
 |---|---|
-| `button-primary` | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 px-5 py-2 text-sm rounded-full` — outlined by default; directional arrow icon uses `text-mistral-orange` |
+| `button-primary` | `bg-mistral-black text-white hover:bg-mistral-black/80 px-5 py-2 text-sm rounded-full` — filled black; directional arrow icon uses `text-mistral-orange` |
 | `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-full` |
-| `button-on-dark` (outlined on dark bg) | `border border-white/60 bg-transparent text-white hover:bg-white/10 px-5 py-2 rounded-full` — use this variant when the button sits on the dark hero band or any dark surface; directional arrow uses `text-mistral-orange` |
+| `button-on-dark` (on dark bg) | `bg-white/10 text-white hover:bg-white/20 px-5 py-2 rounded-full` — use this variant when the button sits on a dark surface; directional arrow uses `text-mistral-orange` |
 | `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-full` |
 | `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-full` |
-| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
+| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container. Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
 | `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *text-link pattern, no background, no border-radius needed* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
 | `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-full` — no label, icon only |

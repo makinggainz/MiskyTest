@@ -196,7 +196,7 @@ const animations = [
 ];
 
 const buttonVariants = [
-  { name: "Primary", className: "border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 px-5 py-2 text-sm rounded-full transition-colors", label: "Get started" },
+  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/80 px-5 py-2 text-sm rounded-full transition-colors", label: "Get started" },
   { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-full transition-colors", label: "Try Studio" },
   { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-full transition-colors", label: "Contact Sales", darkBg: true },
   { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-full transition-colors", label: "Learn more" },

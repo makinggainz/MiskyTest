@@ -470,7 +470,7 @@ export default function CompareMCPage() {
               <MistralCol>
                 <div className="text-sm font-medium mb-3">2 component tokens; patterns synthesized</div>
                 <div className="space-y-2">
-                  <button className="px-4 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm rounded-full hover:bg-mistral-black/5">Primary</button>
+                  <button className="px-4 py-2 bg-mistral-black text-white text-sm rounded-full hover:bg-mistral-black/80">Primary</button>
                   <button className="px-4 py-2 ml-2 bg-mistral-orange text-white text-sm rounded-full">Accent</button>
                   <button className="px-4 py-2 ml-2 border border-current text-mistral-black text-sm rounded-full">Outlined</button>
                 </div>

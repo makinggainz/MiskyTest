@@ -142,7 +142,7 @@ There is a deliberate high-contrast between the deep-blue hero and the quiet pal
 | Content sections (everything below the hero) | `bg-background` or `bg-white` surfaces, dark text, minimal accent |
 | Cards in content sections | White or `bg-mistral-beige-deep` surface, thin `border-[#C7D7F8]` border |
 | Labels / badges in content sections | `bg-mistral-beige-deep` + dark text — same pattern as the feature chips in Section1 |
-| CTA buttons anywhere | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 rounded-full` (primary outlined); on dark surfaces use `border border-white/60 bg-transparent text-white hover:bg-white/10 rounded-full`; no filled-black or filled-blue buttons in content sections; directional arrow icon always `text-mistral-orange` |
+| CTA buttons anywhere | `bg-mistral-black text-white hover:bg-mistral-black/80 rounded-full` (primary filled); on dark surfaces use `bg-white/10 text-white hover:bg-white/20 rounded-full`; directional arrow icon always `text-mistral-orange` |
 
 **Gradients, saturated blue fills, frosted glass, and dark card backgrounds belong in the hero only.** If a new component uses any of these, that is a red flag — stop and question whether it actually fits.
 
