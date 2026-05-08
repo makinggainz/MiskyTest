@@ -99,14 +99,14 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 |---|---|---|
 | Buttons, chips, badges, interactive labels | **8px** | `rounded-[8px]` |
 | Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
-| Cards, dialogs, medium containers | 6px | `rounded-[6px]` / `--radius-lg` |
+| Cards, dialogs, medium containers | 10px | `rounded-[10px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
 | Hero containers | 9px | `rounded-[9px]` / `--radius-2xl` |
 | Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |
 | Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
 
 - **`rounded-full` is banned on buttons, badges, and chips.** It is only allowed on elements that are geometrically circular (equal width and height, decorative only).
-- When in doubt, use the explicit px value (`rounded-[8px]`) rather than a named Tailwind class, so intent is unambiguous.
+- When in doubt, use the explicit px value (`rounded-[8px]` for buttons, `rounded-[10px]` for cards) rather than a named Tailwind class, so intent is unambiguous.
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
 

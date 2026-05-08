@@ -289,7 +289,7 @@ Mistral's voice (per brand page + observed homepage usage):
 | `--radius` | `0.5rem` (8px) | — | Base anchor |
 | `--radius-sm` | `0.5rem` (8px) | `rounded-sm` | **Buttons, chips, badges** — the system's standard interactive shape |
 | `--radius-md` | `0.3125rem` (5px) | `rounded-md` | Inputs, info panels, small surfaces |
-| `--radius-lg` | `0.375rem` (6px) | `rounded-lg` | Cards, dialogs, medium containers |
+| `--radius-lg` | `0.625rem` (10px) | `rounded-lg` | Cards, dialogs, medium containers |
 | `--radius-xl` | `0.5rem` (8px) | `rounded-xl` | Large photographic/decorative surfaces |
 | `--radius-2xl` | `0.5625rem` (9px) | `rounded-2xl` | Hero containers |
 | `--radius-3xl` | `0.625rem` (10px) | `rounded-3xl` | Maximum size |
@@ -298,7 +298,7 @@ Mistral's voice (per brand page + observed homepage usage):
 **Rules:**
 - **All buttons, chips, and badges use `rounded-[8px]`** (explicit) — the 8px anchor. Do not use `rounded-full` (pills) for interactive elements.
 - **Layout containers are square** (no `rounded-*` on `<section>`, `<main>`, full-width `<div>` blocks).
-- **Scale by visual size:** small interactive → 8px; medium panel → 5px; card → 6px; large photo surface → 8px.
+- **Scale by visual size:** small interactive → 8px; medium panel → 5px; card → 10px; large photo surface → 8px.
 - The customer carousel cards (600px tall photographic panels) use `rounded-[8px]`.
 - Never write `border-radius: 11px` inline — always use a token class or `rounded-[Npx]` explicit value.
 - `rounded-full` is reserved for purely decorative circles (e.g. `size-2 rounded-full` color swatches); never use it for clickable buttons or badges.
