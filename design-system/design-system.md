@@ -6,7 +6,7 @@ description: |
   MistX rebrand of the Mistral AI homepage clone. Cool blue spectrum,
   pale-blue surfaces, the "MistX Rainbow" (pale-sky → bright-blue →
   brand-blue → deep-blue → navy → deep-navy) as the signature horizontal
-  band that closes every page. 8px corners on interactive elements (buttons, chips, badges), square layout containers, single-family
+  band that closes every page. Pill (rounded-full) corners on interactive elements (buttons, chips, badges, labels), square layout containers, single-family
   typography. The 6-stop blue rainbow ships in tokens.css as
   `--mistral-footer-band-1` through `-6` (token names retained from the
   original Mistral system for compatibility — values are now blue).
@@ -282,26 +282,25 @@ Mistral's voice (per brand page + observed homepage usage):
 
 ## 3. Border Radius (6 tokens)
 
-**System anchor: 8px for small interactive elements (buttons, chips, badges). Larger elements scale up proportionally from there.**
+**System anchor: pill (rounded-full) for all interactive elements (buttons, chips, badges, labels). Larger non-interactive surfaces scale by visual weight.**
 
 | Token | Value | `rounded-*` class | Use |
 |---|---|---|---|
-| `--radius` | `0.5rem` (8px) | — | Base anchor |
-| `--radius-sm` | `0.5rem` (8px) | `rounded-sm` | **Buttons, chips, badges** — the system's standard interactive shape |
+| `--radius` | `9999px` | — | Base anchor (pill) |
+| `--radius-sm` | `9999px` | `rounded-full` | **Buttons, chips, badges, interactive labels** — pill shape |
 | `--radius-md` | `0.3125rem` (5px) | `rounded-md` | Inputs, info panels, small surfaces |
 | `--radius-lg` | `0.625rem` (10px) | `rounded-lg` | Cards, dialogs, medium containers |
 | `--radius-xl` | `0.5rem` (8px) | `rounded-xl` | Large photographic/decorative surfaces |
 | `--radius-2xl` | `0.5625rem` (9px) | `rounded-2xl` | Hero containers |
 | `--radius-3xl` | `0.625rem` (10px) | `rounded-3xl` | Maximum size |
-| `rounded-full` (Tailwind) | 9999px | `rounded-full` | **Decorative circles only** (e.g. 8×8px color-dot indicators) |
 
 **Rules:**
-- **All buttons, chips, and badges use `rounded-[8px]`** (explicit) — the 8px anchor. Do not use `rounded-full` (pills) for interactive elements.
+- **All buttons, chips, badges, and interactive labels use `rounded-full`** — pill shape. No exceptions.
 - **Layout containers are square** (no `rounded-*` on `<section>`, `<main>`, full-width `<div>` blocks).
-- **Scale by visual size:** small interactive → 8px; medium panel → 5px; card → 10px; large photo surface → 8px.
-- The customer carousel cards (600px tall photographic panels) use `rounded-[8px]`.
-- Never write `border-radius: 11px` inline — always use a token class or `rounded-[Npx]` explicit value.
-- `rounded-full` is reserved for purely decorative circles (e.g. `size-2 rounded-full` color swatches); never use it for clickable buttons or badges.
+- **Scale by visual size:** interactive elements → pill; medium panel → 5px; card → 10px; large photo surface → 8px.
+- The customer carousel cards (600px tall photographic panels) use `rounded-[8px]` (decorative container, not interactive).
+- Never write `border-radius` inline — always use a token class or `rounded-[Npx]` explicit value.
+- `rounded-full` is the **standard for all interactive elements**; purely decorative circles (e.g. `size-2 rounded-full` color swatches) also use it.
 
 ---
 
@@ -447,32 +446,32 @@ These are conventions, not extracted from the live site. The live site uses `tra
 
 ```html
 <button class="inline-flex items-center justify-center gap-md whitespace-nowrap
-               rounded-[8px] ring-offset-background transition-colors
+               rounded-full ring-offset-background transition-colors
                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
                disabled:pointer-events-none disabled:opacity-50">
 ```
 
-> **8px rule:** all buttons, chips, and badges use `rounded-[8px]`. This is the system's interactive element shape — never use `rounded-full` (pills) for clickable elements. Layout containers remain square (no `rounded-*`).
+> **Pill rule:** all buttons, chips, badges, and interactive labels use `rounded-full`. This is the system's interactive element shape. Layout containers remain square (no `rounded-*`).
 
 **Variants observed:**
 
 | Variant name (suggested) | Class composition |
 |---|---|
-| `button-primary` | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 px-5 py-2 text-sm rounded-[8px]` — outlined by default; directional arrow icon uses `text-mistral-orange` |
-| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-[8px]` |
-| `button-on-dark` (outlined on dark bg) | `border border-white/60 bg-transparent text-white hover:bg-white/10 px-5 py-2 rounded-[8px]` — use this variant when the button sits on the dark hero band or any dark surface; directional arrow uses `text-mistral-orange` |
-| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-[8px]` |
-| `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-[8px]` |
-| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-[8px]` container (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
+| `button-primary` | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 px-5 py-2 text-sm rounded-full` — outlined by default; directional arrow icon uses `text-mistral-orange` |
+| `button-accent` | `bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 rounded-full` |
+| `button-on-dark` (outlined on dark bg) | `border border-white/60 bg-transparent text-white hover:bg-white/10 px-5 py-2 rounded-full` — use this variant when the button sits on the dark hero band or any dark surface; directional arrow uses `text-mistral-orange` |
+| `button-on-cream` | `bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 rounded-full` |
+| `button-secondary` (outline) | `border border-current bg-transparent px-5 py-2 rounded-full` |
+| `button-split` (link + chevron) | wrap link `<a>` and `<button>` chevron inside a single `flex overflow-hidden rounded-full` container (used for Try Studio in nav). Inner link gets `px-5 py-2`; the chevron stays `size-9` square |
 | `button-link` | `border-b border-current pb-2 inline-flex items-center gap-3` — *text-link pattern, no background, no border-radius needed* |
 | `button-disabled` | append `disabled:opacity-50 disabled:pointer-events-none` |
-| `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-[8px]` — no label, icon only |
-| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-[8px]` — used for "Production-ready / Secure codebase / …" rows |
-| `badge` (industry / status) | `shrink-0 border border-current inline-block px-3 py-1 rounded-[8px]` |
+| `button-icon` (carousel nav) | `size-12 flex justify-center items-center shrink-0 transition-colors rounded-full` — no label, icon only |
+| `chip-label` (status / feature row) | `flex min-h-[44px] justify-between items-center gap-8 bg-mistral-beige-deep px-5 py-3 rounded-full` — used for "Production-ready / Secure codebase / …" rows |
+| `badge` (industry / status) | `shrink-0 border border-current inline-block px-3 py-1 rounded-full` |
 
 **Heights:** `h-10` (40px) standard / `h-11` (44px) touch-friendly. Hit target ≥ 44px.
 
-**Horizontal padding (`px-5` = 20px):** 8px-corner buttons still benefit from generous padding. Default `px-5` gives text comfortable breathing room. Chip-labels follow the same rule (`px-5 py-3`).
+**Horizontal padding (`px-5` = 20px):** pill buttons benefit from generous padding. Default `px-5` gives text comfortable breathing room. Chip-labels follow the same rule (`px-5 py-3`).
 
 ### 8.2 Cards / Containers (synthesized)
 

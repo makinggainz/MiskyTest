@@ -44,12 +44,21 @@ The default mental model is *"every page is built FROM the design system, so the
 | "Change the orange to a redder orange" | Update `--color-mistral-orange` (or whichever brand color is being changed). Verify everywhere `bg-mistral-orange` / `text-mistral-orange` is used. Consider whether `--mistral-footer-band-*` rainbow stops also need adjusting (they're related). |
 | **"Make the hero CTA bigger — only on the homepage"** | Explicit single-place. Don't propagate. Apply locally to that one component. |
 
+### .md files must stay current — always
+
+> **Every time a design system rule changes, both `CLAUDE.md` and `design-system/design-system.md` must be updated in the same commit.** Never let the spec drift behind the code.
+
+- `design-system/design-system.md` — human-readable token reference, component patterns, do/don't rules. Update the relevant section whenever a token value, component pattern, or visual rule changes.
+- `CLAUDE.md` — project-wide conventions summary. Update the relevant table or rule whenever it no longer matches the actual code.
+- If you changed it in `tokens.css` or a component and didn't update both `.md` files, the work is **incomplete**.
+
 ### Pre-change checklist (run mentally every time)
 
 - [ ] What design-system rule does this element come from?
 - [ ] How many places consume that rule?
 - [ ] Am I editing the rule, not a single instance?
 - [ ] Have I updated tokens / spec / showcase together?
+- [ ] Have I updated **both `CLAUDE.md` and `design-system.md`** to reflect the new rule?
 - [ ] Did I verify the change actually propagated?
 - [ ] (For new UI) Did I read the neighboring sections and match their visual register?
 
@@ -97,7 +106,7 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 
 | Surface type | Radius | Token / class |
 |---|---|---|
-| Buttons, chips, badges, interactive labels | **8px** | `rounded-[8px]` |
+| Buttons, chips, badges, interactive labels | **pill** | `rounded-full` |
 | Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
 | Cards, dialogs, medium containers | 10px | `rounded-[10px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
@@ -105,8 +114,8 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 | Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |
 | Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
 
-- **`rounded-full` is banned on buttons, badges, and chips.** It is only allowed on elements that are geometrically circular (equal width and height, decorative only).
-- When in doubt, use the explicit px value (`rounded-[8px]` for buttons, `rounded-[10px]` for cards) rather than a named Tailwind class, so intent is unambiguous.
+- **All buttons, chips, badges, and interactive labels use `rounded-full`.** No exceptions.
+- Cards use `rounded-[10px]`, photographic surfaces use `rounded-[8px]` — these do NOT get pill treatment.
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
 
@@ -133,7 +142,7 @@ There is a deliberate high-contrast between the deep-blue hero and the quiet pal
 | Content sections (everything below the hero) | `bg-background` or `bg-white` surfaces, dark text, minimal accent |
 | Cards in content sections | White or `bg-mistral-beige-deep` surface, thin `border-[#C7D7F8]` border |
 | Labels / badges in content sections | `bg-mistral-beige-deep` + dark text — same pattern as the feature chips in Section1 |
-| CTA buttons anywhere | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5` (primary outlined); on dark surfaces use `border border-white/60 bg-transparent text-white hover:bg-white/10`; no filled-black or filled-blue buttons in content sections; directional arrow icon always `text-mistral-orange` |
+| CTA buttons anywhere | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5 rounded-full` (primary outlined); on dark surfaces use `border border-white/60 bg-transparent text-white hover:bg-white/10 rounded-full`; no filled-black or filled-blue buttons in content sections; directional arrow icon always `text-mistral-orange` |
 
 **Gradients, saturated blue fills, frosted glass, and dark card backgrounds belong in the hero only.** If a new component uses any of these, that is a red flag — stop and question whether it actually fits.
 

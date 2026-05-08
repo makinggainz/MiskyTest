@@ -219,7 +219,7 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className={`group rounded-[8px] px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
+            className={`group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
               scrolled
                 ? "border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5"
                 : "border border-white/60 bg-transparent text-white hover:bg-white/10"
@@ -234,7 +234,7 @@ export function Nav() {
 
           {/* Try Studio — split button: link on left, chevron-dropdown on right */}
           <div className="relative hidden md:block" {...navItemTriggerProps("studio")}>
-            <div className={`group flex items-center overflow-hidden rounded-[8px] text-sm transition-colors ${scrolled ? "border border-mistral-black bg-transparent text-mistral-black" : "border border-white/60 bg-transparent text-white"}`}>
+            <div className={`group flex items-center overflow-hidden rounded-full text-sm transition-colors ${scrolled ? "border border-mistral-black bg-transparent text-mistral-black" : "border border-white/60 bg-transparent text-white"}`}>
               <a
                 target="_blank"
                 rel="noopener"
@@ -311,12 +311,12 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="https://mistral.ai/contact" className="block rounded-[8px] px-5 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm text-center">
+              <a href="https://mistral.ai/contact" className="block rounded-full px-5 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm text-center">
                 Contact Sales
               </a>
             </li>
             <li className="mt-2">
-              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-[8px] px-5 py-2 bg-mistral-orange text-white text-sm text-center">
+              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-full px-5 py-2 bg-mistral-orange text-white text-sm text-center">
                 Try Studio
               </a>
             </li>
