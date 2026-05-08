@@ -97,7 +97,7 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 
 | Surface type | Radius | Token / class |
 |---|---|---|
-| Buttons, chips, badges, interactive labels | **3px** | `rounded-[3px]` |
+| Buttons, chips, badges, interactive labels | **8px** | `rounded-[8px]` |
 | Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
 | Cards, dialogs, medium containers | 6px | `rounded-[6px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
@@ -106,7 +106,7 @@ Don't introduce other fonts without updating this table and `app/fonts.ts`.
 | Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
 
 - **`rounded-full` is banned on buttons, badges, and chips.** It is only allowed on elements that are geometrically circular (equal width and height, decorative only).
-- When in doubt, use the explicit px value (`rounded-[3px]`) rather than a named Tailwind class, so intent is unambiguous.
+- When in doubt, use the explicit px value (`rounded-[8px]`) rather than a named Tailwind class, so intent is unambiguous.
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
 
@@ -133,7 +133,7 @@ There is a deliberate high-contrast between the deep-blue hero and the quiet pal
 | Content sections (everything below the hero) | `bg-background` or `bg-white` surfaces, dark text, minimal accent |
 | Cards in content sections | White or `bg-mistral-beige-deep` surface, thin `border-[#C7D7F8]` border |
 | Labels / badges in content sections | `bg-mistral-beige-deep` + dark text — same pattern as the feature chips in Section1 |
-| CTA buttons anywhere | `bg-mistral-black text-white` (primary) or outlined — no filled blue buttons outside the hero |
+| CTA buttons anywhere | `border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5` (primary outlined); on dark surfaces use `border border-white/60 bg-transparent text-white hover:bg-white/10`; no filled-black or filled-blue buttons in content sections; directional arrow icon always `text-mistral-orange` |
 
 **Gradients, saturated blue fills, frosted glass, and dark card backgrounds belong in the hero only.** If a new component uses any of these, that is a red flag — stop and question whether it actually fits.
 

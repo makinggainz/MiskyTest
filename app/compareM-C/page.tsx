@@ -470,9 +470,9 @@ export default function CompareMCPage() {
               <MistralCol>
                 <div className="text-sm font-medium mb-3">2 component tokens; patterns synthesized</div>
                 <div className="space-y-2">
-                  <button className="px-4 py-2 bg-mistral-black text-white text-sm rounded-[3px] hover:bg-mistral-black/90">Primary</button>
-                  <button className="px-4 py-2 ml-2 bg-mistral-orange text-white text-sm rounded-[3px]">Accent</button>
-                  <button className="px-4 py-2 ml-2 border border-current text-mistral-black text-sm rounded-[3px]">Outlined</button>
+                  <button className="px-4 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm rounded-[8px] hover:bg-mistral-black/5">Primary</button>
+                  <button className="px-4 py-2 ml-2 bg-mistral-orange text-white text-sm rounded-[8px]">Accent</button>
+                  <button className="px-4 py-2 ml-2 border border-current text-mistral-black text-sm rounded-[8px]">Outlined</button>
                 </div>
                 <p className="text-xs mt-4 text-mistral-black-tint">
                   Tokens: <Mono>--nav-height</Mono>, <Mono>--logoloop-gap</Mono>. Everything else as Tailwind class compositions.

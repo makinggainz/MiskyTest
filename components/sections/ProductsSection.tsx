@@ -1,12 +1,10 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 
 const products = [
   {
-    label: "Enterprise",
-    tagline: "Columbus — Agentic GIS",
+    label: "For Enterprise",
+    tagline: "Columbus Pro — Agentic GIS",
     cta: "Your new GIS",
-    description:
-      "Full-scale enterprise platform — team management, advanced deployments, and compliance-ready AI tooling built for organisations at scale.",
     href: "/ColumbusDesign",
     image: "/images/product-columbus.png",
     features: [
@@ -16,11 +14,9 @@ const products = [
     ],
   },
   {
-    label: "Consumer",
+    label: "For Consumer",
     tagline: "Elio — Smart & Social maps",
     cta: "Find your world now",
-    description:
-      "Your personal AI companion — search, create, and explore intelligently. Designed for individuals who want frontier AI in their everyday life.",
     href: "#",
     image: "/images/product-elio.png",
     features: [
@@ -33,8 +29,6 @@ const products = [
     label: "Research",
     tagline: "Our journey to the Large Geospatial Model",
     cta: "A new foundation model",
-    description:
-      "Frontier models, open-source releases, and published papers. Explore the science powering our products and the broader AI research community.",
     href: "#",
     image: "/images/product-research.webp",
     features: [
@@ -81,10 +75,10 @@ export function ProductsSection() {
     <section className="my-10 md:my-20">
       <div className="container">
 
-        {/* Section heading */}
+        {/* Section heading — "Our current offerings:" removed */}
         <div className="mb-10 md:mb-12">
           <h2 className="text-3xl md:text-5xl font-normal">
-            We&rsquo;re all about maps and data. Our current offerings:
+            We&rsquo;re all about maps and data.
           </h2>
         </div>
 
@@ -93,36 +87,35 @@ export function ProductsSection() {
           {products.map((product) => (
             <div
               key={product.tagline}
-              className="flex flex-col border border-[#B8CCF5] rounded-[6px] overflow-hidden bg-mistral-beige-deep"
+              className="flex flex-col border border-[#C7D7F8] rounded-[10px] overflow-hidden bg-white"
             >
-              {/* Product image */}
-              <div className="relative h-44 w-full overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.tagline}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              {/* Card label header */}
+              <div className="px-5 pt-5 pb-3">
+                <span className="text-xs font-medium text-mistral-black-tint tracking-wide uppercase">
+                  {product.label}
+                </span>
+              </div>
+
+              {/* Product image — floating, inset with rounded corners */}
+              <div className="px-4 pb-2">
+                <div className="relative h-44 w-full overflow-hidden rounded-[8px]">
+                  <img
+                    src={product.image}
+                    alt={product.tagline}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
               {/* Content */}
-              <div className="flex flex-col flex-1 p-6 gap-4">
-                {/* Label chip */}
-                <span className="text-xs border border-[#B8CCF5] bg-background text-mistral-black px-3 py-1 rounded-[3px] w-fit">
-                  {product.label}
-                </span>
-
+              <div className="flex flex-col flex-1 px-5 pt-4 pb-4 gap-4">
                 {/* Tagline */}
-                <h3 className="text-lg font-semibold text-mistral-black leading-snug">
+                <h3 className="text-base font-semibold text-mistral-black leading-snug">
                   {product.tagline}
                 </h3>
 
-                {/* Description */}
-                <p className="text-sm leading-relaxed text-mistral-black-tint flex-1">
-                  {product.description}
-                </p>
-
-                {/* Feature list with checkmarks */}
-                <div className="flex flex-col gap-2.5">
+                {/* Feature list */}
+                <div className="flex flex-col gap-2 flex-1">
                   {product.features.map((feature) => (
                     <div key={feature} className="flex items-start gap-2.5">
                       <CheckIcon />
@@ -134,15 +127,13 @@ export function ProductsSection() {
                 </div>
               </div>
 
-              {/* CTA row — separated by divider, mirrors "Start now" in reference */}
-              <div className="border-t border-[#B8CCF5]">
+              {/* CTA — design-system outlined button, centered within card padding */}
+              <div className="px-5 pb-5 pt-1">
                 <a
                   href={product.href}
-                  className="group flex items-center justify-between w-full px-6 py-4 transition-colors hover:bg-mistral-beige-deeper/30"
+                  className="group rounded-[8px] flex items-center justify-between w-full px-5 py-2.5 border border-mistral-black bg-transparent text-mistral-black text-sm font-medium transition-colors hover:bg-mistral-black/5"
                 >
-                  <span className="text-sm font-medium text-mistral-black">
-                    {product.cta}
-                  </span>
+                  <span>{product.cta}</span>
                   <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                     <ArrowIcon />
                   </span>

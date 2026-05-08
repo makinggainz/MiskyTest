@@ -219,26 +219,26 @@ export function Nav() {
           {/* Contact Sales — flips on scroll, has hover background flip + animated arrow */}
           <a
             target="_self"
-            className={`group rounded-[3px] px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
+            className={`group rounded-[8px] px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors ${
               scrolled
-                ? "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white"
-                : "bg-white/10 text-white hover:bg-white/20"
+                ? "border border-mistral-black bg-transparent text-mistral-black hover:bg-mistral-black/5"
+                : "border border-white/60 bg-transparent text-white hover:bg-white/10"
             }`}
             href="https://mistral.ai/contact"
           >
             Contact Sales
             <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
-              <ArrowDot className={scrolled ? "text-mistral-black group-hover:text-white" : "text-white"} />
+              <ArrowDot className="text-mistral-orange" />
             </span>
           </a>
 
           {/* Try Studio — split button: link on left, chevron-dropdown on right */}
           <div className="relative hidden md:block" {...navItemTriggerProps("studio")}>
-            <div className={`group flex items-center overflow-hidden rounded-[3px] text-sm transition-colors ${scrolled ? "bg-mistral-black text-white" : "bg-white/10 text-white"}`}>
+            <div className={`group flex items-center overflow-hidden rounded-[8px] text-sm transition-colors ${scrolled ? "border border-mistral-black bg-transparent text-mistral-black" : "border border-white/60 bg-transparent text-white"}`}>
               <a
                 target="_blank"
                 rel="noopener"
-                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-black/80" : "hover:bg-white/20"}`}
+                className={`group/link px-5 py-2 transition-colors truncate flex items-center gap-3 ${scrolled ? "hover:bg-mistral-black/5" : "hover:bg-white/10"}`}
                 href="https://console.mistral.ai/?utm_source=website&utm_medium=header_cta"
               >
                 Try Studio
@@ -247,7 +247,7 @@ export function Nav() {
                 aria-haspopup="menu"
                 aria-expanded={openDropdown === "studio"}
                 onClick={() => setOpenDropdown((d) => (d === "studio" ? null : "studio"))}
-                className="size-9 border-l flex justify-center items-center transition-colors border-white/20 text-primary hover:bg-black/80"
+                className={`size-9 border-l flex justify-center items-center transition-colors text-primary ${scrolled ? "border-mistral-black/20 hover:bg-mistral-black/5" : "border-white/20 hover:bg-white/10"}`}
                 aria-label="Open Studio options"
               >
                 <NavArrowStack />
@@ -311,12 +311,12 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="https://mistral.ai/contact" className="block rounded-[3px] px-5 py-2 bg-mistral-black text-white text-sm text-center">
+              <a href="https://mistral.ai/contact" className="block rounded-[8px] px-5 py-2 border border-mistral-black bg-transparent text-mistral-black text-sm text-center">
                 Contact Sales
               </a>
             </li>
             <li className="mt-2">
-              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-[3px] px-5 py-2 bg-mistral-orange text-white text-sm text-center">
+              <a href="https://console.mistral.ai/" target="_blank" rel="noopener" className="block rounded-[8px] px-5 py-2 bg-mistral-orange text-white text-sm text-center">
                 Try Studio
               </a>
             </li>
