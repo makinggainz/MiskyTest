@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 const products = [
   {
     label: "For Enterprise",
-    name: "Columbus Pro",
-    tagline: "Columbus Pro — Agentic GIS",
+    name: "Columbus",
+    tagline: "Columbus — Agentic GIS",
     cta: "Your new GIS",
     description:
       "Full-scale enterprise platform — team management, advanced deployments, and compliance-ready AI tooling built for organisations at scale.",
@@ -108,7 +108,7 @@ export function ProductsSection() {
         {/* ── Mobile: simple bordered vertical list ── */}
         <div className="md:hidden flex flex-col border border-[#B8CCF5] divide-y divide-[#B8CCF5]">
           {products.map((product) => (
-            <div key={product.name} className="flex flex-col gap-0 overflow-hidden">
+            <div key={product.name} className="flex flex-col overflow-hidden">
               <img
                 src={product.image}
                 alt={product.tagline}
@@ -129,7 +129,6 @@ export function ProductsSection() {
                     </span>
                   </span>
                 </a>
-                <p className="text-sm font-semibold text-mistral-black">{product.tagline}</p>
               </div>
             </div>
           ))}
@@ -195,28 +194,21 @@ export function ProductsSection() {
                         pointerEvents: activeIndex === i ? "auto" : "none",
                       }}
                     >
-                      {/* Label overlay at top */}
-                      <div className="absolute top-0 left-0 right-0 z-10 px-5 pt-4">
-                        <span className="text-xs bg-background/80 text-mistral-black px-3 py-1 rounded-[3px] backdrop-blur-sm">
-                          {product.label}
-                        </span>
-                      </div>
-
-                      {/* Product image */}
                       <img
                         src={product.image}
                         alt={product.tagline}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
 
-                      {/* Progress bars at bottom */}
-                      <div className="absolute bottom-4 left-5 right-5 z-10 flex gap-2">
+                      {/* Progress bars */}
+                      <div className="absolute bottom-5 left-6 right-6 flex gap-2">
                         {products.map((_, j) => (
                           <div
                             key={j}
                             className="h-px flex-1 transition-colors duration-500"
                             style={{
-                              backgroundColor: j === activeIndex ? "hsl(0 0% 100%)" : "rgba(255,255,255,0.35)",
+                              backgroundColor:
+                                j === activeIndex ? "hsl(0 0% 12%)" : "#C7D7F8",
                             }}
                           />
                         ))}
@@ -236,6 +228,10 @@ export function ProductsSection() {
                         pointerEvents: activeIndex === i ? "auto" : "none",
                       }}
                     >
+                      <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit mb-5">
+                        {product.label}
+                      </span>
+
                       <h3 className="text-xl xl:text-2xl font-semibold text-mistral-black leading-tight mb-3">
                         {product.tagline}
                       </h3>
@@ -256,9 +252,9 @@ export function ProductsSection() {
                       </div>
 
                       <a href={product.href} className="group inline-flex self-start">
-                        <span className="inline-flex items-center gap-2 border border-mistral-black text-mistral-black text-sm px-4 py-2 rounded-[3px] transition-colors hover:bg-mistral-black hover:text-white">
+                        <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
                           {product.cta}
-                          <span className="transition-transform group-hover:translate-x-0.5">
+                          <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                             <ArrowIcon />
                           </span>
                         </span>
