@@ -4,11 +4,14 @@ import { useEffect, useRef, useState } from "react";
 
 const products = [
   {
-    label: "Enterprise",
-    name: "Columbus",
+    label: "For Enterprise",
+    name: "Columbus Pro",
+    tagline: "Columbus Pro — Agentic GIS",
+    cta: "Your new GIS",
     description:
       "Full-scale enterprise platform — team management, advanced deployments, and compliance-ready AI tooling built for organisations at scale.",
     href: "/ColumbusDesign",
+    image: "/images/product-columbus.png",
     features: [
       "Team management at any scale",
       "Compliance-ready AI tooling",
@@ -16,11 +19,14 @@ const products = [
     ],
   },
   {
-    label: "Consumer",
+    label: "For Consumer",
     name: "Elio",
+    tagline: "Elio — Smart & Social maps",
+    cta: "Find your world now",
     description:
       "Your personal AI companion — search, create, and explore intelligently. Designed for individuals who want frontier AI in their everyday life.",
     href: "#",
+    image: "/images/product-elio.png",
     features: [
       "Search and create intelligently",
       "Frontier AI in everyday life",
@@ -29,10 +35,13 @@ const products = [
   },
   {
     label: "Research",
-    name: "Research",
+    name: "Foundation Model",
+    tagline: "Our journey to the Large Geospatial Model",
+    cta: "A new foundation model",
     description:
       "Frontier models, open-source releases, and published papers. Explore the science powering our products and the broader AI research community.",
     href: "#",
+    image: "/images/product-research.webp",
     features: [
       "Frontier model releases",
       "Open-source contributions",
@@ -92,31 +101,36 @@ export function ProductsSection() {
         {/* Section heading */}
         <div className="mb-10 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-normal">
-            Three ways to experience frontier AI.
+            We&rsquo;re all about maps and data. Our current offerings:
           </h2>
         </div>
 
         {/* ── Mobile: simple bordered vertical list ── */}
         <div className="md:hidden flex flex-col border border-[#B8CCF5] divide-y divide-[#B8CCF5]">
           {products.map((product) => (
-            <div key={product.name} className="flex flex-col gap-4 p-6">
-              <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit">
-                {product.label}
-              </span>
-              <h3 className="text-3xl font-semibold text-mistral-black leading-none">
-                {product.name}
-              </h3>
-              <p className="text-sm leading-relaxed text-mistral-black-tint">
-                {product.description}
-              </p>
-              <a href={product.href} className="group inline-flex self-start">
-                <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
-                  Explore {product.name}
-                  <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                    <ArrowIcon />
-                  </span>
+            <div key={product.name} className="flex flex-col gap-0 overflow-hidden">
+              <img
+                src={product.image}
+                alt={product.tagline}
+                className="w-full h-48 object-cover"
+              />
+              <div className="flex flex-col gap-4 p-6">
+                <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit">
+                  {product.label}
                 </span>
-              </a>
+                <p className="text-sm leading-relaxed text-mistral-black-tint">
+                  {product.description}
+                </p>
+                <a href={product.href} className="group inline-flex self-start">
+                  <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
+                    {product.cta}
+                    <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                      <ArrowIcon />
+                    </span>
+                  </span>
+                </a>
+                <p className="text-sm font-semibold text-mistral-black">{product.tagline}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -127,10 +141,6 @@ export function ProductsSection() {
           className="hidden md:block relative"
           style={{ height: "300vh" }}
         >
-          {/*
-            Sticky wrapper spans the area below the nav.
-            flex items-center vertically centres the panel within that space.
-          */}
           <div
             className="sticky flex items-center"
             style={{
@@ -140,7 +150,7 @@ export function ProductsSection() {
           >
             <div className="flex gap-12 xl:gap-16 items-center w-full">
 
-              {/* ── Left nav: standalone, no shared border ── */}
+              {/* ── Left nav: standalone text list ── */}
               <div className="flex flex-col gap-1 shrink-0 w-[160px] xl:w-[180px]">
                 {products.map((product, i) => (
                   <button
@@ -168,53 +178,54 @@ export function ProductsSection() {
                 ))}
               </div>
 
-              {/* ── Right panel: visual + description at ~45vh, centred ── */}
+              {/* ── Right panel: image + description at ~45vh ── */}
               <div
                 className="flex-1 border border-[#B8CCF5] overflow-hidden flex divide-x divide-[#B8CCF5]"
                 style={{ height: "45vh" }}
               >
 
-                {/* Center visual */}
-                <div
-                  className="flex-1 relative overflow-hidden"
-                  style={{
-                    backgroundColor: "hsl(217 81% 92%)",
-                    backgroundImage:
-                      "linear-gradient(to right, rgba(199,215,248,0.55) 1px, transparent 1px)," +
-                      "linear-gradient(to bottom, rgba(199,215,248,0.55) 1px, transparent 1px)",
-                    backgroundSize: "36px 36px",
-                  }}
-                >
+                {/* Center: product image */}
+                <div className="flex-1 relative overflow-hidden bg-mistral-beige-deep">
                   {products.map((product, i) => (
                     <div
                       key={product.name}
-                      className="absolute inset-0 flex items-center justify-center transition-opacity duration-500"
+                      className="absolute inset-0 transition-opacity duration-500"
                       style={{
                         opacity: activeIndex === i ? 1 : 0,
                         pointerEvents: activeIndex === i ? "auto" : "none",
                       }}
                     >
-                      <span className="text-[clamp(3rem,7vw,6rem)] font-semibold text-mistral-black leading-none text-center select-none px-8">
-                        {product.name}
-                      </span>
+                      {/* Label overlay at top */}
+                      <div className="absolute top-0 left-0 right-0 z-10 px-5 pt-4">
+                        <span className="text-xs bg-background/80 text-mistral-black px-3 py-1 rounded-[3px] backdrop-blur-sm">
+                          {product.label}
+                        </span>
+                      </div>
+
+                      {/* Product image */}
+                      <img
+                        src={product.image}
+                        alt={product.tagline}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+
+                      {/* Progress bars at bottom */}
+                      <div className="absolute bottom-4 left-5 right-5 z-10 flex gap-2">
+                        {products.map((_, j) => (
+                          <div
+                            key={j}
+                            className="h-px flex-1 transition-colors duration-500"
+                            style={{
+                              backgroundColor: j === activeIndex ? "hsl(0 0% 100%)" : "rgba(255,255,255,0.35)",
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   ))}
-
-                  {/* Progress bars */}
-                  <div className="absolute bottom-5 left-6 right-6 flex gap-2">
-                    {products.map((_, j) => (
-                      <div
-                        key={j}
-                        className="h-px flex-1 transition-colors duration-500"
-                        style={{
-                          backgroundColor: j === activeIndex ? "hsl(0 0% 12%)" : "#C7D7F8",
-                        }}
-                      />
-                    ))}
-                  </div>
                 </div>
 
-                {/* Right description */}
+                {/* Right: description */}
                 <div className="w-[260px] xl:w-[300px] shrink-0 relative overflow-hidden bg-background">
                   {products.map((product, i) => (
                     <div
@@ -225,12 +236,8 @@ export function ProductsSection() {
                         pointerEvents: activeIndex === i ? "auto" : "none",
                       }}
                     >
-                      <span className="text-xs bg-mistral-beige-deep text-mistral-black px-3 py-1 rounded-[3px] w-fit mb-5">
-                        {product.label}
-                      </span>
-
                       <h3 className="text-xl xl:text-2xl font-semibold text-mistral-black leading-tight mb-3">
-                        {product.name}
+                        {product.tagline}
                       </h3>
 
                       <p className="text-sm leading-relaxed text-mistral-black-tint mb-6">
@@ -249,9 +256,9 @@ export function ProductsSection() {
                       </div>
 
                       <a href={product.href} className="group inline-flex self-start">
-                        <span className="inline-flex items-center gap-2 bg-mistral-black text-white text-sm px-5 py-2 rounded-[3px] transition-colors hover:bg-mistral-black/80">
-                          Explore {product.name}
-                          <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                        <span className="inline-flex items-center gap-2 border border-mistral-black text-mistral-black text-sm px-4 py-2 rounded-[3px] transition-colors hover:bg-mistral-black hover:text-white">
+                          {product.cta}
+                          <span className="transition-transform group-hover:translate-x-0.5">
                             <ArrowIcon />
                           </span>
                         </span>
