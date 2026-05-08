@@ -196,17 +196,6 @@ export function HeroCanvas() {
       ctx.fillStyle = "rgb(10,28,90)"; // deep navy behind the globe
       ctx.fill();
 
-      // ── Outer glow ring ──────────────────────────────────────────────────────
-      const glow = ctx.createRadialGradient(earthCx, earthCy, earthR * 0.82, earthCx, earthCy, earthR * 1.18);
-      glow.addColorStop(0, `rgba(38,99,235,0)`);
-      glow.addColorStop(0.5, `rgba(38,99,235,${(earthAlpha * 0.18).toFixed(3)})`);
-      glow.addColorStop(1, `rgba(38,99,235,0)`);
-      ctx.globalAlpha = 1;
-      ctx.beginPath();
-      ctx.arc(earthCx, earthCy, earthR * 1.18, 0, TAU);
-      ctx.fillStyle = glow;
-      ctx.fill();
-
       // ── Earth dots (at half-grid offsets — between the grid dots) ────────────
       // One extra col/row of earth dots to cover the shifted positions
       for (let row = 0; row < rows; row++) {
