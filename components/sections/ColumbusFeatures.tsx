@@ -202,7 +202,7 @@ export function ColumbusFeatures() {
                   "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
               }}
             />
-            <span className="text-xl font-semibold text-mistral-black">Columbus</span>
+            <span className="text-2xl font-semibold text-mistral-black">Columbus</span>
           </div>
           <p className="text-sm text-mistral-black/45 tracking-wide">All-in-one map intelligence platform</p>
         </div>
@@ -238,7 +238,7 @@ export function ColumbusFeatures() {
             {/* Left: text */}
             <div className="flex flex-col justify-between p-8 md:p-10 md:w-[280px] lg:w-[320px] shrink-0 border-b md:border-b-0 md:border-r border-[#C7D7F8] bg-background">
               <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-semibold text-mistral-black leading-snug">
+                <h3 className="text-3xl font-normal text-mistral-black leading-snug tracking-tight">
                   {active.headline}
                 </h3>
                 <p className="text-sm leading-relaxed text-mistral-black/55">

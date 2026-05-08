@@ -11,8 +11,8 @@ export default function HomePage() {
       <Hero />
       <ProductsSection />
       <div className="bg-background pt-px">
-        <Section1 />
         <ColumbusFeatures />
+        <Section1 />
         <Section2 />
         <Section3 />
       </div>
