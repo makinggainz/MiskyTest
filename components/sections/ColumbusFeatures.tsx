@@ -226,31 +226,21 @@ export function ColumbusFeatures() {
       <section className="py-10 md:py-[100px]">
         <div className="container bg-grid-pattern">
 
-          {/* Two headings side-by-side */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-20">
-            <div data-reveal>
-              <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-                Your map intelligence platform.
-              </h2>
-              <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl">
-                All-in-one map intelligence platform.
-              </p>
-            </div>
-            <div data-reveal data-reveal-delay="1">
-              <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
-                High fidelity and smart data sets.
-              </h2>
-              <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/50 max-w-lg">
-                We vet our data with reputable partner organizations.
-              </p>
-            </div>
+          {/* Heading 1 */}
+          <div className="mb-10 md:mb-20 text-center" data-reveal>
+            <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+              Your map intelligence platform.
+            </h2>
+            <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
+              All-in-one map intelligence platform.
+            </p>
           </div>
 
           {/* Columbus tabbed panel */}
           <div
             className="border border-[#C7D7F8] rounded-[20px] overflow-hidden"
             data-reveal
-            data-reveal-delay="2"
+            data-reveal-delay="1"
           >
             {/* Tab bar */}
             <div className="flex border-b border-[#C7D7F8] bg-background overflow-x-auto">
@@ -304,8 +294,18 @@ export function ColumbusFeatures() {
             </div>
           </div>
 
+          {/* Heading 2 */}
+          <div className="mt-20 md:mt-[100px] mb-10 md:mb-20" data-reveal>
+            <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
+              High fidelity and smart data sets.
+            </h2>
+            <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/50 max-w-lg">
+              We vet our data with reputable partner organizations.
+            </p>
+          </div>
+
           {/* Marquee strip */}
-          <div className="ds-group group relative overflow-hidden mt-20 md:mt-[100px]" data-reveal>
+          <div className="ds-group group relative overflow-hidden" data-reveal data-reveal-delay="1">
             <a className="flex items-center relative w-full cursor-pointer" href="#">
               <div className="group-hover:blur-sm group-hover:opacity-60 transition-all duration-300 overflow-hidden whitespace-nowrap flex items-center w-full">
                 <div className="ds-track flex items-center gap-3">
