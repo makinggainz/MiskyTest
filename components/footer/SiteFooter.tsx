@@ -1,40 +1,120 @@
 /* eslint-disable @next/next/no-img-element */
-/**
- * Auto-generated from _legacy/sections/_jsx-SiteFooter.txt — direct port of
- * Mistral's snapshot markup with HTML→JSX conversions applied.
- */
+
+const NAV = [
+  {
+    heading: "Product",
+    links: ["Columbus", "Platform", "Use-Cases", "MapsGPT"],
+  },
+  {
+    heading: "Technology",
+    links: ["LGM vs LLM", "Data Collection", "Core Reasoning", "Research", "Blog"],
+  },
+  {
+    heading: "Company",
+    links: ["Our Mission", "Careers", "Legal", "Report"],
+  },
+];
+
 export function SiteFooter() {
   return (
-    <>
-<footer id="footer" className="relative mt-5 bg-secondary dark:bg-black dark:text-white px-0"><div className="absolute left-1/2 aspect-square size-[212px] -translate-x-1/2 translate-y-[-44%]"><button className="relative -mt-2 flex cursor-grab flex-col items-center justify-center active:cursor-grabbing" aria-label="Pet the cat"><img alt="LeChat - Mistral" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" className="size-full object-contain pt-2" style={{color:'transparent'}} src="/images/img-483ccef06a52.gif"/></button></div><div className="h-[50px] bg-mistral-footer-band-1"></div><div className="h-[50px] bg-mistral-footer-band-2"></div><div className="h-[50px] bg-mistral-footer-band-3"></div><div className="h-[50px] bg-mistral-footer-band-4"></div><div className="h-[50px] bg-mistral-footer-band-5"></div><div className="h-[50px] bg-mistral-footer-band-6"></div><div className="container mx-auto gap-4 p-5 py-16 md:flex xl:px-12"><div className="flex w-full flex-col justify-between gap-8 md:w-2/5"><div><a className="relative z-10 mb-4 inline-block h-2xl-2 min-w-2xl-2" aria-label="Mistral AI" href="https://mistral.ai"><div className="object-contain text-foreground svg-container"><svg width="41" height="29" viewBox="0 0 41 29" fill="none" xmlns="http://www.w3.org/2000/svg">
- <g clipPath="url(#clip0_1323_477)">
- <path d="M11.7053 0H5.85156V5.79928H11.7053V0Z" fill="currentColor"></path>
- <path d="M35.1272 0H29.2734V5.79928H35.1272V0Z" fill="currentColor"></path>
- <path d="M17.559 5.79932H5.85156V11.5986H17.559V5.79932Z" fill="currentColor"></path>
- <path d="M35.1293 5.79932H23.4219V11.5986H35.1293V5.79932Z" fill="currentColor"></path>
- <path d="M35.1239 11.5986H5.85156V17.3979H35.1239V11.5986Z" fill="currentColor"></path>
- <path d="M11.7053 17.3979H5.85156V23.1972H11.7053V17.3979Z" fill="currentColor"></path>
- <path d="M23.4162 17.3979H17.5625V23.1972H23.4162V17.3979Z" fill="currentColor"></path>
- <path d="M35.1272 17.3979H29.2734V23.1972H35.1272V17.3979Z" fill="currentColor"></path>
- <path d="M17.5648 23.2007H0V29H17.5648V23.2007Z" fill="currentColor"></path>
- <path d="M40.9867 23.2007H23.4219V29H40.9867V23.2007Z" fill="currentColor"></path>
- <path d="M11.7072 0H5.85352V5.79928H11.7072V0Z" fill="currentColor"></path>
- <path d="M35.1252 0H29.2715V5.79928H35.1252V0Z" fill="currentColor"></path>
- <path d="M17.561 5.79932H5.85352V11.5986H17.561V5.79932Z" fill="currentColor"></path>
- <path d="M35.1254 5.79932H23.418V11.5986H35.1254V5.79932Z" fill="currentColor"></path>
- <path d="M35.1258 11.5986H5.85352V17.3979H35.1258V11.5986Z" fill="currentColor"></path>
- <path d="M11.7072 17.3979H5.85352V23.1972H11.7072V17.3979Z" fill="currentColor"></path>
- <path d="M23.4162 17.3979H17.5625V23.1972H23.4162V17.3979Z" fill="currentColor"></path>
- <path d="M35.1252 17.3979H29.2715V23.1972H35.1252V17.3979Z" fill="currentColor"></path>
- <path d="M17.5648 23.2007H0V29H17.5648V23.2007Z" fill="currentColor"></path>
- <path d="M40.9828 23.2007H23.418V29H40.9828V23.2007Z" fill="currentColor"></path>
- </g>
- <defs>
- <clipPath id="clip0_1323_477">
- <rect width="41" height="29" fill="currentColor"></rect>
- </clipPath>
- </defs>
-</svg></div></a><div className="flex gap-4"><a target="_blank" href="https://apps.apple.com/us/app/le-chat-by-mistral-ai/id6740410176"><img alt="App Store Mistral AI" loading="lazy" width="120" height="40" decoding="async" data-nimg="1" style={{color:'transparent'}}  src="/images/img-3aa15d5287e2.svg" /></a><a target="_blank" href="https://play.google.com/store/apps/details?id=ai.mistral.chat"><img alt="Google Play Mistral AI" loading="lazy" width="120" height="40" decoding="async" data-nimg="1" style={{color:'transparent'}}  src="/images/img-3cbd90c26584.svg" /></a></div></div><div className="flex gap-x-4 text-sm"><p className="hidden gap-x-1 text-sm md:flex">Mistral AI © 2026</p></div></div><div className="flex w-full flex-col gap-y-14 md:w-3/5"><nav className="grid grid-cols-2 gap-4 md:grid-cols-4"><div className="flex flex-col gap-y-1 text-[14px]/[24.5px] leading-normal"><h3 className="pointer-events-none first-of-type:text-mistral-orange">Why Mistral</h3><a target="_self" href="https://mistral.ai/about">About us</a><a target="_self" href="https://mistral.ai/customers">Our customers</a><a target="_self" href="https://mistral.ai/careers">Careers</a><a target="_self" href="https://mistral.ai/contact">Contact us</a></div><div className="flex flex-col gap-y-1 text-[14px]/[24.5px] leading-normal"><h3 className="pointer-events-none first-of-type:text-mistral-orange">Explore</h3><a target="_self" href="https://mistral.ai/solutions">AI solutions</a><a target="_self" href="https://mistral.ai/partners">Partners</a><a target="_self" href="https://mistral.ai/news?category=research">Research</a><a rel="noopener noreferrer" target="_blank" href="https://docs.mistral.ai">Documentation</a></div><div className="flex flex-col gap-y-1 text-[14px]/[24.5px] leading-normal"><h3 className="pointer-events-none first-of-type:text-mistral-orange">Build</h3><a target="_self" href="https://mistral.ai/products/studio">Studio</a><a target="_self" href="https://mistral.ai/products/le-chat">Le Chat</a><a target="_self" href="https://mistral.ai/products/vibe">Vibe</a><a target="_self" href="https://mistral.ai/products/compute">Mistral Compute</a></div><div className="flex flex-col gap-y-1 text-[14px]/[24.5px] leading-normal"><h3 className="pointer-events-none first-of-type:text-mistral-orange">Legal</h3><a rel="noopener noreferrer" target="_blank" href="https://legal.mistral.ai/terms">Terms of service</a><a target="_self" href="https://legal.mistral.ai/terms/privacy-policy?language=en-US">Privacy policy</a><button className="text-left">Privacy choices</button><a rel="noopener noreferrer" target="_blank" href="https://legal.mistral.ai/terms/data-processing-addendum">Data processing agreement</a><a target="_self" href="https://mistral.ai/legal">Legal notice</a><a target="_self" href="https://mistral.ai/brand">Brand</a></div></nav><div className="w-full items-center justify-between md:flex"><button type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-_R_6kdav5udpfivb_" data-state="closed" className="group flex items-center gap-4 border-t border-black dark:border-white pt-2 uppercase">en<svg className="origin-center rotate-90 transition-transform duration-200 size-4 text-mistral-orange group-data-[state=open]:-rotate-90" width="24" viewBox="0 0 9 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7.22" cy="6.589" r="1.28" fill="currentColor"/><circle cx="4.658" cy="4.018" r="1.28" fill="currentColor"/><circle cx="2.099" cy="1.46" r="1.28" fill="currentColor"/><circle cx="4.658" cy="9.151" r="1.28" fill="currentColor"/><circle cx="2.099" cy="11.718" r="1.28" fill="currentColor"/></svg></button><p className="gap-x-1 py-6 text-sm md:hidden sf-hidden">Mistral AI © 2026<div className="flex flex-wrap gap-x-3"><a target="_blank" rel="noreferrer" className="text-mistral-beige-tint" aria-label="X" href="https://x.com/mistralai"><img  loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="size-[38px] p-2.5 dark:invert" style={{color:'transparent'}}  src="/images/img-5ef2bd7bbf01.webp" /></a><a target="_blank" rel="noreferrer" className="text-mistral-beige-tint" aria-label="Linkedin" href="https://www.linkedin.com/company/mistralai"><img  loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="size-[38px] p-2.5 dark:invert" style={{color:'transparent'}}  src="/images/img-9c5bcc4de6c1.svg" /></a><a target="_blank" rel="noreferrer" className="text-mistral-beige-tint" aria-label="Discord" href="https://discord.gg/mistralai"><img  loading="lazy" width="38" height="38" decoding="async" data-nimg="1" className="size-[38px] p-2.5 dark:invert" style={{color:'transparent'}}  src="/images/img-70ae8e959051.svg" /></a></div></p></div></div></div></footer>
-    </>
+    <footer className="px-4 pb-4 pt-0">
+      <div className="relative rounded-[20px] overflow-hidden min-h-[540px] md:min-h-[620px]">
+
+        {/* Background image */}
+        <img
+          src="/images/hero-bg-blue.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          aria-hidden="true"
+        />
+
+        {/* Bottom gradient for text legibility */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.3) 40%, transparent 70%)",
+          }}
+        />
+
+        {/* Content — pinned to bottom */}
+        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-14 gap-8">
+
+          {/* Main row */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+
+            {/* Brand */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-[#0a1730] leading-none">
+                Columbus Earth
+              </h2>
+              <p className="text-sm text-[#0a1730]/60 max-w-xs leading-relaxed">
+                The frontier AI lab building the first production Universal Geospatial Model to answer the planet&rsquo;s toughest questions.
+              </p>
+              {/* Social icons */}
+              <div className="flex items-center gap-3">
+                <a
+                  href="mailto:hello@columbus.earth"
+                  className="size-9 rounded-full border border-[#0a1730]/20 bg-white/60 flex items-center justify-center hover:bg-white/90 transition-colors"
+                  aria-label="Email"
+                >
+                  <svg className="size-4 text-[#0a1730]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                    <path d="m2 7 10 7 10-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-9 rounded-full border border-[#0a1730]/20 bg-white/60 flex items-center justify-center hover:bg-white/90 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <svg className="size-4 text-[#0a1730]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Nav */}
+            <nav className="grid grid-cols-3 gap-8 md:gap-14">
+              {NAV.map((col) => (
+                <div key={col.heading} className="flex flex-col gap-2.5">
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-[#0a1730]/40">
+                    {col.heading}
+                  </span>
+                  {col.links.map((link) => (
+                    <a
+                      key={link}
+                      href="#"
+                      className="text-sm text-[#0a1730]/80 hover:text-[#0a1730] transition-colors leading-snug"
+                    >
+                      {link}
+                    </a>
+                  ))}
+                </div>
+              ))}
+            </nav>
+
+          </div>
+
+          {/* Bottom bar */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-t border-[#0a1730]/10 pt-5">
+            <span className="text-xs text-[#0a1730]/40">
+              Columbus Earth &copy; 2026. For investor relations, contact us on email or LinkedIn.
+            </span>
+            <span className="text-xs text-[#0a1730]/30 hidden md:block">
+              Website made by hand, no AI.
+            </span>
+            <span className="text-xs text-[#0a1730]/40">
+              www.columbus.earth
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </footer>
   );
 }

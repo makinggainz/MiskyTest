@@ -85,10 +85,9 @@ export function HiringSection() {
         </div>
 
         {/* Application form */}
+        <div className="max-w-lg mx-auto w-full" data-reveal data-reveal-delay="2">
         <div
-          className="border border-[#C7D7F8] rounded-[20px] p-8 md:p-12 flex flex-col gap-5"
-          data-reveal
-          data-reveal-delay="2"
+          className="border border-[#C7D7F8] rounded-[20px] p-8 flex flex-col gap-5"
         >
           <input
             type="text"
@@ -128,13 +127,14 @@ export function HiringSection() {
           <button
             type="submit"
             onClick={(e) => e.preventDefault()}
-            className="group self-end rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+            className="group w-full rounded-full flex items-center justify-between px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
           >
             Send application
             <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
               <ArrowIcon />
             </span>
           </button>
+        </div>
         </div>
 
       </div>
