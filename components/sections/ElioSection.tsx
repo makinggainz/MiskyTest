@@ -365,13 +365,16 @@ export function ElioSection() {
 
   return (
     <section className="py-10 md:py-[100px]">
-      <div className="container">
+      <div className="container bg-grid-pattern">
 
         {/* Section heading */}
-        <div className="mb-10 md:mb-20" data-reveal>
+        <div className="mb-10 md:mb-20 text-center" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
             Elio making maps feel alive again.
           </h2>
+          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
+            Smart and social maps, built for real life.
+          </p>
         </div>
 
         {/* Elio tabbed panel */}
