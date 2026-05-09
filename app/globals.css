@@ -118,6 +118,25 @@ h1, h2, h3, h4 {
   }
 }
 
+/* ─── Bleeding media (fade-to-background mask) ────────────────────────────── */
+/* Apply to a <video>, <img>, or any media element you want to dissolve into
+   the surrounding page rather than terminating in a hard rectangle. Edges
+   fade to transparent on all four sides via two linear-gradient masks
+   composited with `intersect`. Tune the fade depth per element by setting
+   `--media-bleed-fade` (default 10%). Pair with no border-radius and no
+   overflow-hidden on the parent — the mask supplies the visual boundary. */
+.media-bleed {
+  --media-bleed-fade: 10%;
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, black var(--media-bleed-fade), black calc(100% - var(--media-bleed-fade)), transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black var(--media-bleed-fade), black calc(100% - var(--media-bleed-fade)), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right,  transparent 0%, black var(--media-bleed-fade), black calc(100% - var(--media-bleed-fade)), transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black var(--media-bleed-fade), black calc(100% - var(--media-bleed-fade)), transparent 100%);
+  mask-composite: intersect;
+}
+
 /* ─── Segmented tab active indicator ─────────────────────────────────────── */
 /* Animated underline used by ElioSection / ColumbusFeatures tab bars.
    Width animates 0→100% over the cycle duration; pair with a `key` that

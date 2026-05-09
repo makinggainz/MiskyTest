@@ -287,20 +287,18 @@ export function ColumbusFeatures() {
 
           {/* Heading 1 */}
           <div className="mb-10 md:mb-20 text-center" data-reveal>
-            <div className="inline-flex items-center gap-3 justify-center">
+            <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black inline-flex items-center gap-3 justify-center">
               <img
                 src="/images/Columbo.png"
                 alt="Columbus"
-                className="h-10 w-auto object-contain"
+                className="h-[1em] w-auto object-contain"
                 style={{
                   filter:
                     "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
                 }}
               />
-              <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-                Columbus
-              </h2>
-            </div>
+              Columbus
+            </h2>
             <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
               All-in-one map intelligence platform.
             </p>
@@ -390,7 +388,7 @@ export function ColumbusFeatures() {
                       key={i}
                       src={logo.src}
                       alt={logo.alt}
-                      className="flex-none h-[48px] w-auto object-contain"
+                      className="flex-none h-[36px] w-auto object-contain"
                       style={{ filter: "grayscale(100%) opacity(0.5)" }}
                     />
                   ))}
@@ -412,10 +410,10 @@ export function ColumbusFeatures() {
           {/* GIS block — video + text */}
           <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-20 md:mt-[100px]">
             <div className="w-full lg:flex-1" data-reveal>
-              <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
+              <div className="relative h-[360px] md:h-[480px]">
                 <video
                   src="/images/No-GISVid.mp4"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="media-bleed absolute inset-0 w-full h-full object-cover"
                   autoPlay
                   loop
                   muted

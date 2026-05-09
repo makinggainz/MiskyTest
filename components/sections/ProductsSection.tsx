@@ -78,6 +78,12 @@ export function ProductsSection() {
         {/* Section heading — "Our current offerings:" removed */}
         <div className="mb-10 md:mb-20" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
+            <img
+              src="/images/mapIcon.png"
+              alt=""
+              aria-hidden="true"
+              className="inline-block h-[0.55em] w-auto object-contain align-super mr-1"
+            />
             We&rsquo;re all about maps and data.
           </h2>
         </div>

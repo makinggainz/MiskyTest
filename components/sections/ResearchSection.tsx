@@ -63,14 +63,14 @@ export function ResearchSection() {
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
             Research Blog
           </h2>
-          <p className="text-sm text-mistral-black/50 mt-3 max-w-[280px] mx-auto leading-relaxed">
+          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
             Explore the innovative research and recent papers from our team
           </p>
         </div>
 
         {/* Card row */}
         <div
-          className="grid grid-cols-1 md:grid-cols-[2.5fr_1fr_1fr_1fr] gap-4 md:gap-4 items-stretch mb-10 md:mb-16"
+          className="grid grid-cols-1 md:grid-cols-[2.5fr_1fr_1fr_1fr] gap-4 md:gap-6 items-stretch mb-10 md:mb-20"
           data-reveal
           data-reveal-delay="1"
         >
