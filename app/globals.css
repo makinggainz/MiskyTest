@@ -83,7 +83,7 @@ h1, h2, h3, h4 {
     var(--grid-color, hsl(var(--mistral-beige-deep))) var(--grid-thickness, 1px),
     transparent calc(var(--grid-thickness, 1px) + 0.5px)
   );
-  background-size: var(--grid-size-x, 50.12px) var(--grid-size-y, 50.14px);
+  background-size: 20px 20px;
   padding-top: 32px;
   padding-bottom: 32px;
 }
