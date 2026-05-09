@@ -64,6 +64,19 @@ h1, h2, h3, h4 {
   width: 145px;
 }
 
+/* Extend the section grid pattern beyond content vertically.
+   Overrides .bg-grid-pattern from utilities.css (declared later, same specificity). */
+.bg-grid-pattern {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .bg-grid-pattern {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
 /* ─── Scroll reveal ─────────────────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
@@ -85,5 +98,29 @@ h1, h2, h3, h4 {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+}
+
+/* ─── Segmented tab active indicator ─────────────────────────────────────── */
+/* Animated underline used by ElioSection / ColumbusFeatures tab bars.
+   Width animates 0→100% over the cycle duration; pair with a `key` that
+   changes per-tab to restart the animation when the active tab swaps. */
+@keyframes tab-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+.tab-progress-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--color-mistral-sunshine-600);
+  animation: tab-progress var(--tab-cycle-duration, 4s) linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-progress-line {
+    animation: none;
+    width: 100%;
   }
 }
