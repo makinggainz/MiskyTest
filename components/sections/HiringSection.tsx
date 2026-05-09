@@ -1,9 +1,14 @@
-const ROLE_CATEGORIES = [
-  "Engineering",
-  "Research",
-  "Design",
-  "Product",
-  "Go-to-Market",
+"use client";
+
+import { useState } from "react";
+
+const ROLES = ["Engineering", "Research", "Design", "Product", "Go-to-Market"];
+
+const AVATARS: { initials: string; top: string; left?: string; right?: string }[] = [
+  { initials: "AR", top: "18%", left: "12%" },
+  { initials: "MK", top: "55%", left: "22%" },
+  { initials: "JS", top: "20%", right: "18%" },
+  { initials: "LP", top: "60%", right: "12%" },
 ];
 
 function ArrowIcon() {
@@ -19,53 +24,136 @@ function ArrowIcon() {
 }
 
 export function HiringSection() {
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+
   return (
     <section className="py-10 md:py-[100px]">
       <div className="container bg-grid-pattern">
 
-        {/* Single big bordered card */}
+        {/* Heading */}
+        <div className="mb-10 md:mb-20 text-center" data-reveal>
+          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+            We&rsquo;re hiring humans.
+          </h2>
+          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
+            Building the future of geospatial AI.
+          </p>
+        </div>
+
+        {/* Decorative map graphic */}
         <div
-          className="border border-[#C7D7F8] rounded-[20px] p-8 md:p-16 flex flex-col gap-8 md:gap-12"
+          className="border border-[#C7D7F8] rounded-[20px] overflow-hidden mb-10 md:mb-20 h-[280px] md:h-[360px] relative"
+          style={{ background: "#dde3ea" }}
           data-reveal
+          data-reveal-delay="1"
         >
+          {/* Dot grid */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "radial-gradient(circle, #b8c2ce 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
+            }}
+          />
+          {/* Road lines */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="40%" x2="100%" y2="38%" stroke="#a4aeba" strokeWidth="3" />
+            <line x1="0" y1="65%" x2="100%" y2="63%" stroke="#a4aeba" strokeWidth="1.5" />
+            <line x1="30%" y1="0" x2="28%" y2="100%" stroke="#a4aeba" strokeWidth="2.5" />
+            <line x1="70%" y1="0" x2="72%" y2="100%" stroke="#a4aeba" strokeWidth="3.5" />
+            <rect x="38%" y="32%" width="24%" height="22%" fill="#c8d0da" opacity="0.5" rx="2" />
+          </svg>
 
-          {/* Top area: heading + descriptor */}
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
-            <h2 className="text-3xl md:text-5xl font-normal tracking-tight max-w-xl">
-              We&rsquo;re hiring humans.
-            </h2>
-            <p className="text-sm text-mistral-black/50 leading-relaxed max-w-sm md:self-end md:text-right">
-              We&rsquo;re a small team building something big. If maps, AI, and the
-              future of how people move through the world excites you &mdash; we&rsquo;d
-              love to talk.
-            </p>
+          {/* Floating team avatars */}
+          {AVATARS.map((a) => (
+            <div
+              key={a.initials}
+              className="absolute size-10 rounded-full bg-white shadow-sm border border-[#C7D7F8] flex items-center justify-center text-xs font-semibold text-mistral-black/60"
+              style={{ top: a.top, left: a.left, right: a.right }}
+            >
+              {a.initials}
+            </div>
+          ))}
+
+          {/* Centre badge */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-white rounded-[20px] shadow-sm border border-[#C7D7F8] px-8 py-5 flex flex-col items-center gap-1.5">
+              <span className="text-base font-semibold text-mistral-black tracking-tight">Join the team.</span>
+              <span className="text-xs text-mistral-black/40">We&rsquo;re just getting started.</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Application form */}
+        <div
+          className="border border-[#C7D7F8] rounded-[20px] p-8 md:p-12 flex flex-col gap-6"
+          data-reveal
+          data-reveal-delay="2"
+        >
+          {/* Name + Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Name</label>
+              <input
+                type="text"
+                placeholder="Your name"
+                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Email</label>
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+              />
+            </div>
           </div>
 
-          {/* Role category pills */}
-          <div className="flex flex-wrap gap-3" data-reveal data-reveal-delay="1">
-            {ROLE_CATEGORIES.map((role) => (
-              <span
-                key={role}
-                className="px-5 py-2.5 rounded-full border border-[#C7D7F8] bg-background text-sm text-mistral-black/70"
-              >
-                {role}
-              </span>
-            ))}
+          {/* Role interest */}
+          <div className="flex flex-col gap-3">
+            <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Role interest</label>
+            <div className="flex flex-wrap gap-2">
+              {ROLES.map((role) => (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => setSelectedRole(role === selectedRole ? null : role)}
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                    selectedRole === role
+                      ? "bg-mistral-black text-white"
+                      : "border border-[#C7D7F8] bg-background text-mistral-black/70 hover:border-mistral-black/30"
+                  }`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* CTA button */}
-          <div data-reveal data-reveal-delay="2">
-            <a
-              href="#"
+          {/* Message */}
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Tell us about yourself</label>
+            <textarea
+              rows={5}
+              placeholder="What draws you to this work? What have you built that you're proud of?"
+              className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
+            />
+          </div>
+
+          {/* Submit */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              onClick={(e) => e.preventDefault()}
               className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
             >
-              See open roles
+              Send application
               <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
                 <ArrowIcon />
               </span>
-            </a>
+            </button>
           </div>
-
         </div>
 
       </div>
