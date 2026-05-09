@@ -100,13 +100,16 @@ export function DataSourcesSection() {
           {/* GIS block — image + text */}
           <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-20 md:mt-[100px]">
 
-            {/* Left: image */}
+            {/* Left: video */}
             <div className="w-full lg:flex-1" data-reveal>
               <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
-                <img
-                  src="/images/CityScape.png"
-                  alt="Columbus GIS in action"
+                <video
+                  src="/images/No-GISVid.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                 />
               </div>
             </div>
