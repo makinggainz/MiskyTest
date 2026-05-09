@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { MapShape } from "@/components/MapShape";
 
 // Three cinematic feature scenes per consumer-spec §13. Zigzag layout
 // (Felt-style alternation), each with a native MistX UI mock instead of a
@@ -96,14 +95,14 @@ function PlanTogetherVisual() {
   return (
     <div
       className="relative h-[420px] md:h-[520px] rounded-[20px] overflow-hidden flex flex-col gap-4 p-6 md:p-8"
-      style={{ background: "#f0f3f8" }}
+      style={{ background: "#F2EBE0" }}
     >
       {/* Avatar row */}
       <div className="flex items-center gap-2">
         {avatars.map((av) => (
           <span
             key={av.initials}
-            className="size-9 rounded-full flex items-center justify-center text-[11px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
+            className="size-9 rounded-full flex items-center justify-center text-[11px] font-semibold text-mistral-black/70 shrink-0 border border-[color:var(--color-elio-border,#C7D7F8)]"
             style={{ background: av.bg }}
           >
             {av.initials}
@@ -113,14 +112,14 @@ function PlanTogetherVisual() {
       </div>
 
       {/* Plan card with vote bars */}
-      <div className="bg-white border border-[#C7D7F8] rounded-[16px] px-4 py-4 flex flex-col gap-3 shadow-sm">
+      <div className="bg-white border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[20px] px-4 py-4 flex flex-col gap-3 shadow-sm">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <p className="text-[10px] text-mistral-black/40 uppercase tracking-wider font-semibold mb-0.5">Tonight</p>
-            <p className="text-sm font-semibold text-mistral-black">Dinner in Trastevere</p>
+            <p className="text-[10px] text-mistral-black/40 uppercase tracking-wider font-bold mb-0.5">Tonight</p>
+            <p className="text-sm font-bold text-mistral-black">Dinner in Trastevere</p>
             <p className="text-xs text-mistral-black/50">Saturday · 8:00 PM · Roma</p>
           </div>
-          <span className="text-[10px] bg-[#f0f3f8] border border-[#C7D7F8] text-mistral-black/60 px-2.5 py-1 rounded-full shrink-0">
+          <span className="text-[10px] bg-[#F2EBE0] border border-[color:var(--color-elio-border,#C7D7F8)] text-mistral-black/60 px-2.5 py-1 rounded-full shrink-0">
             4 going
           </span>
         </div>
@@ -128,16 +127,16 @@ function PlanTogetherVisual() {
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-mistral-black/50">Da Enzo al 29</span>
-            <span className="text-[10px] font-semibold text-mistral-black">3 votes</span>
+            <span className="text-[10px] font-bold text-mistral-black">3 votes</span>
           </div>
-          <div className="h-1.5 rounded-full bg-[#C7D7F8] overflow-hidden">
+          <div className="h-1.5 rounded-full bg-[color:var(--color-elio-border,#C7D7F8)] overflow-hidden">
             <div className="h-full rounded-full bg-mistral-black" style={{ width: "75%" }} />
           </div>
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-mistral-black/50">Tonnarello</span>
-            <span className="text-[10px] font-semibold text-mistral-black">1 vote</span>
+            <span className="text-[10px] font-bold text-mistral-black">1 vote</span>
           </div>
-          <div className="h-1.5 rounded-full bg-[#C7D7F8] overflow-hidden">
+          <div className="h-1.5 rounded-full bg-[color:var(--color-elio-border,#C7D7F8)] overflow-hidden">
             <div className="h-full rounded-full bg-mistral-black/40" style={{ width: "25%" }} />
           </div>
         </div>
@@ -147,23 +146,23 @@ function PlanTogetherVisual() {
       <div className="flex flex-col gap-2 mt-auto">
         <div className="flex items-start gap-2">
           <span
-            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
+            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[color:var(--color-elio-border,#C7D7F8)]"
             style={{ background: "#dde3ea" }}
           >
             AL
           </span>
-          <div className="bg-white border border-[#C7D7F8] rounded-[10px] rounded-tl-[4px] px-3 py-2 shadow-sm max-w-[80%]">
+          <div className="bg-white border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[10px] px-3 py-2 shadow-sm max-w-[80%]">
             <p className="text-[10px] text-mistral-black/70">Da Enzo it is — booked for 8.</p>
           </div>
         </div>
         <div className="flex items-start gap-2">
           <span
-            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
+            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[color:var(--color-elio-border,#C7D7F8)]"
             style={{ background: "#e8ddf0" }}
           >
             MR
           </span>
-          <div className="bg-white border border-[#C7D7F8] rounded-[10px] rounded-tl-[4px] px-3 py-2 shadow-sm max-w-[80%]">
+          <div className="bg-white border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[10px] px-3 py-2 shadow-sm max-w-[80%]">
             <p className="text-[10px] text-mistral-black/70">🎉</p>
           </div>
         </div>
@@ -194,7 +193,7 @@ function RollTheDiceVisual() {
     <div
       className="relative h-[420px] md:h-[520px] rounded-[20px] overflow-hidden flex items-center justify-center"
       style={{
-        background: `radial-gradient(ellipse 80% 45% at 0% 0%, rgba(0,177,212,0.18) 0%, transparent 100%), radial-gradient(ellipse 80% 45% at 100% 0%, rgba(95,191,241,0.18) 0%, transparent 100%), #FFFFFF`,
+        background: `radial-gradient(ellipse 80% 45% at 0% 0%, rgba(245,200,140,0.22) 0%, transparent 100%), radial-gradient(ellipse 80% 45% at 100% 0%, rgba(232,176,112,0.20) 0%, transparent 100%), #FBF6EE`,
       }}
     >
       {emojis.map((emoji) => (
@@ -288,8 +287,16 @@ const SCENES: Scene[] = [
 
 export function ElioFeatureScenes() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="top-left" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/palm-left.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top left",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container bg-grid-pattern relative z-10">
 
         {SCENES.map((s, i) => (
@@ -300,7 +307,7 @@ export function ElioFeatureScenes() {
           >
             {/* Text */}
             <div className="w-full lg:flex-1 lg:max-w-[480px] flex flex-col gap-5">
-              <span className="text-xs uppercase tracking-widest font-semibold text-mistral-black/45">
+              <span className="text-xs uppercase tracking-widest font-bold text-mistral-black/45">
                 {s.eyebrow}
               </span>
               <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">

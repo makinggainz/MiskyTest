@@ -1,4 +1,3 @@
-import { MapShape } from "@/components/MapShape";
 import { AppStoreBadge, PlayStoreBadge, StarRating } from "@/components/StoreBadges";
 
 // Final CTA per consumer-spec §21. Cinematic-minimal — restated identity
@@ -20,8 +19,16 @@ function ArrowIcon() {
 
 export function ElioFinalCTA() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="left-edge" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/parasol-right.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container relative z-10">
 
         <div className="text-center max-w-2xl mx-auto" data-reveal>
@@ -31,11 +38,11 @@ export function ElioFinalCTA() {
           <p className="mt-6 md:mt-12 text-sm md:text-base leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
             Free. Smarter. Made for the next thing on your list.
           </p>
-          <div className="mt-8 md:mt-12 flex flex-col items-center gap-5">
+          <div className="mt-10 md:mt-20 flex flex-col items-center gap-6">
             <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4">
               <a
                 href="#"
-                className="group rounded-[7px] inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                className="group rounded-[7px] inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm transition-colors hover:bg-mistral-black/80"
               >
                 Try Elio in browser
                 <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
@@ -48,8 +55,7 @@ export function ElioFinalCTA() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
               <StarRating />
               <span className="text-mistral-black/30" aria-hidden="true">·</span>
-              <span className="inline-flex items-center gap-1.5 text-xs md:text-sm font-medium text-mistral-black/55">
-                <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span className="inline-flex items-center text-xs md:text-sm text-mistral-black/55">
                 Free, forever
               </span>
             </div>

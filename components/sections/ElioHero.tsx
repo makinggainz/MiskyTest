@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { MapShape } from "@/components/MapShape";
 import { AppStoreBadge, PlayStoreBadge, StarRating } from "@/components/StoreBadges";
 
 // Consumer hero per consumer-landing-page-specification §11. Identity-driven
@@ -27,10 +26,14 @@ export function ElioHero() {
   return (
     <section
       className="relative min-h-screen pt-nav pb-10 md:pb-[100px]"
-      style={{ backgroundColor: "var(--color-background)" }}
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/ElioBackground2.png')",
+        backgroundSize: "100% auto",
+        backgroundPosition: "top center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
-      <MapShape placement="top-center" opacity={0.32} />
-
       <div className="container pt-32 md:pt-48 lg:pt-[228px] relative z-10">
 
         {/* Headline — centered upper third */}
@@ -39,7 +42,7 @@ export function ElioHero() {
           data-reveal
         >
           {/* Brand mark */}
-          <div className="inline-flex items-center gap-2.5 text-lg md:text-xl font-medium tracking-tight text-mistral-black/65">
+          <div className="inline-flex items-center gap-2.5 text-lg md:text-xl tracking-tight text-mistral-black/65">
             <img
               src="/images/mapsgpt-logo.png"
               alt=""
@@ -58,7 +61,7 @@ export function ElioHero() {
           </p>
 
           {/* Primary CTA + App-store placeholders + free chip */}
-          <div className="flex flex-col items-center gap-5 md:gap-6">
+          <div className="flex flex-col items-center gap-6">
             <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4">
               <a
                 className="group rounded-[7px] px-5 py-2.5 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
@@ -76,8 +79,7 @@ export function ElioHero() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
               <StarRating />
               <span className="text-mistral-black/30" aria-hidden="true">·</span>
-              <span className="inline-flex items-center gap-1.5 text-xs md:text-sm font-medium text-mistral-black/55">
-                <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span className="inline-flex items-center text-xs md:text-sm text-mistral-black/55">
                 Free, forever
               </span>
             </div>
@@ -87,7 +89,7 @@ export function ElioHero() {
         {/* Platform screenshot — masked so the bottom fades seamlessly into the page background, matching the /enterprise hero treatment */}
         <div className="mt-12 md:mt-20 relative" data-reveal data-reveal-delay="1">
           <img
-            src="/images/elio/desk.png"
+            src="/images/elio/desk-darkborder.png"
             alt="Elio platform — Madrid map view with conversational chat panel"
             className="block w-full h-auto"
             style={{

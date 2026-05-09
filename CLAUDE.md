@@ -134,6 +134,27 @@ All sections must use these values. Never use `my-10 md:my-24` (margin-based sec
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.
 
+### Page-scoped color exceptions
+
+**Standing rule.** The cool pale-blue base palette (`--color-background`, the `mistral-beige-deep` border family, and the `mistral-sunshine-*` accents) is the default for every page in the project. Individual pages may override this base **only when explicitly authorised** as a documented exception below. New page-level color exceptions require a CLAUDE.md / design-system.md entry before shipping; an undocumented override is a defect.
+
+**How an exception is implemented.** A `theme-{route}` class is applied to the route's outermost element (`<main className="theme-X bg-background">…`). The exception ships as **two CSS rules** in `globals.css`:
+
+1. `body:has(.theme-X) { … }` — re-declares `--color-background` (and any neighbouring tokens). Hoisting to `body` means the `<Nav />` (a sibling of `<main>`, not a descendant) also inherits the override via the CSS custom-property cascade. The `:has()` selector ensures the variable redeclaration only fires when the route is active.
+2. `.theme-X { background-image: …; --grid-color: …; }` — optionally paints a soft `background-image` overlay (radial / linear gradients in the new palette) so the page reads as a deliberate atmosphere rather than a flat fill, and overrides any *contextual* utility variables (e.g. `--grid-color` for `.bg-grid-pattern`) so global utilities pick up the page-scoped palette. This rule stays scoped to the page surface so the gradient does not bleed onto the Nav.
+
+The `<SiteFooter />` is unaffected by the variable override because it uses its own dark gradient image, not `var(--color-background)`. If a future exception wants to retheme the footer too, override its `background:` declaration explicitly.
+
+**Companion-token rule.** When a page exception introduces a palette that diverges from the global cool-blue family, **every cool-blue token the page consumes must have a warm companion** declared on `body:has(.theme-X)`. Naming convention is `--color-{route}-{role}` (e.g. `--color-elio-border`, `--color-elio-grid-dot`). Components inside the page reference these companions via `border-[color:var(--color-{route}-border,#FALLBACK)]` so the cool-blue value remains the global default and the warm value only takes effect inside the themed page. Without companion tokens, the page leaks the cool-blue family through borders, dots, and chips against a warm canvas — that visual dissonance is the defect this rule prevents.
+
+**Approved exceptions.**
+
+| Route | Class | Override | Surfaces affected | Why |
+|---|---|---|---|---|
+| `/elio` | `.theme-elio` | `--color-background: #F5EEE7`; companion stops `--color-elio-bg-light: #F7F1EA`, `--color-elio-bg-dark: #EFE6DD`; **warm companion tokens** `--color-elio-border: #D8C8AE` (replaces global `#C7D7F8` borders) and `--color-elio-grid-dot: #E5D9C5` (warms `.bg-grid-pattern` via `--grid-color` override on `.theme-elio`); soft warm radial gradient overlay on `<main>` | Page surface, Nav, every Elio section's hairline borders and dot grid. (Footer keeps its global dark gradient.) | Beach / sun-warmed-sand register for the consumer travel-discovery product. The cool pale-blue base reads as enterprise SaaS; the warm beige reads as lifestyle. The page also opts out of the global `MapShape` decoration. |
+
+The `.theme-elio` rule lives in [`app/globals.css`](app/globals.css) under "Page-scoped color exception: /elio". Pair any future exception with a row in the table above, a companion-token block, and the corresponding section in [`design-system/design-system.md`](design-system/design-system.md). **Note: `--color-elio-*` tokens are page-scoped — do NOT promote them to global tokens or use them outside `/elio`.**
+
 ## Visual design intent — read before building any new UI
 
 > This section exists because token knowledge alone is not enough. Knowing the palette doesn't tell you which part of the palette to use. These rules define the visual personality of the site and prevent generic, out-of-context design decisions.

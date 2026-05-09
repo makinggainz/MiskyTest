@@ -30,7 +30,7 @@ export const metadata = {
 //   ─ Mobile-only StickyDownloadBar, fixed bottom (§25)
 export default function ElioPage() {
   return (
-    <main className="bg-background">
+    <main className="theme-elio bg-background">
       <ElioHero />
       <ElioFeatureScenes />
       <ElioPromptGallery />

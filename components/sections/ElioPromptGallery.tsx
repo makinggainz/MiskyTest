@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { MapShape } from "@/components/MapShape";
 
 // Lifestyle-led UGC-style gallery per consumer-spec §14 (Lifestyle/UGC) +
 // §32 (Instagram-grid principle). Six cards, each a real-feeling moment-of-
@@ -54,8 +53,16 @@ const ASKS = [
 
 export function ElioPromptGallery() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="bottom-left" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/plants-right.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container bg-grid-pattern relative z-10">
 
         <div className="mb-10 md:mb-20 text-center" data-reveal>
@@ -75,7 +82,7 @@ export function ElioPromptGallery() {
           {ASKS.map((a) => (
             <div
               key={a.query}
-              className="border border-[#C7D7F8] rounded-[20px] overflow-hidden bg-background flex flex-col"
+              className="border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[20px] overflow-hidden bg-background flex flex-col"
             >
               {/* Photo with place overlay */}
               <div className="relative aspect-[4/3] overflow-hidden">
@@ -91,17 +98,17 @@ export function ElioPromptGallery() {
                 />
                 <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
                   <div className="flex flex-col">
-                    <span className="text-[13px] font-semibold text-white leading-tight drop-shadow-sm">{a.place}</span>
+                    <span className="text-[13px] font-bold text-white leading-tight drop-shadow-sm">{a.place}</span>
                     <span className="text-[11px] text-white/80 leading-tight drop-shadow-sm">{a.location}</span>
                   </div>
-                  <span className="text-[11px] font-semibold bg-white/95 text-mistral-black px-2 py-0.5 rounded-full shrink-0">
+                  <span className="text-[11px] bg-white/95 text-mistral-black px-2 py-0.5 rounded-full shrink-0">
                     {a.rating} ★
                   </span>
                 </div>
               </div>
 
               {/* Query line */}
-              <div className="px-5 py-4 flex items-start gap-3 border-t border-[#C7D7F8]">
+              <div className="px-5 py-4 flex items-start gap-3 border-t border-[color:var(--color-elio-border,#C7D7F8)]">
                 <span
                   className="size-5 shrink-0 mt-0.5 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
                   style={{ background: "var(--color-mistral-orange, #154ACC)" }}

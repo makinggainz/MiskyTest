@@ -1,5 +1,3 @@
-import { MapShape } from "@/components/MapShape";
-
 // User testimonials per consumer-spec §15 + §36 (identity-tag principle).
 // Three placeholder testimonials with names and identity tags. Avatars are
 // rendered as colored monogram circles to avoid stock-photo anti-patterns
@@ -35,8 +33,16 @@ const TESTIMONIALS = [
 
 export function ElioTestimonials() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="bottom-right" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/parasol-left.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top left",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container bg-grid-pattern relative z-10">
 
         <div className="mb-10 md:mb-20 text-center" data-reveal>
@@ -56,7 +62,7 @@ export function ElioTestimonials() {
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="border border-[#C7D7F8] rounded-[20px] bg-background p-6 md:p-8 flex flex-col gap-6"
+              className="border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[20px] bg-background p-6 md:p-8 flex flex-col gap-6"
             >
               <blockquote
                 className="text-base md:text-lg text-mistral-black/80 leading-relaxed flex-1"
@@ -64,14 +70,14 @@ export function ElioTestimonials() {
               />
               <figcaption className="flex items-center gap-3 mt-auto">
                 <span
-                  className="size-10 rounded-full flex items-center justify-center text-[12px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
+                  className="size-10 rounded-full flex items-center justify-center text-[12px] text-mistral-black/70 shrink-0 border border-[color:var(--color-elio-border,#C7D7F8)]"
                   style={{ background: t.bg }}
                   aria-hidden="true"
                 >
                   {t.initials}
                 </span>
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-mistral-black leading-tight">{t.name}</span>
+                  <span className="text-sm font-bold text-mistral-black leading-tight">{t.name}</span>
                   <span className="text-xs text-mistral-black/55 italic leading-tight mt-0.5">{t.tag}</span>
                 </div>
               </figcaption>

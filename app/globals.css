@@ -154,6 +154,50 @@ h1, h2, h3, h4 {
   mask-image: radial-gradient(circle closest-side at center, black var(--media-bleed-radius), transparent var(--media-bleed-feather));
 }
 
+/* ─── Page-scoped color exception: /elio (beach-inspired) ───────────────────── */
+/* Per CLAUDE.md "Page-scoped color exceptions": the /elio consumer page is the
+   only place in the project that overrides the cool pale-blue base palette. It
+   uses a warm beige/off-white background to evoke beach / sun-warmed-sand. The
+   exception is opt-in: the page's <main> element gets the `.theme-elio` class.
+
+   Why the variable redeclaration sits on `body:has(.theme-elio)`, not on
+   `.theme-elio` itself: the global <Nav /> is a *sibling* of <main>, not a
+   descendant, so a class scope on <main> alone wouldn't reach it. Hoisting
+   the redeclaration to the body lets the warm palette cascade to every
+   element on the page (Nav included) only when /elio is the active route.
+   The radial-gradient overlay stays on `.theme-elio` itself so it paints
+   the page surface without bleeding into the Nav.
+
+   Tokens redeclared / introduced (ALL scoped to /elio only — do NOT promote
+   to global tokens; this is a deliberate page-scoped palette exception):
+     --color-background       overrides the global pale-blue base (#F5EEE7)
+     --color-elio-bg-light    soft sand highlight (#F7F1EA)
+     --color-elio-bg-dark     softly recessed sand (#EFE6DD)
+     --color-elio-border      warm-tan hairline replacing the cool #C7D7F8 family
+                              that the rest of the project uses (#D8C8AE)
+     --color-elio-grid-dot    warm dot tint for `.bg-grid-pattern` so the
+                              section-grid backdrop matches the warm bg (#E5D9C5)
+
+   The `--grid-color` override below makes every `.bg-grid-pattern` element
+   inside the elio theme paint warm dots instead of the global cool-blue
+   ones, without touching the global utility. */
+body:has(.theme-elio) {
+  --color-background: #F5EEE7;
+  --color-elio-bg-light: #F7F1EA;
+  --color-elio-bg-dark: #EFE6DD;
+  --color-elio-border: #D8C8AE;
+  --color-elio-grid-dot: #E5D9C5;
+}
+
+.theme-elio {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 12% 4%, var(--color-elio-bg-light), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 88% 96%, var(--color-elio-bg-dark), transparent 65%);
+  background-attachment: fixed;
+  /* Warm dot grid for `.bg-grid-pattern` inside the elio page only. */
+  --grid-color: var(--color-elio-grid-dot);
+}
+
 /* ─── Segmented tab active indicator ─────────────────────────────────────── */
 /* Animated underline used by ElioSection / ColumbusFeatures tab bars.
    Width animates 0→100% over the cycle duration; pair with a `key` that

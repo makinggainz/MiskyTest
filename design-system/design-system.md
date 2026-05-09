@@ -222,6 +222,70 @@ These are also the **rainbow gradient** stops — the horizontal blue stripe ban
 
 Standard Tailwind palette tokens shipped in the bundle (`--color-blue-50` through `--color-blue-900`, etc.). Available, but Mistral's own design uses these sparingly — prefer `mistral-*` tokens for brand consistency.
 
+### 1.10 Page-scoped color exceptions
+
+The cool pale-blue base palette in §1.1 – §1.8 is the default for every route. Individual pages may override this base **only when explicitly authorised below**. Page-level color overrides are an exception, not a pattern — every new exception must land in this table together with a `theme-{route}` class in [`app/globals.css`](../app/globals.css).
+
+**Mechanism.** A `theme-{route}` class is applied to the route's outermost element:
+
+```tsx
+<main className="theme-elio bg-background">
+  {/* page content */}
+</main>
+```
+
+The exception ships as **two CSS rules**:
+
+```css
+/* 1. Variable redeclaration on body — so <Nav /> (sibling of <main>) also inherits */
+body:has(.theme-elio) {
+  --color-background: #F5EEE7;
+  --color-elio-bg-light: #F7F1EA;
+  --color-elio-bg-dark: #EFE6DD;
+  /* Warm companion tokens — every cool-blue token consumed inside the page
+     gets a warm replacement so the page doesn't leak the global palette. */
+  --color-elio-border: #D8C8AE;     /* warm-tan border — replaces #C7D7F8 */
+  --color-elio-grid-dot: #E5D9C5;   /* warm dot for .bg-grid-pattern */
+}
+
+/* 2. Atmosphere overlay + utility-variable overrides scoped to the page
+      surface (won't bleed onto Nav). Override --grid-color so any
+      .bg-grid-pattern inside the elio page paints warm dots. */
+.theme-elio {
+  background-image:
+    radial-gradient(ellipse 90% 60% at 12% 4%, var(--color-elio-bg-light), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 88% 96%, var(--color-elio-bg-dark), transparent 65%);
+  background-attachment: fixed;
+  --grid-color: var(--color-elio-grid-dot);
+}
+```
+
+**Why two rules instead of one.** The global `<Nav />` is a *sibling* of `<main>`, not a descendant — a class scope on `<main>` alone wouldn't reach it. Hoisting the variable redeclaration to `body:has(.theme-elio)` lets the warm palette cascade to every element under body (Nav included) only when the route is active. The radial gradient and contextual utility overrides (`--grid-color`) stay scoped to `.theme-elio` itself so the page surface paints with atmosphere but the Nav stays a clean flat fill of the warm color.
+
+**What's automatically covered, and what isn't.** The variable cascade fixes any element that consumes `var(--color-background)` directly or via the `bg-background` Tailwind utility. That covers Nav (`bg-background` on its sticky bar), all section cards on /elio (`bg-background`), and the page wrapper. Cool-blue *borders* and *grid dots* are NOT automatically covered — those are hardcoded hex values inside components (e.g. `border-[#C7D7F8]`). To cover them, components on the themed page must reference the warm companion via the variable form: `border-[color:var(--color-elio-border,#C7D7F8)]`. The cool hex stays as a fallback so the same component renders correctly on a non-themed page. The `<SiteFooter />` is *not* covered because it uses its own dark gradient image, not the variable — that's intentional, but if a future exception wants to retheme the footer, override `SiteFooter`'s `background:` declaration explicitly inside `body:has(.theme-X) [data-site-footer]` or similar.
+
+Use `background-attachment: fixed` on the page-level overlay so the gradient anchors to the viewport rather than scrolling with the document — without it, the warm gradient slides up the page as the user scrolls and the bottom of long pages reverts to flat color.
+
+**Companion-token rule.** When a page exception introduces a palette that diverges from the global cool-blue family, **every cool-blue token the page's components consume must have a warm companion** declared on the same `body:has(.theme-X)` scope. Naming convention: `--color-{route}-{role}` (e.g. `--color-elio-border`, `--color-elio-grid-dot`). The exception is incomplete until every place a component reaches for `#C7D7F8`, the global grid dot, or any other cool-family token has either (a) been routed through a companion via `var(--color-{route}-X, FALLBACK)`, or (b) been deliberately approved to keep the cool color (rare). Without this discipline the page leaks blue borders, dots, and chips against a warm canvas — that visual dissonance is the defect this rule prevents.
+
+**Approved exceptions.**
+
+| Route | Class | Tokens declared | Surfaces affected | Visual register | Why |
+|---|---|---|---|---|---|
+| `/elio` | `.theme-elio` | `--color-background: #F5EEE7`, `--color-elio-bg-light: #F7F1EA`, `--color-elio-bg-dark: #EFE6DD`, **warm companions** `--color-elio-border: #D8C8AE` (replaces global `#C7D7F8` borders), `--color-elio-grid-dot: #E5D9C5` (warms `.bg-grid-pattern` via `--grid-color` override on `.theme-elio`) | Page surface + Nav. Every Elio section's hairline borders and dot grid. Footer retains its global dark gradient. | Beach / sun-warmed sand. Two soft radial gradients (light from top-left, dark from bottom-right) drift the warm tone across the page; warm tan hairlines replace the cool blue ones. The `MapShape` cartographic silhouette decorations are also opted out for this page (the page uses `BeachShape` instead). | Elio is the consumer travel-discovery product. The cool pale-blue base reads as enterprise SaaS; warm beige reads as lifestyle. |
+
+**Rules for adding an exception:**
+
+1. The class lives in [`app/globals.css`](../app/globals.css) under a `Page-scoped color exception` comment block. It does NOT live in `tokens.css` — those tokens are global; exceptions are scoped.
+2. Re-use the existing `--color-background` name. Do not add new token names like `--color-elio-bg`. The whole point of CSS-variable scoping is that consumer components don't know which palette they're rendering against.
+3. Companion stops (highlights, recessed shades) and warm-companion replacements for cool-blue tokens (e.g. `--color-elio-border`, `--color-elio-grid-dot`) get prefixed token names. **These prefixed tokens are page-scoped — never reference them outside the themed page, never promote them to global tokens.**
+4. Component-level cool-blue references (e.g. `border-[#C7D7F8]`) inside the themed page must be rewritten to consume the warm companion via `border-[color:var(--color-{route}-X, #FALLBACK)]`. Keeping the cool hex as the fallback means the same component still renders correctly when used on a non-themed page.
+5. Add the exception to the table above AND to the corresponding §"Page-scoped color exceptions" section in `CLAUDE.md` in the same commit. Drift between the two is a defect.
+
+**When NOT to use this mechanism:**
+- Component-level color tweaks (a single card with a different bg). Use a per-component `style={{}}` or Tailwind class — don't introduce a theme class for one element.
+- Brand-wide palette evolution. If the cool base no longer fits the product, change the global tokens, not a scoped override.
+
 ---
 
 ## 2. Typography

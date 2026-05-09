@@ -1,5 +1,3 @@
-import { MapShape } from "@/components/MapShape";
-
 // Brand values band per consumer-spec §17 + §33. Four claims that a
 // sophisticated consumer visitor would recognise as a stance, not as
 // generic "we care about quality" filler. The "Free, forever." card is the
@@ -30,8 +28,16 @@ const VALUES = [
 
 export function ElioValues() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="top-right" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/palm-right.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container bg-grid-pattern relative z-10">
 
         <div className="mb-10 md:mb-20 text-center" data-reveal>
@@ -48,9 +54,9 @@ export function ElioValues() {
           {VALUES.map((v) => (
             <div
               key={v.title}
-              className="border border-[#C7D7F8] rounded-[20px] bg-background p-6 md:p-8 flex flex-col gap-3"
+              className="border border-[color:var(--color-elio-border,#C7D7F8)] rounded-[20px] bg-background p-6 md:p-8 flex flex-col gap-3"
             >
-              <h3 className="text-base md:text-lg font-semibold text-mistral-black leading-snug">
+              <h3 className="text-base md:text-lg font-bold text-mistral-black leading-snug">
                 {v.title}
               </h3>
               <p className="text-sm text-mistral-black/60 leading-relaxed">

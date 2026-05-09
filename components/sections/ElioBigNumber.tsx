@@ -1,5 +1,3 @@
-import { MapShape } from "@/components/MapShape";
-
 // Big-number social proof per consumer-spec §19. Single dramatic number with
 // two complementary smaller stats. Numbers are PLACEHOLDERS — replace with
 // real, defensible figures when data is available. Per spec anti-pattern,
@@ -14,8 +12,16 @@ const STATS = [
 
 export function ElioBigNumber() {
   return (
-    <section className="relative py-10 md:py-[100px]">
-      <MapShape placement="right-edge" />
+    <section
+      className="relative py-10 md:py-[100px]"
+      style={{
+        backgroundColor: "var(--color-background)",
+        backgroundImage: "url('/images/elio/plants-left.png')",
+        backgroundSize: "50% auto",
+        backgroundPosition: "top left",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="container relative z-10">
 
         <div className="text-center max-w-3xl mx-auto" data-reveal>
