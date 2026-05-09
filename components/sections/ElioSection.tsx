@@ -1,40 +1,163 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const TAB_CYCLE_MS = 4000;
 
 const TABS = [
   {
-    id: "ask-elio" as const,
-    label: "Ask Elio anything",
-    headline: "Ask anything, go anywhere.",
-    body: "Chat with Elio like your most knowledgeable local friend. Ask anything from hidden gems to the busiest happy hours nearby.",
-    cta: "Try Elio",
+    id: "ranked-spots" as const,
+    label: "Ranked Spots",
+    headline: "Ranked spots, curated for you.",
+    body: "Every place ranked by the things that actually matter — vibe, crowd, value, the time of day. The best of any city, ordered the way locals would.",
+    cta: "Try it now",
   },
   {
-    id: "group-plans" as const,
-    label: "Create group plans",
-    headline: "Planning together, finally easy.",
-    body: "Invite your crew, drop pins, chat about options. Group trip planning without the group chat chaos.",
-    cta: "Plan with friends",
+    id: "shared-itineraries" as const,
+    label: "Shared Itineraries",
+    headline: "Itineraries you build together.",
+    body: "Invite your crew, drop pins, swap notes. A shared trip plan that updates in real time — without the group-chat chaos.",
+    cta: "Try it now",
   },
   {
-    id: "vote-places" as const,
-    label: "Vote on places",
-    headline: "Let the group decide.",
-    body: "Share a shortlist and let everyone vote. Majority rules, no more endless back-and-forth.",
-    cta: "Start voting",
+    id: "search-by-character" as const,
+    label: "Search by Character",
+    headline: "Find a place that matches your mood.",
+    body: "Search by character, not category. Tell Elio you want \"quiet, candle-lit, walking distance\" and you'll get a shortlist that actually fits.",
+    cta: "Try it now",
   },
   {
-    id: "itineraries" as const,
-    label: "Travel itineraries",
-    headline: "Your trip, fully mapped.",
-    body: "Elio turns your wishlist into a day-by-day itinerary with routes, reservations, and local tips.",
-    cta: "Build my trip",
+    id: "roll-the-dice" as const,
+    label: "Roll the Dice",
+    headline: "Let chance pick your next spot.",
+    body: "Stuck deciding? Tap once and Elio surfaces three surprise picks tuned to where you are and what you've liked. Tap to reveal.",
+    cta: "Try it now",
   },
 ] as const;
 
 type TabId = typeof TABS[number]["id"];
+
+// ── NewAtMapsGPT-style fanned-card visual data ────────────────────────────────
+// Sourced from /products/mapsgpt → NewAtMapsGPTSection.FEATURES, adapted to MistX.
+
+type MiniCard = { image: string; title: string; subtitle: string };
+type EmojiDeco = { src: string; size: number; left: string; top: string };
+
+type FanVisualData = {
+  bgColorA: string;
+  bgColorB: string;
+  miniCards: [MiniCard, MiniCard, MiniCard];
+  emojis: EmojiDeco[];
+};
+
+const FAN_VISUALS: Record<TabId, FanVisualData> = {
+  "ranked-spots": {
+    bgColorA: "#5FBFF1",
+    bgColorB: "#01A35D",
+    miniCards: [
+      { image: "/images/favorite-spots/22.jpeg", title: "Sunset Terrace", subtitle: "Top-rated rooftop, Roma" },
+      { image: "/images/favorite-spots/20.jpeg", title: "Casa Verde", subtitle: "Best brunch in Trastevere" },
+      { image: "/images/favorite-spots/24.jpeg", title: "La Lucciola", subtitle: "Locals' aperitivo pick" },
+    ],
+    emojis: [
+      { src: "/images/emojis/passport.png", size: 56, left: "5%", top: "60%" },
+      { src: "/images/emojis/plane.png", size: 60, left: "75%", top: "10%" },
+    ],
+  },
+  "shared-itineraries": {
+    bgColorA: "#DE2F32",
+    bgColorB: "#B00098",
+    miniCards: [
+      { image: "/images/favorite-spots/23.jpeg", title: "Day 1 — Friday", subtitle: "Dinner + nightcap, 4 spots" },
+      { image: "/images/favorite-spots/14.jpeg", title: "Day 2 — Saturday", subtitle: "Brunch, gallery, sunset" },
+      { image: "/images/favorite-spots/17.jpeg", title: "Day 3 — Sunday", subtitle: "Slow lunch, train home" },
+    ],
+    emojis: [
+      { src: "/images/emojis/champ.png", size: 54, left: "7%", top: "12%" },
+      { src: "/images/emojis/martini.png", size: 52, left: "76%", top: "58%" },
+    ],
+  },
+  "search-by-character": {
+    bgColorA: "#0A6E5C",
+    bgColorB: "#2A8FC2",
+    miniCards: [
+      { image: "/images/favorite-spots/19.jpeg", title: "Quiet & candle-lit", subtitle: "Date-night atmosphere" },
+      { image: "/images/favorite-spots/21.jpeg", title: "Loud & raucous", subtitle: "Where the locals go after work" },
+      { image: "/images/favorite-spots/22.jpeg", title: "Hidden, no sign", subtitle: "Ring the bell to enter" },
+    ],
+    emojis: [
+      { src: "/images/emojis/palm.png", size: 56, left: "73%", top: "12%" },
+      { src: "/images/emojis/earth.png", size: 52, left: "6%", top: "57%" },
+    ],
+  },
+  "roll-the-dice": {
+    bgColorA: "#00B1D4",
+    bgColorB: "#5FBFF1",
+    miniCards: [
+      { image: "/images/favorite-spots/24.jpeg", title: "???", subtitle: "Tap to reveal" },
+      { image: "/images/favorite-spots/17.jpeg", title: "???", subtitle: "Tap to reveal" },
+      { image: "/images/favorite-spots/14.jpeg", title: "???", subtitle: "Tap to reveal" },
+    ],
+    emojis: [
+      { src: "/images/emojis/car.png", size: 56, left: "7%", top: "16%" },
+      { src: "/images/emojis/earth.png", size: 50, left: "75%", top: "58%" },
+    ],
+  },
+};
+
+const CARD_FAN_OFFSETS = [
+  { rotate: -8, x: -120, y: 24 },
+  { rotate: 0, x: 0, y: 0 },
+  { rotate: 8, x: 120, y: 24 },
+];
+
+function FanFeatureVisual({ data }: { data: FanVisualData }) {
+  return (
+    <div
+      className="relative h-full min-h-[643px] overflow-hidden flex items-center justify-center"
+      style={{
+        background: `radial-gradient(ellipse 80% 45% at 0% 0%, ${data.bgColorA}80 0%, transparent 100%), radial-gradient(ellipse 80% 45% at 100% 0%, ${data.bgColorB}80 0%, transparent 100%), #FFFFFF`,
+      }}
+    >
+      {data.emojis.map((emoji) => (
+        <img
+          key={emoji.src}
+          src={emoji.src}
+          alt=""
+          aria-hidden="true"
+          className="absolute pointer-events-none"
+          style={{ left: emoji.left, top: emoji.top, width: emoji.size, height: emoji.size, zIndex: 4 }}
+        />
+      ))}
+
+      {data.miniCards.map((card, i) => {
+        const cfg = CARD_FAN_OFFSETS[i];
+        return (
+          <div
+            key={i}
+            className="absolute bg-white rounded-[16px] overflow-hidden flex flex-col"
+            style={{
+              width: 180,
+              height: 250,
+              boxShadow: "0 8px 28px rgba(0, 0, 0, 0.18)",
+              transform: `translate(${cfg.x}px, ${cfg.y}px) rotate(${cfg.rotate}deg)`,
+              zIndex: i === 1 ? 3 : i === 2 ? 2 : 1,
+            }}
+          >
+            <div className="w-full h-[160px] overflow-hidden shrink-0">
+              <img src={card.image} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="px-3 py-2.5 flex-1 flex flex-col gap-0.5">
+              <p className="text-[12px] font-semibold text-mistral-black truncate">{card.title}</p>
+              <p className="text-[11px] text-mistral-black/55 truncate">{card.subtitle}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 // ── Shared icons ─────────────────────────────────────────────────────────────
 
@@ -50,318 +173,20 @@ function ArrowIcon() {
   );
 }
 
-// ── Tab visuals ───────────────────────────────────────────────────────────────
-
-function AskElioVisual() {
-  return (
-    <div
-      className="relative h-full min-h-[643px] overflow-hidden"
-      style={{ background: "#f0ede8" }}
-    >
-      {/* Dot-grid background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "radial-gradient(circle, #d6cfc6 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
-
-      {/* Chat bubbles */}
-      <div className="absolute inset-x-6 bottom-8 flex flex-col gap-3" style={{ maxWidth: "440px", marginLeft: "auto", marginRight: "auto" }}>
-        {/* User message */}
-        <div className="self-end max-w-[85%] bg-white rounded-[16px] rounded-br-[5px] shadow-sm px-4 py-3">
-          <p className="text-[11px] leading-relaxed text-mistral-black">
-            Best rooftop bars in Roma tonight?
-          </p>
-        </div>
-
-        {/* AI reply */}
-        <div className="bg-white/80 rounded-[14px] rounded-bl-[5px] shadow-sm px-4 py-3 flex flex-col gap-2.5">
-          <div className="flex items-center gap-2">
-            <span
-              className="size-4 shrink-0 rounded-full flex items-center justify-center text-[8px] font-bold text-white"
-              style={{ background: "var(--color-mistral-orange, #f97316)" }}
-            >
-              E
-            </span>
-            <span className="text-[11px] font-medium" style={{ color: "var(--color-mistral-orange, #f97316)" }}>
-              Elio
-            </span>
-          </div>
-          <p className="text-[11px] leading-relaxed text-mistral-black/80 pl-6">
-            Here are my top picks for tonight:
-          </p>
-          <div className="flex flex-col gap-2 pl-6">
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="text-[11px] font-semibold text-mistral-black">Terrazza Caffarelli</p>
-                <p className="text-[10px] text-mistral-black/50">Capitoline Hill · Outdoor terrace</p>
-              </div>
-              <span className="text-[10px] font-semibold text-mistral-black bg-[#f0ede8] px-2 py-0.5 rounded-full shrink-0">4.8 ★</span>
-            </div>
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="text-[11px] font-semibold text-mistral-black">Il Sorpasso Rooftop</p>
-                <p className="text-[10px] text-mistral-black/50">Prati · Cocktails &amp; aperitivo</p>
-              </div>
-              <span className="text-[10px] font-semibold text-mistral-black bg-[#f0ede8] px-2 py-0.5 rounded-full shrink-0">4.6 ★</span>
-            </div>
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="text-[11px] font-semibold text-mistral-black">La Rinascente Panorama</p>
-                <p className="text-[10px] text-mistral-black/50">Via del Corso · City views</p>
-              </div>
-              <span className="text-[10px] font-semibold text-mistral-black bg-[#f0ede8] px-2 py-0.5 rounded-full shrink-0">4.5 ★</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Second user message */}
-        <div className="self-end max-w-[85%] bg-white rounded-[16px] rounded-br-[5px] shadow-sm px-4 py-3">
-          <p className="text-[11px] leading-relaxed text-mistral-black">
-            Which one has the shortest wait right now?
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function GroupPlansVisual() {
-  const avatars = [
-    { initials: "AL", bg: "#dde3ea" },
-    { initials: "MR", bg: "#e8ddf0" },
-    { initials: "JK", bg: "#ddf0e8" },
-    { initials: "SO", bg: "#f0e8dd" },
-  ];
-
-  return (
-    <div
-      className="h-full min-h-[643px] flex flex-col gap-4 p-6"
-      style={{ background: "#f0f3f8" }}
-    >
-      {/* Avatar row */}
-      <div className="flex items-center gap-2">
-        {avatars.map((av) => (
-          <span
-            key={av.initials}
-            className="size-9 rounded-full flex items-center justify-center text-[11px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
-            style={{ background: av.bg }}
-          >
-            {av.initials}
-          </span>
-        ))}
-        <span className="text-xs text-mistral-black/40 ml-1">+ 2 planning together</span>
-      </div>
-
-      {/* Current plan card */}
-      <div className="bg-white border border-[#C7D7F8] rounded-[16px] px-4 py-4 flex flex-col gap-3 shadow-sm">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className="text-[10px] text-mistral-black/40 uppercase tracking-wider font-semibold mb-0.5">Current plan</p>
-            <p className="text-sm font-semibold text-mistral-black">Dinner in Trastevere</p>
-            <p className="text-xs text-mistral-black/50">Saturday · 8:00 PM · Roma</p>
-          </div>
-          <span className="text-[10px] bg-[#f0f3f8] border border-[#C7D7F8] text-mistral-black/60 px-2.5 py-1 rounded-full shrink-0">
-            4 going
-          </span>
-        </div>
-
-        {/* Vote bar */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] text-mistral-black/50">Da Enzo al 29</span>
-            <span className="text-[10px] font-semibold text-mistral-black">3 votes</span>
-          </div>
-          <div className="h-1.5 rounded-full bg-[#C7D7F8] overflow-hidden">
-            <div className="h-full rounded-full bg-mistral-black" style={{ width: "75%" }} />
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] text-mistral-black/50">Tonnarello</span>
-            <span className="text-[10px] font-semibold text-mistral-black">1 vote</span>
-          </div>
-          <div className="h-1.5 rounded-full bg-[#C7D7F8] overflow-hidden">
-            <div className="h-full rounded-full bg-mistral-black/40" style={{ width: "25%" }} />
-          </div>
-        </div>
-      </div>
-
-      {/* Chat messages */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-start gap-2">
-          <span
-            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
-            style={{ background: "#dde3ea" }}
-          >
-            AL
-          </span>
-          <div className="bg-white border border-[#C7D7F8] rounded-[10px] rounded-tl-[4px] px-3 py-2 shadow-sm max-w-[80%]">
-            <p className="text-[10px] text-mistral-black/70">I heard Da Enzo has a great vibe, let&apos;s go there!</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-2">
-          <span
-            className="size-6 rounded-full flex items-center justify-center text-[9px] font-semibold text-mistral-black/70 shrink-0 border border-[#C7D7F8]"
-            style={{ background: "#e8ddf0" }}
-          >
-            MR
-          </span>
-          <div className="bg-white border border-[#C7D7F8] rounded-[10px] rounded-tl-[4px] px-3 py-2 shadow-sm max-w-[80%]">
-            <p className="text-[10px] text-mistral-black/70">Agreed, already voted 👍</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Suggest input */}
-      <div className="mt-auto flex items-center gap-2 bg-white border border-[#C7D7F8] rounded-full px-4 py-2.5 shadow-sm">
-        <svg className="size-3.5 shrink-0 text-mistral-black/25" fill="none" viewBox="0 0 16 16" aria-hidden="true">
-          <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M8 5v3l2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-        <span className="text-xs text-mistral-black/30">Suggest a place…</span>
-      </div>
-    </div>
-  );
-}
-
-function VotePlacesVisual() {
-  const places = [
-    { name: "Osteria dell'Enoteca", neighborhood: "Oltrarno", votes: 12 },
-    { name: "Buca Mario", neighborhood: "Centro Storico", votes: 8 },
-    { name: "Il Latini", neighborhood: "Santa Croce", votes: 5 },
-    { name: "Trattoria Mario", neighborhood: "Mercato Centrale", votes: 3 },
-  ];
-
-  return (
-    <div
-      className="h-full min-h-[643px] flex flex-col gap-3 p-6"
-      style={{ background: "#f0ede8" }}
-    >
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-xs font-semibold text-mistral-black">Vote on tonight&apos;s spot</span>
-        <span className="text-xs text-mistral-black/40">Firenze</span>
-      </div>
-      <div className="flex flex-col gap-2.5">
-        {places.map((place, i) => (
-          <div
-            key={i}
-            className="bg-white border border-[#C7D7F8] rounded-[14px] px-4 py-3 flex items-center gap-3 shadow-sm"
-          >
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-mistral-black truncate mb-1">{place.name}</p>
-              <span className="text-[10px] bg-[#f0ede8] text-mistral-black/50 px-2 py-0.5 rounded-full inline-block">
-                {place.neighborhood}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-xs font-bold text-mistral-black">{place.votes}</span>
-              <button
-                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-mistral-black text-white text-[10px] font-medium hover:bg-mistral-black/80 transition-colors"
-                aria-label={`Vote for ${place.name}`}
-              >
-                <svg className="size-3" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M8 3v5m0 0H5m3 0h3M4 14h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Vote
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-auto bg-white/60 border border-[#C7D7F8] rounded-[14px] px-4 py-3 flex items-center justify-between shadow-sm">
-        <span className="text-[10px] text-mistral-black/50">Voting closes in</span>
-        <span className="text-[10px] font-semibold text-mistral-black">2h 14m</span>
-      </div>
-    </div>
-  );
-}
-
-function ItineraryVisual() {
-  const days = [
-    {
-      label: "Day 1",
-      date: "Sat, Jun 7",
-      activities: [
-        { time: "9:00 AM", name: "Breakfast at Café de Flore", type: "Breakfast" },
-        { time: "11:00 AM", name: "Louvre Museum", type: "Museum" },
-        { time: "7:30 PM", name: "Dinner at Le Comptoir", type: "Dinner" },
-      ],
-    },
-    {
-      label: "Day 2",
-      date: "Sun, Jun 8",
-      activities: [
-        { time: "8:30 AM", name: "Brunch at Café Varenne", type: "Breakfast" },
-        { time: "1:00 PM", name: "Musée d'Orsay", type: "Museum" },
-        { time: "8:00 PM", name: "Seine river cruise", type: "Evening" },
-      ],
-    },
-    {
-      label: "Day 3",
-      date: "Mon, Jun 9",
-      activities: [
-        { time: "9:30 AM", name: "Montmartre walk", type: "Explore" },
-        { time: "6:30 PM", name: "Dinner at Bistrot Paul Bert", type: "Dinner" },
-      ],
-    },
-  ];
-
-  const typeColors: Record<string, string> = {
-    Breakfast: "#f0ede8",
-    Museum: "#e8edf5",
-    Dinner: "#eee8f0",
-    Evening: "#e8f0eb",
-    Explore: "#f5ede8",
-  };
-
-  return (
-    <div
-      className="h-full min-h-[643px] flex flex-col gap-4 p-6"
-      style={{ background: "#f0f3f8" }}
-    >
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-xs font-semibold text-mistral-black">Paris · 3-day itinerary</span>
-        <span className="text-[10px] text-mistral-black/40 bg-white border border-[#C7D7F8] px-2.5 py-1 rounded-full">
-          Built by Elio
-        </span>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        {days.map((day) => (
-          <div
-            key={day.label}
-            className="bg-white border border-[#C7D7F8] rounded-[14px] px-4 py-3 flex flex-col gap-2.5 shadow-sm"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-mistral-black">{day.label}</span>
-              <span className="text-[10px] text-mistral-black/40">{day.date}</span>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {day.activities.map((act) => (
-                <div key={act.name} className="flex items-center gap-2">
-                  <span className="text-[10px] text-mistral-black/40 w-[58px] shrink-0">{act.time}</span>
-                  <span
-                    className="text-[10px] font-medium text-mistral-black/70 px-2.5 py-1 rounded-full truncate"
-                    style={{ background: typeColors[act.type] ?? "#f0f3f8" }}
-                  >
-                    {act.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 // ── Main section ─────────────────────────────────────────────────────────────
 
 export function ElioSection() {
-  const [activeId, setActiveId] = useState<TabId>("ask-elio");
+  const [activeId, setActiveId] = useState<TabId>("ranked-spots");
   const active = TABS.find((t) => t.id === activeId)!;
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      const i = TABS.findIndex((t) => t.id === activeId);
+      setActiveId(TABS[(i + 1) % TABS.length].id);
+    }, TAB_CYCLE_MS);
+    return () => clearTimeout(id);
+  }, [activeId]);
 
   return (
     <section className="py-10 md:py-[100px]">
@@ -369,11 +194,18 @@ export function ElioSection() {
 
         {/* Section heading */}
         <div className="mb-10 md:mb-20 text-center" data-reveal>
-          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-            Elio making maps feel alive again.
-          </h2>
+          <div className="inline-flex items-center gap-3 justify-center">
+            <img
+              src="/images/mapsgpt-logo.png"
+              alt="Elio"
+              className="h-10 w-auto object-contain"
+            />
+            <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+              Elio
+            </h2>
+          </div>
           <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
-            Smart and social maps, built for real life.
+            Making maps feel alive again.
           </p>
         </div>
 
@@ -397,7 +229,11 @@ export function ElioSection() {
               >
                 {tab.label}
                 {activeId === tab.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-mistral-black" />
+                  <span
+                    key={activeId}
+                    className="tab-progress-line"
+                    style={{ "--tab-cycle-duration": `${TAB_CYCLE_MS}ms` }}
+                  />
                 )}
               </button>
             ))}
@@ -428,10 +264,7 @@ export function ElioSection() {
               </a>
             </div>
             <div className="flex-1 overflow-hidden">
-              {activeId === "ask-elio" && <AskElioVisual />}
-              {activeId === "group-plans" && <GroupPlansVisual />}
-              {activeId === "vote-places" && <VotePlacesVisual />}
-              {activeId === "itineraries" && <ItineraryVisual />}
+              <FanFeatureVisual data={FAN_VISUALS[activeId]} />
             </div>
           </div>
         </div>
@@ -470,7 +303,7 @@ export function ElioSection() {
           <div className="w-full lg:flex-1" data-reveal data-reveal-delay="1">
             <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
               <img
-                src="/images/product-elio.png"
+                src="/images/Eliobackground.png"
                 alt="Elio"
                 className="absolute inset-0 w-full h-full object-cover"
               />

@@ -1,22 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 
-const DATA_SOURCES = [
-  "Satellite Imagery",
-  "Consumer Behavior",
-  "Commercial Activity",
-  "Urban Planning",
-  "Logistics Networks",
-  "Site Selection",
-  "Demographics",
-  "Land Use Zoning",
-  "Transit Accessibility",
-  "Office Vacancy",
-  "Luxury Retail Footfall",
-  "Flood Risk Layers",
+const PARTNER_LOGOS = [
+  { src: "/images/mapsgpt-logos/logo1.png", alt: "Partner 1" },
+  { src: "/images/mapsgpt-logos/logo2.png", alt: "Partner 2" },
+  { src: "/images/mapsgpt-logos/logo3.png", alt: "Partner 3" },
+  { src: "/images/mapsgpt-logos/logo4.png", alt: "Partner 4" },
+  { src: "/images/mapsgpt-logos/logo5.png", alt: "Partner 5" },
+  { src: "/images/mapsgpt-logos/logo6.png", alt: "Partner 6" },
+  { src: "/images/mapsgpt-logos/logo7.png", alt: "Partner 7" },
+  { src: "/images/mapsgpt-logos/logo8.png", alt: "Partner 8" },
+  { src: "/images/mapsgpt-logos/logo9.png", alt: "Partner 9" },
+  { src: "/images/mapsgpt-logos/logo10.png", alt: "Partner 10" },
+  { src: "/images/mapsgpt-logos/logo11.png", alt: "Partner 11" },
+  { src: "/images/mapsgpt-logos/logo12.png", alt: "Partner 12" },
 ];
 
 // Duplicate for seamless loop
-const TRACK = [...DATA_SOURCES, ...DATA_SOURCES];
+const TRACK = [...PARTNER_LOGOS, ...PARTNER_LOGOS];
 
 function ArrowIcon() {
   return (
@@ -66,16 +66,19 @@ export function DataSourcesSection() {
 
               {/* Scrolling track — blurs on hover */}
               <div
-                className="group-hover:blur-sm group-hover:opacity-60 transition-all duration-300 overflow-hidden whitespace-nowrap flex items-center w-full"
+                className="group-hover:blur-sm group-hover:opacity-60 transition-all duration-300 overflow-hidden flex items-center w-full relative"
               >
-                <div className="ds-track flex items-center gap-3">
-                  {TRACK.map((name, i) => (
-                    <span
+                  <div className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none w-24" style={{ background: "linear-gradient(to right, var(--color-background, white), transparent)" }} />
+                  <div className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none w-24" style={{ background: "linear-gradient(to left, var(--color-background, white), transparent)" }} />
+                <div className="ds-track flex items-center gap-14">
+                  {TRACK.map((logo, i) => (
+                    <img
                       key={i}
-                      className="flex-none px-5 py-2.5 rounded-full border border-[#C7D7F8] bg-background text-sm text-mistral-black/70 whitespace-nowrap"
-                    >
-                      {name}
-                    </span>
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="flex-none h-[48px] w-auto object-contain"
+                      style={{ filter: "grayscale(100%) opacity(0.5)" }}
+                    />
                   ))}
                 </div>
               </div>

@@ -579,14 +579,24 @@ The homepage has **no forms**. If you add forms (contact page, etc.), follow thi
 | `text-area` | `min-h-[120px] p-3` |
 | `contact-form-panel` | `bg-mistral-beige border border-border rounded-md p-xl max-w-[520px]` |
 
-### 8.5 Tabs (no examples on homepage — pattern reserved)
+### 8.5 Tabs
 
-| Variant (suggested) | Class composition |
+| Variant | Class composition |
 |---|---|
 | `pill-tab` | `rounded-full px-4 py-2 text-sm border border-current` |
 | `pill-tab-active` | `bg-mistral-black text-white border-mistral-black` |
-| `segmented-tab` | `border-b border-transparent pb-3 text-sm` |
-| `segmented-tab-active` | `border-b-2 border-mistral-orange text-mistral-orange` |
+| `segmented-tab` | `px-6 py-4 text-sm text-mistral-black/40 hover:text-mistral-black/70 transition-colors relative` |
+| `segmented-tab-active` | `text-mistral-black font-medium` + animated underline (see below) |
+
+**Segmented tab — animated active indicator**
+
+Used by [`ElioSection`](../components/sections/ElioSection.tsx) and [`ColumbusFeatures`](../components/sections/ColumbusFeatures.tsx). The active tab renders a 2px progress line that fills left→right across the cycle duration (default `4s`); when it completes, the parent advances to the next tab and re-keys the `<span>` so the animation restarts on the new tab.
+
+- Color: `var(--color-mistral-sunshine-600)` — brand blue (`#2663EB`).
+- Class: `tab-progress-line` (declared in [`app/globals.css`](../app/globals.css)).
+- Override duration via the `--tab-cycle-duration` inline CSS variable; pass the matching ms value to the `setTimeout` that drives auto-advance so the animation and rotation stay in sync.
+- The active tab `<span>` MUST receive `key={activeId}` so React remounts it on tab change and the keyframe restarts from `width: 0`.
+- `prefers-reduced-motion: reduce` collapses the animation to a static full-width line.
 
 ### 8.6 Code blocks (no examples on homepage — recommended pattern)
 

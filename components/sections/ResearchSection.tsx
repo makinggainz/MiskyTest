@@ -117,7 +117,7 @@ export function ResearchSection() {
         </div>
 
         {/* Article list — narrower */}
-        <div className="max-w-2xl mx-auto" data-reveal data-reveal-delay="2">
+        <div data-reveal data-reveal-delay="2">
           {LIST_ITEMS.map((item, i) => (
             <a
               key={i}
