@@ -22,7 +22,7 @@ export function SiteFooter() {
 
         {/* Background image */}
         <img
-          src="/images/hero-bg-blue.jpg"
+          src="/images/footerimg.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
