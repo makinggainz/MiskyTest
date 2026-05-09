@@ -1,6 +1,6 @@
 import { EnterpriseHero } from "@/components/sections/EnterpriseHero";
 import { EnterpriseProblem } from "@/components/sections/EnterpriseProblem";
-import { ColumbusFeatures } from "@/components/sections/ColumbusFeatures";
+import { EnterpriseSolutions } from "@/components/sections/EnterpriseSolutions";
 import { EnterpriseComparison } from "@/components/sections/EnterpriseComparison";
 import { EnterprisePrompts } from "@/components/sections/EnterprisePrompts";
 import { EnterpriseFeatureBlocks } from "@/components/sections/EnterpriseFeatureBlocks";
@@ -18,7 +18,7 @@ export default function EnterprisePage() {
       <EnterpriseHero />
       <EnterpriseProblem />
       <div id="columbus-showcase">
-        <ColumbusFeatures />
+        <EnterpriseSolutions />
       </div>
       <EnterpriseComparison />
       <EnterprisePrompts />

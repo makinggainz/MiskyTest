@@ -301,11 +301,12 @@ export function ElioSection() {
 
           {/* Right: image */}
           <div className="w-full lg:flex-1" data-reveal data-reveal-delay="1">
-            <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
+            <div className="relative h-[360px] md:h-[480px]">
               <img
                 src="/images/Eliobackground.png"
                 alt="Elio"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="media-bleed absolute inset-0 w-full h-full object-cover"
+                style={{ "--media-bleed-fade": "18%" }}
               />
             </div>
           </div>

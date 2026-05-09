@@ -14,47 +14,24 @@ function ArrowIcon() {
 
 export function EnterpriseHero() {
   return (
-    <div className="relative min-h-screen flex items-center" style={{ backgroundColor: "var(--color-background)" }}>
-      <img
-        src="/images/product-columbus.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute top-1/2 -translate-y-1/2 pointer-events-none select-none"
-        style={{
-          height: "82vh",
-          width: "auto",
-          right: "150px",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 38%, black 82%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 32%, black 68%, transparent 100%)",
-          WebkitMaskComposite: "source-in",
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 38%, black 82%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 32%, black 68%, transparent 100%)",
-          maskComposite: "intersect",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-full h-48 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to bottom, transparent, var(--color-background))" }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none z-10"
-        style={{ background: "linear-gradient(to right, var(--color-background) 0%, var(--color-background) 38%, transparent 68%)" }}
-      />
+    <section
+      className="relative min-h-screen pt-nav pb-10 md:pb-[100px]"
+      style={{ backgroundColor: "var(--color-background)" }}
+    >
+      <div className="container pt-32 md:pt-48 lg:pt-[228px]">
 
-      <div className="container pt-nav relative z-20">
-        <div className="w-full flex flex-col items-center text-center lg:text-left lg:items-start justify-center gap-8 lg:gap-10">
-          <div className="flex flex-col gap-4 md:gap-6 max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl md:text-[56px] lg:text-[72px]/[1.05] tracking-tight text-mistral-black">
-              Columbus Pro
-            </h1>
-            <p className="text-xl md:text-2xl tracking-tight leading-snug text-mistral-black/60">
-              An agentic GIS that replaces three weeks of analysis with a single prompt.
-            </p>
-            <p className="text-sm md:text-base text-mistral-black/55 leading-relaxed max-w-xl">
-              Conversational map chat, the most accurate geospatial data catalogue, and automated due-diligence reports — all in one platform.
-            </p>
-          </div>
-          <div className="flex w-full flex-wrap justify-center lg:justify-start items-center gap-3 md:gap-4">
+        {/* Headline — centered, sits in the upper-middle of the viewport */}
+        <div
+          className="max-w-3xl mx-auto flex flex-col items-center text-center gap-4 md:gap-6"
+          data-reveal
+        >
+          <h1 className="text-4xl sm:text-5xl md:text-[56px] lg:text-[72px]/[1.05] tracking-tight text-mistral-black">
+            Columbus Pro
+          </h1>
+          <p className="text-xl md:text-2xl tracking-tight leading-snug text-mistral-black/60">
+            An agentic GIS that replaces three weeks of analysis with a single prompt.
+          </p>
+          <div className="mt-2 flex flex-wrap justify-center items-center gap-3 md:gap-4">
             <a
               className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
               href="#"
@@ -65,7 +42,7 @@ export function EnterpriseHero() {
               </span>
             </a>
             <a
-              className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
+              className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors text-mistral-black hover:text-mistral-black/60"
               href="#columbus-showcase"
             >
               See it in action
@@ -75,7 +52,27 @@ export function EnterpriseHero() {
             </a>
           </div>
         </div>
+
+        {/* Platform screenshot — full-width, no frame, fades at top into background, extends past the fold */}
+        <div className="mt-12 md:mt-20 relative" data-reveal data-reveal-delay="1">
+          <img
+            src="/images/enterprise/desk.png"
+            alt="Columbus Pro platform — Data Manager view"
+            className="block w-full h-auto"
+          />
+          {/* Top fade — softens the screenshot's top edge into the page background */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-12 md:h-20"
+            style={{ background: "linear-gradient(to bottom, var(--color-background), transparent)" }}
+          />
+          {/* Bottom fade — white gradient covering the bottom 45% of the image */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
+            style={{ background: "linear-gradient(to top, #ffffff, transparent)" }}
+          />
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

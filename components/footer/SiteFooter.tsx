@@ -18,20 +18,27 @@ const NAV = [
 export function SiteFooter() {
   return (
     <footer className="px-4 pb-4 pt-0">
-      <div className="relative rounded-[20px] overflow-hidden min-h-[540px] md:min-h-[620px]">
+      <div className="relative min-h-[540px] md:min-h-[620px]">
 
-        {/* Background image */}
+        {/* Background image — edges fade into page background via .media-bleed.
+            Bumped --media-bleed-fade past the 10% default so the corners (where
+            two fades meet) have a longer transition and read as soft, not sharp. */}
         <img
           src="/images/footerimg.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          className="media-bleed absolute inset-0 w-full h-full object-cover"
+          style={{ "--media-bleed-fade": "18%" }}
           aria-hidden="true"
         />
 
-        {/* Bottom gradient for text legibility — dark, fades up */}
+        {/* Bottom gradient for text legibility — dark, fades up. Same mask as the
+            image (with matching fade depth) so the gradient dissolves with it —
+            otherwise its hard rectangle would show through the image's softened
+            edges. */}
         <div
-          className="absolute inset-0"
+          className="media-bleed absolute inset-0"
           style={{
+            "--media-bleed-fade": "18%",
             background:
               "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.35) 55%, transparent 80%)",
           }}
