@@ -89,7 +89,7 @@ export function HiringSection() {
           <div className="border border-[#C7D7F8] rounded-[20px] overflow-hidden flex flex-col bg-background">
 
             {/* Form fields */}
-            <div className="px-8 pt-8 pb-4 flex flex-col gap-5">
+            <div className="px-5 pt-5 pb-4 flex flex-col gap-4">
               <input
                 type="text"
                 placeholder="Name"
@@ -126,8 +126,8 @@ export function HiringSection() {
               />
             </div>
 
-            {/* CTA — bottom section matching ProductsSection card pattern */}
-            <div className="px-8 pb-8 pt-1">
+            {/* CTA — exactly matching ProductsSection px-5 pb-5 pt-1 pattern */}
+            <div className="px-5 pb-5 pt-1">
               <button
                 type="submit"
                 onClick={(e) => e.preventDefault()}
