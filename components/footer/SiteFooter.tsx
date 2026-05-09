@@ -38,7 +38,8 @@ export function SiteFooter() {
         />
 
         {/* Content — pinned to bottom */}
-        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-14 gap-8">
+        <div className="absolute inset-0 flex flex-col justify-end py-8 md:py-14 px-4">
+          <div className="max-w-[1248px] mx-auto w-full flex flex-col gap-8 px-5">
 
           {/* Main row */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
@@ -113,6 +114,7 @@ export function SiteFooter() {
             </span>
           </div>
 
+          </div>{/* max-w container */}
         </div>
       </div>
     </footer>
