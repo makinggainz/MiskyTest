@@ -86,55 +86,61 @@ export function HiringSection() {
 
         {/* Application form */}
         <div className="max-w-lg mx-auto w-full" data-reveal data-reveal-delay="2">
-        <div
-          className="border border-[#C7D7F8] rounded-[20px] p-8 flex flex-col gap-5"
-        >
-          <input
-            type="text"
-            placeholder="Name"
-            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
-          />
+          <div className="border border-[#C7D7F8] rounded-[20px] overflow-hidden flex flex-col bg-background">
 
-          {/* Role interest */}
-          <div className="flex flex-wrap gap-2">
-            {ROLES.map((role) => (
+            {/* Form fields */}
+            <div className="px-8 pt-8 pb-4 flex flex-col gap-5">
+              <input
+                type="text"
+                placeholder="Name"
+                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+              />
+
+              {/* Role interest */}
+              <div className="flex flex-wrap gap-2">
+                {ROLES.map((role) => (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => setSelectedRole(role === selectedRole ? null : role)}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                      selectedRole === role
+                        ? "bg-mistral-black text-white"
+                        : "border border-[#C7D7F8] bg-background text-mistral-black/70 hover:border-mistral-black/30"
+                    }`}
+                  >
+                    {role}
+                  </button>
+                ))}
+              </div>
+
+              <textarea
+                rows={4}
+                placeholder="Tell us about yourself."
+                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
+              />
+            </div>
+
+            {/* CTA — bottom section matching ProductsSection card pattern */}
+            <div className="px-8 pb-8 pt-1">
               <button
-                key={role}
-                type="button"
-                onClick={() => setSelectedRole(role === selectedRole ? null : role)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                  selectedRole === role
-                    ? "bg-mistral-black text-white"
-                    : "border border-[#C7D7F8] bg-background text-mistral-black/70 hover:border-mistral-black/30"
-                }`}
+                type="submit"
+                onClick={(e) => e.preventDefault()}
+                className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
               >
-                {role}
+                Send application
+                <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                  <ArrowIcon />
+                </span>
               </button>
-            ))}
+            </div>
+
           </div>
-
-          <textarea
-            rows={4}
-            placeholder="Tell us about yourself."
-            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
-          />
-
-          <button
-            type="submit"
-            onClick={(e) => e.preventDefault()}
-            className="group w-full rounded-full flex items-center justify-between px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
-          >
-            Send application
-            <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-              <ArrowIcon />
-            </span>
-          </button>
-        </div>
         </div>
 
       </div>
