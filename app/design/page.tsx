@@ -196,11 +196,11 @@ const animations = [
 ];
 
 const buttonVariants = [
-  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/80 px-5 py-2 text-sm rounded-full transition-colors", label: "Get started" },
-  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-full transition-colors", label: "Try Studio" },
-  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-full transition-colors", label: "Contact Sales", darkBg: true },
-  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-full transition-colors", label: "Learn more" },
-  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-5 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
+  { name: "Primary", className: "bg-mistral-black text-white hover:bg-mistral-black/80 px-5 py-2 text-sm rounded-[7px] transition-colors", label: "Get started" },
+  { name: "Accent", className: "bg-mistral-orange text-white hover:bg-mistral-orange-bright px-5 py-2 text-sm rounded-[7px] transition-colors", label: "Try Studio" },
+  { name: "On-dark (glass)", className: "bg-white/10 text-white hover:bg-white hover:text-mistral-black px-5 py-2 text-sm rounded-[7px] transition-colors", label: "Contact Sales", darkBg: true },
+  { name: "On-cream", className: "bg-mistral-black/10 text-mistral-black hover:bg-mistral-black hover:text-white px-5 py-2 text-sm rounded-[7px] transition-colors", label: "Learn more" },
+  { name: "Outline", className: "border border-current bg-transparent text-mistral-black px-5 py-2 text-sm rounded-[7px] hover:bg-mistral-black/5 transition-colors", label: "Read docs" },
   { name: "Link", className: "border-b border-current pb-1 inline-flex items-center gap-3 text-mistral-black hover:text-mistral-orange transition-colors", label: "Read more →" },
 ];
 
@@ -972,7 +972,7 @@ const response = await client.chat({ model: "mistral-large-latest", messages: [.
                 <div className="text-xs font-mono text-mistral-black-tint mb-2">cta-banner-pale</div>
                 <h4 className="text-2xl font-medium">Bring frontier AI to your enterprise.</h4>
                 <p className="text-sm text-mistral-black-tint mt-2">Pale-blue surfaced CTA panel near the page bottom.</p>
-                <button className="mt-4 border border-mistral-black bg-transparent text-mistral-black px-5 py-2 text-sm rounded-full hover:bg-mistral-black/5 transition-colors">Contact Sales</button>
+                <button className="mt-4 border border-mistral-black bg-transparent text-mistral-black px-5 py-2 text-sm rounded-[7px] hover:bg-mistral-black/5 transition-colors">Contact Sales</button>
               </div>
             </div>
           </Section>

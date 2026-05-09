@@ -197,7 +197,7 @@ export function Nav() {
           {/* Contact */}
           <a
             target="_self"
-            className="group rounded-full px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-transparent text-mistral-black hover:bg-mistral-black/5"
+            className="group rounded-[7px] px-5 py-2 text-sm hidden md:flex items-center truncate gap-2 transition-colors bg-transparent text-mistral-black hover:bg-mistral-black/5"
             href="/ColumbusDesign"
           >
             Contact
@@ -213,7 +213,7 @@ export function Nav() {
             onMouseLeave={() => setElioOpen(false)}
           >
             <button
-              className="group rounded-full px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
+              className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
               aria-haspopup="menu"
               aria-expanded={elioOpen}
             >
@@ -284,12 +284,12 @@ export function Nav() {
               );
             })}
             <li className="mt-6">
-              <a href="/ColumbusDesign" className="block rounded-full px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
+              <a href="/ColumbusDesign" className="block rounded-[7px] px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
                 Try Columbus
               </a>
             </li>
             <li className="mt-2">
-              <a href="#" className="block rounded-full px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
+              <a href="#" className="block rounded-[7px] px-5 py-2 bg-mistral-black text-white text-sm text-center hover:bg-mistral-black/80">
                 Try Elio
               </a>
             </li>

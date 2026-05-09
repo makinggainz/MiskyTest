@@ -51,7 +51,7 @@ export function GISSection() {
             <div className="pt-2">
               <a
                 href="/ColumbusDesign"
-                className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                className="group rounded-[7px] inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
               >
                 Your new GIS
                 <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">

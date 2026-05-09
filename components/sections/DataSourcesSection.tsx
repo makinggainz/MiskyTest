@@ -85,7 +85,7 @@ export function DataSourcesSection() {
 
               {/* Central hover pill */}
               <span
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium rounded-full transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium rounded-[7px] transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
               >
                 Learn more
                 <svg className="size-3 shrink-0 text-mistral-orange" viewBox="0 0 9 13" fill="none" aria-hidden="true">
@@ -139,7 +139,7 @@ export function DataSourcesSection() {
               <div className="pt-2">
                 <a
                   href="/ColumbusDesign"
-                  className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                  className="group rounded-[7px] inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                 >
                   Your new GIS
                   <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">

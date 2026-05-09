@@ -255,7 +255,7 @@ export function ElioSection() {
               </div>
               <a
                 href="#"
-                className="group mt-8 rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                className="group mt-8 rounded-[7px] flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
               >
                 <span>{active.cta}</span>
                 <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
@@ -289,7 +289,7 @@ export function ElioSection() {
             <div className="pt-2">
               <a
                 href="#"
-                className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                className="group rounded-[7px] inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
               >
                 Find your world now
                 <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">

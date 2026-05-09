@@ -278,7 +278,7 @@ export function ProfessionallySection() {
               <div className="p-5 border-t border-[#C7D7F8]">
                 <a
                   href="/ColumbusDesign"
-                  className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                  className="group rounded-[7px] flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                 >
                   <span>Try Columbus</span>
                   <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
@@ -303,7 +303,7 @@ export function ProfessionallySection() {
                 <div className="mt-5 md:hidden">
                   <a
                     href="/ColumbusDesign"
-                    className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                    className="group rounded-[7px] flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                   >
                     <span>Try Columbus</span>
                     <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">

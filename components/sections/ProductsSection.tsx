@@ -133,7 +133,7 @@ export function ProductsSection() {
               <div className="px-5 pb-5 pt-1">
                 <a
                   href={product.href}
-                  className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                  className="group rounded-[7px] flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
                 >
                   <span>{product.cta}</span>
                   <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">

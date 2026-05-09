@@ -119,7 +119,8 @@ All sections must use these values. Never use `my-10 md:my-24` (margin-based sec
 
 | Surface type | Radius | Token / class |
 |---|---|---|
-| Buttons, chips, badges, interactive labels | **pill** | `rounded-full` |
+| CTA buttons (primary, accent, on-cream, on-dark, outline) | 7px | `rounded-[7px]` |
+| Chips, badges, role pills, tabs, decorative circles | **pill** | `rounded-full` |
 | Inputs, info panels, small surfaces | 10px | `rounded-[10px]` / `--radius-3xl` |
 | Cards, dialogs, medium containers | 20px (squircle) | `rounded-[20px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
@@ -127,7 +128,8 @@ All sections must use these values. Never use `my-10 md:my-24` (margin-based sec
 | Layout containers (`<section>`, full-width `<div>`) | **0 — square** | no `rounded-*` |
 | Purely decorative circles (e.g. 8×8px color dots) | pill | `rounded-full` |
 
-- **All buttons, chips, badges, and interactive labels use `rounded-full`.** No exceptions.
+- **CTA buttons use `rounded-[7px]`** — primary, accent, on-cream, on-dark glass, and outlined CTAs.
+- **Chips, badges, role pills, tabs, and decorative circles use `rounded-full`** — pill shape for everything that isn't a CTA.
 - Cards use `rounded-[10px]`, photographic surfaces use `rounded-[8px]` — these do NOT get pill treatment.
 - Token definitions live in `design-system/styles/tokens.css` under `--radius-sm` through `--radius-3xl`. Keep those in sync when the rule changes.
 - Full rationale and all component-level patterns are in `design-system/design-system.md` §3 and §8.

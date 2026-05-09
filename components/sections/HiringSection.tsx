@@ -131,7 +131,7 @@ export function HiringSection() {
               <button
                 type="submit"
                 onClick={(e) => e.preventDefault()}
-                className="group rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                className="group rounded-[7px] flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
               >
                 Send application
                 <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
