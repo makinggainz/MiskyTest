@@ -64,6 +64,16 @@ h1, h2, h3, h4 {
   width: 145px;
 }
 
+/* Text-selection highlight — override legacy Mistral orange with MistX brand blue. */
+::selection {
+  background: #154acc52;
+  color: inherit;
+}
+::-moz-selection {
+  background: #154acc52;
+  color: inherit;
+}
+
 /* Extend the section grid pattern beyond content vertically.
    Overrides .bg-grid-pattern from utilities.css (declared later, same specificity). */
 .bg-grid-pattern {
