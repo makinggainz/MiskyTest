@@ -34,6 +34,14 @@ export function EnterpriseHero() {
           <p className="text-xl md:text-2xl tracking-tight leading-snug text-mistral-black/60">
             An agentic GIS that replaces three weeks of analysis with a single prompt.
           </p>
+          {/* Meta strip — 3 micro-facts per landing-page-spec §10 */}
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs md:text-sm text-mistral-black/45">
+            <span>5-minute setup</span>
+            <span aria-hidden="true">·</span>
+            <span>80+ verified datasets</span>
+            <span aria-hidden="true">·</span>
+            <span>Works with ArcGIS &amp; QGIS</span>
+          </div>
           <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4">
             <a
               className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"

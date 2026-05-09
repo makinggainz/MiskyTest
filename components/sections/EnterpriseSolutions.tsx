@@ -274,10 +274,10 @@ export function EnterpriseSolutions() {
                   "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
               }}
             />
-            Built for the work GIS teams actually do.
+            Four jobs. One agent.
           </h2>
           <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
-            Four use cases that cover most of what enterprise teams ship in a quarter — each grounded in real data, not a tour of features.
+            The use cases that cover most of what an enterprise GIS team ships in a quarter — each grounded in real data, not a tour of features.
           </p>
         </div>
 
