@@ -28,7 +28,7 @@ export function HiringSection() {
 
   return (
     <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+      <div className="container">
 
         {/* Heading */}
         <div className="mb-10 md:mb-20 text-center" data-reveal>
@@ -86,74 +86,55 @@ export function HiringSection() {
 
         {/* Application form */}
         <div
-          className="border border-[#C7D7F8] rounded-[20px] p-8 md:p-12 flex flex-col gap-6"
+          className="border border-[#C7D7F8] rounded-[20px] p-8 md:p-12 flex flex-col gap-5"
           data-reveal
           data-reveal-delay="2"
         >
-          {/* Name + Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Name</label>
-              <input
-                type="text"
-                placeholder="Your name"
-                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Email</label>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
-              />
-            </div>
-          </div>
+          <input
+            type="text"
+            placeholder="Name"
+            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+          />
 
           {/* Role interest */}
-          <div className="flex flex-col gap-3">
-            <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Role interest</label>
-            <div className="flex flex-wrap gap-2">
-              {ROLES.map((role) => (
-                <button
-                  key={role}
-                  type="button"
-                  onClick={() => setSelectedRole(role === selectedRole ? null : role)}
-                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                    selectedRole === role
-                      ? "bg-mistral-black text-white"
-                      : "border border-[#C7D7F8] bg-background text-mistral-black/70 hover:border-mistral-black/30"
-                  }`}
-                >
-                  {role}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-2">
+            {ROLES.map((role) => (
+              <button
+                key={role}
+                type="button"
+                onClick={() => setSelectedRole(role === selectedRole ? null : role)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                  selectedRole === role
+                    ? "bg-mistral-black text-white"
+                    : "border border-[#C7D7F8] bg-background text-mistral-black/70 hover:border-mistral-black/30"
+                }`}
+              >
+                {role}
+              </button>
+            ))}
           </div>
 
-          {/* Message */}
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium text-mistral-black/50 uppercase tracking-wide">Tell us about yourself</label>
-            <textarea
-              rows={5}
-              placeholder="What draws you to this work? What have you built that you're proud of?"
-              className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
-            />
-          </div>
+          <textarea
+            rows={4}
+            placeholder="Tell us about yourself."
+            className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
+          />
 
-          {/* Submit */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              onClick={(e) => e.preventDefault()}
-              className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
-            >
-              Send application
-              <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                <ArrowIcon />
-              </span>
-            </button>
-          </div>
+          <button
+            type="submit"
+            onClick={(e) => e.preventDefault()}
+            className="group self-end rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+          >
+            Send application
+            <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+              <ArrowIcon />
+            </span>
+          </button>
         </div>
 
       </div>
