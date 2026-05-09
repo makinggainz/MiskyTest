@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { MapShape } from "@/components/MapShape";
 
 function ArrowIcon() {
   return (
@@ -18,11 +19,13 @@ export function EnterpriseHero() {
       className="relative min-h-screen pt-nav pb-10 md:pb-[100px]"
       style={{ backgroundColor: "var(--color-background)" }}
     >
-      <div className="container pt-32 md:pt-48 lg:pt-[228px]">
+      <MapShape placement="top-center" opacity={0.32} />
+
+      <div className="container pt-32 md:pt-48 lg:pt-[228px] relative z-10">
 
         {/* Headline — centered, sits in the upper-middle of the viewport */}
         <div
-          className="max-w-3xl mx-auto flex flex-col items-center text-center gap-4 md:gap-6"
+          className="max-w-3xl mx-auto flex flex-col items-center text-center gap-12"
           data-reveal
         >
           <h1 className="text-4xl sm:text-5xl md:text-[56px] lg:text-[72px]/[1.05] tracking-tight text-mistral-black">
@@ -31,7 +34,7 @@ export function EnterpriseHero() {
           <p className="text-xl md:text-2xl tracking-tight leading-snug text-mistral-black/60">
             An agentic GIS that replaces three weeks of analysis with a single prompt.
           </p>
-          <div className="mt-2 flex flex-wrap justify-center items-center gap-3 md:gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4">
             <a
               className="group rounded-[7px] px-5 py-2 text-sm flex items-center gap-2 transition-colors bg-mistral-black text-white hover:bg-mistral-black/80"
               href="#"
@@ -53,22 +56,18 @@ export function EnterpriseHero() {
           </div>
         </div>
 
-        {/* Platform screenshot — full-width, no frame, fades at top into background, extends past the fold */}
+        {/* Platform screenshot — masked so the bottom fully fades to transparent, letting the page background (and map silhouettes) show through */}
         <div className="mt-12 md:mt-20 relative" data-reveal data-reveal-delay="1">
           <img
-            src="/images/enterprise/desk.png"
+            src="/images/enterprise/desk-darkborder.png"
             alt="Columbus Pro platform — Data Manager view"
             className="block w-full h-auto"
-          />
-          {/* Top fade — softens the screenshot's top edge into the page background */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-12 md:h-20"
-            style={{ background: "linear-gradient(to bottom, var(--color-background), transparent)" }}
-          />
-          {/* Bottom fade — white gradient covering the bottom 45% of the image */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
-            style={{ background: "linear-gradient(to top, #ffffff, transparent)" }}
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 0%, black 25%, transparent 95%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 0%, black 25%, transparent 95%)",
+            }}
           />
         </div>
 

@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState } from "react";
+import { MapShape } from "@/components/MapShape";
 
 type Solution = {
   id: string;
@@ -256,8 +257,9 @@ export function EnterpriseSolutions() {
   const Active = SOLUTIONS[activeIdx];
 
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+    <section className="relative py-10 md:py-[100px]">
+      <MapShape placement="top-left" />
+      <div className="container bg-grid-pattern relative z-10">
 
         {/* Section heading */}
         <div className="mb-10 md:mb-20 text-center" data-reveal>

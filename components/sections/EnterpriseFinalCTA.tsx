@@ -1,3 +1,5 @@
+import { MapShape } from "@/components/MapShape";
+
 function ArrowIcon() {
   return (
     <svg className="size-3 shrink-0" viewBox="0 0 9 13" fill="none" aria-hidden="true">
@@ -12,8 +14,9 @@ function ArrowIcon() {
 
 export function EnterpriseFinalCTA() {
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container">
+    <section className="relative py-10 md:py-[100px]">
+      <MapShape placement="left-edge" />
+      <div className="container relative z-10">
         <div className="text-center max-w-2xl mx-auto" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
             Build with Columbus Pro.

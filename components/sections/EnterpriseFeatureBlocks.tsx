@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { MapShape } from "@/components/MapShape";
 
 function ArrowIcon() {
   return (
@@ -79,8 +80,9 @@ function SupportChatVisual() {
 
 export function EnterpriseFeatureBlocks() {
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+    <section className="relative py-10 md:py-[100px]">
+      <MapShape placement="top-right" />
+      <div className="container bg-grid-pattern relative z-10">
 
         {/* Generative Geodata — image left, text right */}
         <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center" data-reveal>

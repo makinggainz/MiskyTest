@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { MapShape } from "@/components/MapShape";
 
 const PROMPT_THUMBS = [
   {
@@ -87,8 +88,9 @@ function FeatureChatVisual() {
 
 export function EnterprisePrompts() {
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+    <section className="relative py-10 md:py-[100px]">
+      <MapShape placement="bottom-left" />
+      <div className="container bg-grid-pattern relative z-10">
 
         <div className="mb-10 md:mb-20 text-center" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">

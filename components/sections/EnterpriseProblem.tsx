@@ -1,3 +1,5 @@
+import { MapShape } from "@/components/MapShape";
+
 const PAIN_POINTS = [
   {
     number: "01",
@@ -33,8 +35,9 @@ const PAIN_POINTS = [
 
 export function EnterpriseProblem() {
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+    <section className="relative py-10 md:py-[100px]">
+      <MapShape placement="bottom-right" />
+      <div className="container bg-grid-pattern relative z-10">
         <div className="mb-10 md:mb-20 text-center" data-reveal>
           <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
             Legacy GIS slows you down.
