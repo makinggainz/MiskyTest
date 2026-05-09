@@ -29,12 +29,42 @@ const TABS = [
 
 type TabId = typeof TABS[number]["id"];
 
-// ── Visuals ─────────────────────────────────────────────────────────────────
+const DATA_SOURCES = [
+  "Satellite Imagery",
+  "Consumer Behavior",
+  "Commercial Activity",
+  "Urban Planning",
+  "Logistics Networks",
+  "Site Selection",
+  "Demographics",
+  "Land Use Zoning",
+  "Transit Accessibility",
+  "Office Vacancy",
+  "Luxury Retail Footfall",
+  "Flood Risk Layers",
+];
+
+const TRACK = [...DATA_SOURCES, ...DATA_SOURCES];
+
+// ── Shared icons ─────────────────────────────────────────────────────────────
+
+function ArrowIcon() {
+  return (
+    <svg className="size-3 shrink-0" viewBox="0 0 9 13" fill="none" aria-hidden="true">
+      <circle cx="7.22"  cy="6.589" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="1.46"  r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
+    </svg>
+  );
+}
+
+// ── Tab visuals ───────────────────────────────────────────────────────────────
 
 function MapChatVisual() {
   return (
     <div className="relative h-full min-h-[643px] overflow-hidden" style={{ background: "#dde3ea" }}>
-      {/* Map dot grid */}
       <div
         className="absolute inset-0"
         style={{
@@ -42,7 +72,6 @@ function MapChatVisual() {
           backgroundSize: "18px 18px",
         }}
       />
-      {/* Suggestive road lines */}
       <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
         <line x1="0" y1="38%" x2="100%" y2="36%" stroke="#a4aeba" strokeWidth="4" />
         <line x1="0" y1="62%" x2="100%" y2="60%" stroke="#a4aeba" strokeWidth="2" />
@@ -54,16 +83,12 @@ function MapChatVisual() {
         <rect x="10%" y="18%" width="14%" height="12%" fill="#c8d0da" opacity="0.6" rx="2" />
         <rect x="72%" y="55%" width="18%" height="22%" fill="#c8d0da" opacity="0.6" rx="2" />
       </svg>
-
-      {/* Chat panel overlay */}
       <div className="absolute right-6 bottom-6 flex flex-col gap-2.5" style={{ maxWidth: "418px", width: "calc(100% - 48px)" }}>
-        {/* User message */}
         <div className="self-end max-w-[90%] bg-white rounded-[16px] rounded-br-[5px] shadow-sm px-4 py-3">
           <p className="text-[11px] leading-relaxed text-mistral-black">
             Show me parcels between 2,500–4,000 sqm where surrounding luxury retail density is high but office vacancy is below 8%.
           </p>
         </div>
-        {/* AI investigating */}
         <div className="bg-white/80 rounded-[14px] rounded-bl-[5px] shadow-sm px-4 py-3 flex flex-col gap-1.5">
           <div className="flex items-center gap-2">
             <img
@@ -71,8 +96,7 @@ function MapChatVisual() {
               alt=""
               className="size-3.5 shrink-0"
               style={{
-                filter:
-                  "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
+                filter: "brightness(0) saturate(100%) invert(8%) sepia(80%) saturate(1400%) hue-rotate(215deg) brightness(90%)",
                 opacity: 0.5,
               }}
             />
@@ -82,7 +106,6 @@ function MapChatVisual() {
           </div>
           <p className="text-[10px] text-mistral-black/35 pl-[22px]">Considering demographics of Miami</p>
         </div>
-        {/* Follow-up */}
         <div className="self-end max-w-[90%] bg-white rounded-[16px] rounded-br-[5px] shadow-sm px-4 py-3">
           <p className="text-[11px] leading-relaxed text-mistral-black">
             Now only show parcels where asking price is under €12,000/sqm and within 400m of a Metro stop.
@@ -103,7 +126,6 @@ function DataCatalogueVisual() {
   ];
   return (
     <div className="h-full min-h-[643px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
-      {/* Search */}
       <div className="flex items-center gap-2.5 bg-white border border-[#C7D7F8] rounded-full px-4 py-2.5 shadow-sm">
         <svg className="size-3.5 shrink-0 text-mistral-black/30" fill="none" viewBox="0 0 16 16" aria-hidden="true">
           <circle cx="6.5" cy="6.5" r="4" stroke="currentColor" strokeWidth="1.5" />
@@ -111,7 +133,6 @@ function DataCatalogueVisual() {
         </svg>
         <span className="text-xs text-mistral-black/30">Search 3,400+ datasets…</span>
       </div>
-      {/* Table */}
       <div className="flex-1 bg-white border border-[#C7D7F8] rounded-[16px] overflow-hidden shadow-sm">
         <div className="grid grid-cols-4 px-4 py-2.5 border-b border-[#C7D7F8] bg-mistral-beige-deep">
           {["Dataset", "Type", "Updated", "Coverage"].map((h) => (
@@ -164,10 +185,7 @@ function AuditsVisual() {
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-mistral-black truncate mb-1.5">{site.name}</p>
               <div className="h-1 rounded-full bg-[#C7D7F8] overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-mistral-black"
-                  style={{ width: `${site.score}%` }}
-                />
+                <div className="h-full rounded-full bg-mistral-black" style={{ width: `${site.score}%` }} />
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0 pl-2">
@@ -190,87 +208,176 @@ export function ColumbusFeatures() {
   const active = TABS.find((t) => t.id === activeId)!;
 
   return (
-    <section className="py-10 md:py-[100px]">
-      <div className="container bg-grid-pattern">
+    <>
+      <style>{`
+        @keyframes ds-scroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .ds-track {
+          animation: ds-scroll 28s linear infinite;
+          will-change: transform;
+        }
+        .ds-group:hover .ds-track {
+          animation-play-state: paused;
+        }
+      `}</style>
 
-        {/* Section heading — centered, above panel */}
-        <div className="mb-10 md:mb-20 text-center" data-reveal>
-          <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-            Your map intelligence platform.
-          </h2>
-          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
-            All-in-one map intelligence platform.
-          </p>
-        </div>
+      <section className="py-10 md:py-[100px]">
+        <div className="container bg-grid-pattern">
 
-        {/* Full-width panel */}
-        <div
-          className="border border-[#C7D7F8] rounded-[20px] overflow-hidden"
-          data-reveal
-          data-reveal-delay="1"
-        >
-          {/* Tab bar */}
-          <div className="flex border-b border-[#C7D7F8] bg-background overflow-x-auto">
-            {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveId(tab.id)}
-                className={`flex-1 min-w-max px-6 py-4 text-sm transition-colors whitespace-nowrap relative ${
-                  activeId === tab.id
-                    ? "text-mistral-black font-medium"
-                    : "text-mistral-black/40 hover:text-mistral-black/70"
-                }`}
-              >
-                {tab.label}
-                {activeId === tab.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-mistral-black" />
-                )}
-              </button>
-            ))}
+          {/* Two headings side-by-side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-20">
+            <div data-reveal>
+              <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+                Your map intelligence platform.
+              </h2>
+              <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl">
+                All-in-one map intelligence platform.
+              </p>
+            </div>
+            <div data-reveal data-reveal-delay="1">
+              <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
+                High fidelity and smart data sets.
+              </h2>
+              <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/50 max-w-lg">
+                We vet our data with reputable partner organizations.
+              </p>
+            </div>
           </div>
 
-          {/* Content: left text + right visual */}
-          <div className="flex flex-col md:flex-row">
-            {/* Left: tab-specific headline + body + CTA */}
+          {/* Columbus tabbed panel */}
+          <div
+            className="border border-[#C7D7F8] rounded-[20px] overflow-hidden"
+            data-reveal
+            data-reveal-delay="2"
+          >
+            {/* Tab bar */}
+            <div className="flex border-b border-[#C7D7F8] bg-background overflow-x-auto">
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveId(tab.id)}
+                  className={`flex-1 min-w-max px-6 py-4 text-sm transition-colors whitespace-nowrap relative ${
+                    activeId === tab.id
+                      ? "text-mistral-black font-medium"
+                      : "text-mistral-black/40 hover:text-mistral-black/70"
+                  }`}
+                >
+                  {tab.label}
+                  {activeId === tab.id && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-mistral-black" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Content: left text + right visual */}
+            <div className="flex flex-col md:flex-row">
+              <div
+                className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#C7D7F8] bg-background p-8 md:p-10 shrink-0"
+                style={{ width: "320px", maxWidth: "100%" }}
+              >
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-2xl font-normal text-mistral-black leading-snug tracking-tight">
+                    {active.headline}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-mistral-black/55">
+                    {active.body}
+                  </p>
+                </div>
+                <a
+                  href="/ColumbusDesign"
+                  className="group mt-8 rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                >
+                  <span>{active.cta}</span>
+                  <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                    <ArrowIcon />
+                  </span>
+                </a>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                {activeId === "map-chat" && <MapChatVisual />}
+                {activeId === "data-catalogue" && <DataCatalogueVisual />}
+                {activeId === "audits" && <AuditsVisual />}
+              </div>
+            </div>
+          </div>
+
+          {/* Marquee strip */}
+          <div className="ds-group group relative overflow-hidden mt-20 md:mt-[100px]" data-reveal>
+            <a className="flex items-center relative w-full cursor-pointer" href="#">
+              <div className="group-hover:blur-sm group-hover:opacity-60 transition-all duration-300 overflow-hidden whitespace-nowrap flex items-center w-full">
+                <div className="ds-track flex items-center gap-3">
+                  {TRACK.map((name, i) => (
+                    <span
+                      key={i}
+                      className="flex-none px-5 py-2.5 rounded-full border border-[#C7D7F8] bg-background text-sm text-mistral-black/70 whitespace-nowrap"
+                    >
+                      {name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium rounded-full transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                Learn more
+                <svg className="size-3 shrink-0 text-mistral-orange" viewBox="0 0 9 13" fill="none" aria-hidden="true">
+                  <circle cx="7.22"  cy="6.589" r="1.28" fill="currentColor" />
+                  <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+                  <circle cx="2.099" cy="1.46"  r="1.28" fill="currentColor" />
+                  <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+                  <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          {/* GIS block — video + text */}
+          <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-20 md:mt-[100px]">
+            <div className="w-full lg:flex-1" data-reveal>
+              <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
+                <video
+                  src="/images/No-GISVid.mp4"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              </div>
+            </div>
             <div
-              className="flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#C7D7F8] bg-background p-8 md:p-10 shrink-0"
-              style={{ width: "320px", maxWidth: "100%" }}
+              className="w-full lg:flex-1 lg:max-w-[480px] flex flex-col gap-6"
+              data-reveal
+              data-reveal-delay="1"
             >
-              <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-normal text-mistral-black leading-snug tracking-tight">
-                  {active.headline}
-                </h3>
-                <p className="text-sm leading-relaxed text-mistral-black/55">
-                  {active.body}
+              <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
+                No GIS experience needed.
+              </h2>
+              <div className="flex flex-col gap-2">
+                <p className="text-xl md:text-2xl font-normal tracking-tight leading-snug text-mistral-black/60">
+                  Get to critical decisions faster.
+                </p>
+                <p className="text-xl md:text-2xl font-normal tracking-tight leading-snug text-mistral-black/60">
+                  Faster site selection.
                 </p>
               </div>
-              <a
-                href="/ColumbusDesign"
-                className="group mt-8 rounded-full flex items-center justify-between w-full px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
-              >
-                <span>{active.cta}</span>
-                <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                  <svg className="size-3 shrink-0" viewBox="0 0 9 13" fill="none" aria-hidden="true">
-                    <circle cx="7.22"  cy="6.589" r="1.28" fill="currentColor" />
-                    <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
-                    <circle cx="2.099" cy="1.46"  r="1.28" fill="currentColor" />
-                    <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
-                    <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
-                  </svg>
-                </span>
-              </a>
-            </div>
-
-            {/* Right: visual */}
-            <div className="flex-1 overflow-hidden">
-              {activeId === "map-chat" && <MapChatVisual />}
-              {activeId === "data-catalogue" && <DataCatalogueVisual />}
-              {activeId === "audits" && <AuditsVisual />}
+              <div className="pt-2">
+                <a
+                  href="/ColumbusDesign"
+                  className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                >
+                  Your new GIS
+                  <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                    <ArrowIcon />
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
