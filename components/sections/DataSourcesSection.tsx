@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 const DATA_SOURCES = [
   "Satellite Imagery",
   "Consumer Behavior",
@@ -15,6 +17,18 @@ const DATA_SOURCES = [
 
 // Duplicate for seamless loop
 const TRACK = [...DATA_SOURCES, ...DATA_SOURCES];
+
+function ArrowIcon() {
+  return (
+    <svg className="size-3 shrink-0" viewBox="0 0 9 13" fill="none" aria-hidden="true">
+      <circle cx="7.22"  cy="6.589" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="1.46"  r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
+    </svg>
+  );
+}
 
 export function DataSourcesSection() {
   return (
@@ -66,7 +80,7 @@ export function DataSourcesSection() {
                 </div>
               </div>
 
-              {/* Central hover pill — same pattern as "Meet our customers" */}
+              {/* Central hover pill */}
               <span
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10 flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium rounded-full transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100"
               >
@@ -81,6 +95,54 @@ export function DataSourcesSection() {
               </span>
 
             </a>
+          </div>
+
+          {/* GIS block — image + text */}
+          <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-10 md:mt-20">
+
+            {/* Left: image */}
+            <div className="w-full lg:flex-1" data-reveal>
+              <div className="relative h-[360px] md:h-[480px] rounded-[20px] overflow-hidden">
+                <img
+                  src="/images/CityScape.png"
+                  alt="Columbus GIS in action"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Right: text */}
+            <div
+              className="w-full lg:flex-1 lg:max-w-[480px] flex flex-col gap-6"
+              data-reveal
+              data-reveal-delay="1"
+            >
+              <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
+                No GIS experience needed.
+              </h2>
+
+              <div className="flex flex-col gap-2">
+                <p className="text-xl md:text-2xl font-normal tracking-tight leading-snug text-mistral-black/60">
+                  Get to critical decisions faster.
+                </p>
+                <p className="text-xl md:text-2xl font-normal tracking-tight leading-snug text-mistral-black/60">
+                  Faster site selection.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <a
+                  href="/ColumbusDesign"
+                  className="group rounded-full inline-flex items-center gap-2 px-5 py-2.5 bg-mistral-black text-white text-sm font-medium transition-colors hover:bg-mistral-black/80"
+                >
+                  Your new GIS
+                  <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                    <ArrowIcon />
+                  </span>
+                </a>
+              </div>
+            </div>
+
           </div>
 
         </div>
