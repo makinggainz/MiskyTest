@@ -239,9 +239,11 @@ The exception ships as **two CSS rules**:
 ```css
 /* 1. Variable redeclaration on body — so <Nav /> (sibling of <main>) also inherits */
 body:has(.theme-elio) {
-  --color-background: #F5EEE7;
-  --color-elio-bg-light: #F7F1EA;
-  --color-elio-bg-dark: #EFE6DD;
+  /* Sampled from the centre of ElioBackground2.png so the page surface
+     meets the hero image edge with zero visible seam. */
+  --color-background: #FCF3E8;
+  --color-elio-bg-light: #FEF6EB;
+  --color-elio-bg-dark: #F6EBDE;
   /* Warm companion tokens — every cool-blue token consumed inside the page
      gets a warm replacement so the page doesn't leak the global palette. */
   --color-elio-border: #D8C8AE;     /* warm-tan border — replaces #C7D7F8 */
@@ -272,7 +274,9 @@ Use `background-attachment: fixed` on the page-level overlay so the gradient anc
 
 | Route | Class | Tokens declared | Surfaces affected | Visual register | Why |
 |---|---|---|---|---|---|
-| `/elio` | `.theme-elio` | `--color-background: #F5EEE7`, `--color-elio-bg-light: #F7F1EA`, `--color-elio-bg-dark: #EFE6DD`, **warm companions** `--color-elio-border: #D8C8AE` (replaces global `#C7D7F8` borders), `--color-elio-grid-dot: #E5D9C5` (warms `.bg-grid-pattern` via `--grid-color` override on `.theme-elio`) | Page surface + Nav. Every Elio section's hairline borders and dot grid. Footer retains its global dark gradient. | Beach / sun-warmed sand. Two soft radial gradients (light from top-left, dark from bottom-right) drift the warm tone across the page; warm tan hairlines replace the cool blue ones. The `MapShape` cartographic silhouette decorations are also opted out for this page (the page uses `BeachShape` instead). | Elio is the consumer travel-discovery product. The cool pale-blue base reads as enterprise SaaS; warm beige reads as lifestyle. |
+| `/elio` | `.theme-elio` | `--color-background: #FCF3E8` *(sampled from the centre of `ElioBackground2.png`)*, `--color-elio-bg-light: #FEF6EB`, `--color-elio-bg-dark: #F6EBDE`, **warm companions** `--color-elio-border: #D8C8AE` (replaces global `#C7D7F8` borders), `--color-elio-grid-dot: #E5D9C5` (warms `.bg-grid-pattern` via `--grid-color` override on `.theme-elio`) | Page surface + Nav. Every Elio section's hairline borders and dot grid. Footer retains its global dark gradient. | Beach / sun-warmed sand. Two soft radial gradients (light from top-left, dark from bottom-right) drift the warm tone across the page; warm tan hairlines replace the cool blue ones. Section bg images (palm / plants / parasol shadows alternating sides) carry the visual rhythm; the `MapShape` cartographic silhouettes are opted out for this page. | Elio is the consumer travel-discovery product. The cool pale-blue base reads as enterprise SaaS; warm beige reads as lifestyle. The exact bg hex is sampled from the hero image so the page surface meets the image edge with zero visible seam. |
+
+> ⚠️ **`#FCF3E8` is page-scoped, NOT a global token.** It is the central-pixel sample of `ElioBackground2.png` and is declared **only** as `--color-background` inside `body:has(.theme-elio)`. Do not promote it to `tokens.css`; do not reference the literal hex in any other component; do not apply it on any other route. Outside `/elio` the global pale-blue `--color-background` remains canonical. The seamless-bg behaviour the value buys is meaningful only on `/elio` because that is the only route serving `ElioBackground2.png` (and the section bg variants derived from it). Promoting this value globally would propagate the warm cast to enterprise pages where the cool base is the deliberate brand register.
 
 **Rules for adding an exception:**
 

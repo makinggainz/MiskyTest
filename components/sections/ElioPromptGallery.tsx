@@ -57,7 +57,7 @@ export function ElioPromptGallery() {
       className="relative py-10 md:py-[100px]"
       style={{
         backgroundColor: "var(--color-background)",
-        backgroundImage: "url('/images/elio/plants-right.png')",
+        backgroundImage: "url('/images/elio/plants-trans-right.png')",
         backgroundSize: "50% auto",
         backgroundPosition: "top right",
         backgroundRepeat: "no-repeat",

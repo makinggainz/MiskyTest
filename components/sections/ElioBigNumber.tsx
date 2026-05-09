@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 // Big-number social proof per consumer-spec §19. Single dramatic number with
 // two complementary smaller stats. Numbers are PLACEHOLDERS — replace with
 // real, defensible figures when data is available. Per spec anti-pattern,
@@ -12,16 +14,19 @@ const STATS = [
 
 export function ElioBigNumber() {
   return (
-    <section
-      className="relative py-10 md:py-[100px]"
-      style={{
-        backgroundColor: "var(--color-background)",
-        backgroundImage: "url('/images/elio/plants-left.png')",
-        backgroundSize: "50% auto",
-        backgroundPosition: "top left",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <section className="relative py-10 md:py-[100px]">
+      {/* The plants silhouette is rendered as an actual <img>, not a
+          background-image, so it can overflow this short section without
+          getting clipped at the bottom. z-1 keeps it above the page bg
+          but below the .container content (z-10). */}
+      <img
+        src="/images/elio/plants-trans-right.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-1/2 h-auto pointer-events-none select-none"
+        style={{ zIndex: 1 }}
+      />
+
       <div className="container relative z-10">
 
         <div className="text-center max-w-3xl mx-auto" data-reveal>

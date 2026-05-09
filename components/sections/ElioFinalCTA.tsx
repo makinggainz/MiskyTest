@@ -19,16 +19,7 @@ function ArrowIcon() {
 
 export function ElioFinalCTA() {
   return (
-    <section
-      className="relative py-10 md:py-[100px]"
-      style={{
-        backgroundColor: "var(--color-background)",
-        backgroundImage: "url('/images/elio/parasol-right.png')",
-        backgroundSize: "50% auto",
-        backgroundPosition: "top right",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <section className="relative py-10 md:py-[100px]">
       <div className="container relative z-10">
 
         <div className="text-center max-w-2xl mx-auto" data-reveal>

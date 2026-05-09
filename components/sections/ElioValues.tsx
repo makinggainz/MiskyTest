@@ -32,9 +32,9 @@ export function ElioValues() {
       className="relative py-10 md:py-[100px]"
       style={{
         backgroundColor: "var(--color-background)",
-        backgroundImage: "url('/images/elio/palm-right.png')",
+        backgroundImage: "url('/images/elio/palm-left.png')",
         backgroundSize: "50% auto",
-        backgroundPosition: "top right",
+        backgroundPosition: "top left",
         backgroundRepeat: "no-repeat",
       }}
     >

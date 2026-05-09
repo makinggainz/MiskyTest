@@ -37,9 +37,9 @@ export function ElioTestimonials() {
       className="relative py-10 md:py-[100px]"
       style={{
         backgroundColor: "var(--color-background)",
-        backgroundImage: "url('/images/elio/parasol-left.png')",
+        backgroundImage: "url('/images/elio/parasol-trans-right.png')",
         backgroundSize: "50% auto",
-        backgroundPosition: "top left",
+        backgroundPosition: "top right",
         backgroundRepeat: "no-repeat",
       }}
     >

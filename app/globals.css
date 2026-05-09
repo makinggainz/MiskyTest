@@ -170,9 +170,12 @@ h1, h2, h3, h4 {
 
    Tokens redeclared / introduced (ALL scoped to /elio only — do NOT promote
    to global tokens; this is a deliberate page-scoped palette exception):
-     --color-background       overrides the global pale-blue base (#F5EEE7)
-     --color-elio-bg-light    soft sand highlight (#F7F1EA)
-     --color-elio-bg-dark     softly recessed sand (#EFE6DD)
+     --color-background       overrides the global pale-blue base (#FCF3E8 —
+                              sampled from the centre of ElioBackground2.png
+                              so the page bg meets the hero image edge with
+                              zero visible seam)
+     --color-elio-bg-light    soft sand highlight (#FEF6EB)
+     --color-elio-bg-dark     softly recessed sand (#F6EBDE)
      --color-elio-border      warm-tan hairline replacing the cool #C7D7F8 family
                               that the rest of the project uses (#D8C8AE)
      --color-elio-grid-dot    warm dot tint for `.bg-grid-pattern` so the
@@ -182,9 +185,9 @@ h1, h2, h3, h4 {
    inside the elio theme paint warm dots instead of the global cool-blue
    ones, without touching the global utility. */
 body:has(.theme-elio) {
-  --color-background: #F5EEE7;
-  --color-elio-bg-light: #F7F1EA;
-  --color-elio-bg-dark: #EFE6DD;
+  --color-background: #FCF3E8;
+  --color-elio-bg-light: #FEF6EB;
+  --color-elio-bg-dark: #F6EBDE;
   --color-elio-border: #D8C8AE;
   --color-elio-grid-dot: #E5D9C5;
 }
