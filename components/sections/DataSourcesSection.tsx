@@ -98,7 +98,7 @@ export function DataSourcesSection() {
           </div>
 
           {/* GIS block — image + text */}
-          <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-10 md:mt-20">
+          <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center mt-20 md:mt-[100px]">
 
             {/* Left: image */}
             <div className="w-full lg:flex-1" data-reveal>
