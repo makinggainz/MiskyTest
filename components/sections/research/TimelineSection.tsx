@@ -1,19 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { TIMELINE } from "@/content/research";
 
-function DiagArrow({ className = "" }: { className?: string }) {
+function ArrowOut({ className = "" }: { className?: string }) {
   return (
     <svg
       className={`shrink-0 ${className}`}
-      width="14" height="14"
-      viewBox="0 0 14 14"
+      width="10" height="10"
+      viewBox="0 0 10 10"
       fill="none"
       aria-hidden="true"
     >
       <path
-        d="M3 11L11 3M11 3H5.5M11 3V8.5"
+        d="M2 8l6-6M3.5 2H8v4.5"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -21,20 +21,31 @@ function DiagArrow({ className = "" }: { className?: string }) {
   );
 }
 
-// Timeline spans 2022 → 2028 inclusive (matches ColumbusPage source).
-// 4% / 96% gutters; yearAt(y) places at start of year, yearMid at mid-year.
-const yearAt = (y: number) => `${(4 + ((y - 2022) / 7) * 92).toFixed(2)}%`;
-const yearMid = (y: number) => yearAt(y + 0.5);
+type Stop = {
+  year?: string;
+  label?: string;
+  cta?: { text: string; href: string };
+  isNow?: boolean;
+};
 
 export function TimelineSection() {
-  // Columbus "now" marker placement — between 2025 and 2026.
-  // Source uses dynamic `new Date()`; we mirror that here so the marker
-  // tracks the build-time date the same way.
-  const xColumbus = `calc(${yearMid(2025.5)} - 4px)`;
-
-  // Stagger 2025 left and 2026 right so labels have breathing room.
-  const x2025 = `calc(${yearMid(2025)} - clamp(140px, 16vw, 220px))`;
-  const x2026 = `calc(${yearMid(2026)} + clamp(40px, 5vw, 80px))`;
+  // 5 evenly-spaced stops on a single horizontal line.
+  // Order: 2022 → 2025 → Columbus "now" → 2026 → 2028.
+  const stops: Stop[] = [
+    { year: TIMELINE.milestones[0].year, label: TIMELINE.milestones[0].label },
+    { year: TIMELINE.milestones[1].year, label: TIMELINE.milestones[1].label },
+    { isNow: true, label: TIMELINE.columbusMarker.label },
+    {
+      year: TIMELINE.milestones[2].year,
+      label: TIMELINE.milestones[2].label,
+      cta: TIMELINE.milestones[2].cta,
+    },
+    {
+      year: TIMELINE.milestones[3].year,
+      label: TIMELINE.milestones[3].label,
+      cta: TIMELINE.milestones[3].cta,
+    },
+  ];
 
   return (
     <section id="lgm-vs-llm" className="py-10 md:py-[100px]">
@@ -48,103 +59,123 @@ export function TimelineSection() {
           </p>
         </div>
 
-        {/* Desktop timeline */}
-        <div
-          className="relative hidden md:block h-[260px] mb-10 md:mb-20"
-          data-reveal
-          data-reveal-delay="1"
-          aria-hidden="true"
-        >
+        {/* Desktop / tablet — horizontal 5-column timeline */}
+        <div className="relative hidden md:block mb-10 md:mb-20" data-reveal data-reveal-delay="1">
           {/* Track */}
-          <div className="absolute left-0 right-0 top-1/2 -translate-y-px h-px bg-mistral-black/15" />
-
-          {/* Subtle rhythm dots */}
-          {[2023, 2024, 2027].map((y) => (
-            <span
-              key={y}
-              className="absolute top-1/2 -translate-y-1/2 size-1 rounded-full bg-mistral-black/20"
-              style={{ left: yearMid(y) }}
-            />
-          ))}
-          {["12%", "29%", "44.5%", "57%", "71.5%", "84%"].map((l) => (
-            <span
-              key={l}
-              className="absolute top-1/2 -translate-y-1/2 size-[3px] rounded-full bg-mistral-black/10"
-              style={{ left: l }}
-            />
-          ))}
-          {/* Trailing dots past 2028 */}
-          {[2029, 2030, 2031, 2032].map((y) => (
-            <span
-              key={y}
-              className="absolute top-1/2 -translate-y-1/2 size-[3px] rounded-full bg-mistral-black/10"
-              style={{ left: yearMid(y) }}
-            />
-          ))}
-
-          {/* 2022 — top label, bottom year */}
-          <Milestone xPercent={yearMid(2022)} label="LLM" year="2022" />
-
-          {/* 2025 — staggered left */}
-          <Milestone xPercent={x2025} label={TIMELINE.milestones[1].label} year="2025" />
-
-          {/* Columbus marker — between 2025 and 2026 */}
           <div
-            className="absolute flex flex-col items-center"
-            style={{ left: xColumbus, bottom: "calc(50% + 4px)" }}
-          >
-            <span className="size-2 rounded-full bg-mistral-orange" />
-            <span className="block w-px h-5 bg-mistral-orange/60" />
+            className="absolute left-0 right-0 h-px bg-mistral-black/15 pointer-events-none"
+            style={{ top: "calc(50% + 0.5px)" }}
+            aria-hidden="true"
+          />
+
+          <div className="relative grid grid-cols-5">
+            {stops.map((stop, i) => (
+              <div key={i} className="flex flex-col items-center text-center">
+                {/* Top-of-line content */}
+                <div className="flex flex-col items-center gap-3 pb-6 min-h-[120px] justify-end">
+                  {stop.label && (
+                    <span
+                      className={`text-sm md:text-base font-semibold leading-snug whitespace-pre-line max-w-[160px] ${
+                        stop.isNow ? "text-mistral-orange uppercase tracking-wider text-xs" : "text-mistral-black"
+                      }`}
+                    >
+                      {stop.label}
+                    </span>
+                  )}
+                  <span
+                    className={`block w-px h-5 ${
+                      stop.isNow ? "bg-mistral-orange/60" : "bg-mistral-black/25"
+                    }`}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {/* Dot on the line */}
+                <span
+                  className={`relative z-10 rounded-full ${
+                    stop.isNow
+                      ? "size-2.5 bg-mistral-orange"
+                      : "size-2 bg-mistral-black/60"
+                  }`}
+                  aria-hidden="true"
+                />
+
+                {/* Below-line content */}
+                <div className="flex flex-col items-center gap-2 pt-6 min-h-[100px]">
+                  {stop.isNow && stop.label === "now" ? (
+                    <img
+                      src="/logobueno.png"
+                      alt="Columbus"
+                      className="h-7 w-auto opacity-80"
+                    />
+                  ) : (
+                    <span className="text-sm text-mistral-black/55">{stop.year}</span>
+                  )}
+                  {stop.cta && (
+                    <a
+                      href={stop.cta.href}
+                      className="group inline-flex items-center gap-1.5 text-xs text-mistral-black"
+                    >
+                      <span>{stop.cta.text}</span>
+                      <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                        <ArrowOut className="size-2.5" />
+                      </span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-
-          {/* 2026 — staggered right, with CTA */}
-          <Milestone
-            xPercent={x2026}
-            label={TIMELINE.milestones[2].label}
-            year="2026"
-            cta={TIMELINE.milestones[2].cta}
-          />
-
-          {/* 2028 — UGM */}
-          <Milestone
-            xPercent={yearMid(2028)}
-            label={TIMELINE.milestones[3].label}
-            year="2028"
-            cta={TIMELINE.milestones[3].cta}
-          />
         </div>
 
-        {/* Mobile / sr-only outline (also serves as compact mobile timeline) */}
+        {/* Mobile — vertical milestone list */}
         <ol
-          className="md:hidden flex flex-col gap-5 mb-10 border-t border-mistral-black/10"
+          className="md:hidden flex flex-col mb-10 border-t border-mistral-black/10"
           data-reveal
           data-reveal-delay="1"
         >
-          {TIMELINE.milestones.map((m) => (
+          {stops.map((stop, i) => (
             <li
-              key={m.year}
-              className="border-b border-mistral-black/10 pb-5 flex flex-col gap-1"
+              key={i}
+              className={`border-b border-mistral-black/10 py-5 flex flex-col gap-1 ${
+                stop.isNow ? "bg-mistral-beige-deep -mx-4 px-4" : ""
+              }`}
             >
-              <span className="text-sm text-mistral-black/55">{m.year}</span>
-              <span className="text-base font-semibold text-mistral-black whitespace-pre-line">
-                {m.label}
-              </span>
-              {m.cta && (
-                <a
-                  href={m.cta.href}
-                  className="group mt-2 inline-flex items-center gap-2 text-sm text-mistral-black"
-                >
-                  <span>{m.cta.text}</span>
-                  <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                    <DiagArrow className="size-3" />
+              {stop.isNow ? (
+                <>
+                  <span className="text-xs font-medium uppercase tracking-wider text-mistral-orange">
+                    {stop.label}
                   </span>
-                </a>
+                  <img
+                    src="/logobueno.png"
+                    alt="Columbus"
+                    className="h-7 w-auto self-start opacity-80 mt-1"
+                  />
+                </>
+              ) : (
+                <>
+                  <span className="text-sm text-mistral-black/55">{stop.year}</span>
+                  <span className="text-base font-semibold text-mistral-black whitespace-pre-line">
+                    {stop.label}
+                  </span>
+                  {stop.cta && (
+                    <a
+                      href={stop.cta.href}
+                      className="group mt-2 inline-flex items-center gap-2 text-sm text-mistral-black self-start"
+                    >
+                      <span>{stop.cta.text}</span>
+                      <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                        <ArrowOut className="size-3" />
+                      </span>
+                    </a>
+                  )}
+                </>
               )}
             </li>
           ))}
         </ol>
 
-        {/* SR-only outline */}
+        {/* SR-only authoritative outline */}
         <div className="sr-only">
           <h3>Timeline of foundational AI models</h3>
           <ul>
@@ -173,59 +204,5 @@ export function TimelineSection() {
         </a>
       </div>
     </section>
-  );
-}
-
-function Milestone({
-  xPercent,
-  label,
-  year,
-  cta,
-}: {
-  xPercent: string;
-  label: string;
-  year: string;
-  cta?: { text: string; href: string };
-}) {
-  return (
-    <>
-      {/* Label above + stem */}
-      <div
-        className="absolute flex flex-col items-center text-center"
-        style={{ left: xPercent, bottom: "calc(50% + 12px)", transform: "translateX(-50%)" }}
-      >
-        <span className="text-sm md:text-base font-semibold text-mistral-black leading-snug whitespace-pre-line max-w-[160px]">
-          {label}
-        </span>
-        <span className="block w-px h-5 bg-mistral-black/25 mt-2" />
-      </div>
-      {/* Year + optional CTA below */}
-      <div
-        className="absolute flex flex-col items-center text-center"
-        style={{ left: xPercent, top: "calc(50% + 12px)", transform: "translateX(-50%)" }}
-      >
-        <span className="block w-px h-5 bg-mistral-black/25 mb-2" />
-        <span className="text-sm text-mistral-black/55">{year}</span>
-        {cta && (
-          <a
-            href={cta.href}
-            className="group mt-2 inline-flex items-center gap-1.5 text-xs text-mistral-black"
-          >
-            <span>{cta.text}</span>
-            <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                <path
-                  d="M2 8l6-6M3.5 2H8v4.5"
-                  stroke="currentColor"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </a>
-        )}
-      </div>
-    </>
   );
 }

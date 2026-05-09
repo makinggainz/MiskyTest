@@ -1,22 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { FOUNDATION } from "@/content/research";
 
-function DiagArrow({ className = "" }: { className?: string }) {
+function DotArrow({ className = "" }: { className?: string }) {
   return (
-    <svg
-      className={`shrink-0 ${className}`}
-      width="14" height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M3 11L11 3M11 3H5.5M11 3V8.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg className={`shrink-0 ${className}`} viewBox="0 0 9 13" fill="none" aria-hidden="true">
+      <circle cx="7.22" cy="6.589" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="1.46" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
     </svg>
   );
 }
@@ -25,19 +17,24 @@ export function FoundationModelSection() {
   return (
     <section id="index" className="py-10 md:py-[100px]">
       <div className="container">
-        {/* Heading + body + diagram */}
+        {/* Section heading — full-width, prominent */}
+        <div className="mb-10 md:mb-20 max-w-4xl" data-reveal>
+          <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
+            {FOUNDATION.eyebrow}
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+            {FOUNDATION.title}
+          </h2>
+        </div>
+
+        {/* Body + diagram, then CTA under body */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 mb-10 md:mb-20 items-start"
+          className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 md:gap-12 mb-10 md:mb-20 items-start"
           data-reveal
+          data-reveal-delay="1"
         >
           <div>
-            <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
-              {FOUNDATION.eyebrow}
-            </p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-              {FOUNDATION.title}
-            </h2>
-            <div className="mt-6 md:mt-12 flex flex-col gap-5 text-sm md:text-base text-mistral-black/70 leading-relaxed max-w-xl">
+            <div className="flex flex-col gap-5 text-sm md:text-base text-mistral-black/70 leading-relaxed">
               {FOUNDATION.bodyParagraphs.map((p, i) => (
                 <p key={i} className="whitespace-pre-line">
                   {p}
@@ -49,14 +46,14 @@ export function FoundationModelSection() {
               className="group mt-8 inline-flex items-center gap-2 rounded-[7px] px-5 py-2 text-sm bg-mistral-black text-white transition-colors hover:bg-mistral-black/80"
             >
               <span>{FOUNDATION.ctaText}</span>
-              <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                <DiagArrow className="size-3" />
+              <span className="ml-2 inline-block text-mistral-orange transition-transform group-hover:translate-x-0.5">
+                <DotArrow className="size-3" />
               </span>
             </a>
           </div>
 
           <div
-            className="relative border border-[#C7D7F8] rounded-[8px] bg-mistral-beige-deep aspect-[4/3] overflow-hidden"
+            className="relative border border-[#C7D7F8] rounded-[8px] bg-mistral-beige-deep aspect-[4/3] lg:aspect-square overflow-hidden"
             aria-hidden="true"
           >
             <img
@@ -71,7 +68,7 @@ export function FoundationModelSection() {
         <div
           className="border border-[#C7D7F8] rounded-[20px] bg-white overflow-hidden"
           data-reveal
-          data-reveal-delay="1"
+          data-reveal-delay="2"
         >
           <div className="px-6 md:px-10 pt-6 md:pt-10 pb-4 md:pb-6 flex flex-col gap-3">
             <div className="flex items-center gap-2 text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
@@ -123,7 +120,6 @@ export function FoundationModelSection() {
             <div className="px-4 md:px-6 py-5 md:py-7 text-xs font-medium text-mistral-black/50 uppercase tracking-wider whitespace-pre-line">
               {FOUNDATION.rows[2].label}
             </div>
-            {/* LLM logos */}
             <div className="px-4 md:px-6 py-5 md:py-7 border-l border-[#C7D7F8]/60 grid grid-cols-2 gap-3 items-center justify-items-center">
               {FOUNDATION.models[0].logos.map((logo) => (
                 <img
@@ -134,7 +130,6 @@ export function FoundationModelSection() {
                 />
               ))}
             </div>
-            {/* VLM logos */}
             <div className="px-4 md:px-6 py-5 md:py-7 border-l border-[#C7D7F8]/60 flex flex-col gap-3 items-center justify-center">
               {FOUNDATION.models[1].logos.map((logo) => (
                 <img
@@ -145,7 +140,6 @@ export function FoundationModelSection() {
                 />
               ))}
             </div>
-            {/* LGM brand */}
             <div className="px-4 md:px-6 py-5 md:py-7 border-l border-[#C7D7F8]/60 bg-mistral-beige-deep flex items-center justify-center gap-2">
               <img src={FOUNDATION.brand.logo} alt="" aria-hidden="true" className="size-5" />
               <span className="text-sm font-semibold text-mistral-black">

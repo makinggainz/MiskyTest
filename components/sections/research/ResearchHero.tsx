@@ -22,9 +22,12 @@ function ChevronDown({ className = "" }: { className?: string }) {
 
 export function ResearchHero() {
   return (
-    <section className="relative pt-nav">
-      <div className="container bg-grid-pattern">
-        <div className="flex flex-col items-center text-center gap-8 md:gap-12 py-16 md:py-32">
+    <section
+      className="relative min-h-screen flex items-center"
+      style={{ backgroundColor: "var(--color-background)" }}
+    >
+      <div className="container bg-grid-pattern pt-nav pb-16 md:pb-24 w-full">
+        <div className="flex flex-col items-center text-center gap-8 md:gap-12">
           <h1
             className="text-4xl sm:text-5xl md:text-[64px] tracking-tight text-mistral-black leading-[1.05] max-w-4xl"
             data-reveal
@@ -44,12 +47,10 @@ export function ResearchHero() {
             ))}
           </p>
 
-          <div className="w-full max-w-3xl h-px bg-mistral-black/10" data-reveal data-reveal-delay="2" />
-
           <nav
-            className="flex flex-wrap justify-center gap-2 md:gap-3"
+            className="mt-4 md:mt-8 flex flex-wrap justify-center gap-2 md:gap-3"
             data-reveal
-            data-reveal-delay="3"
+            data-reveal-delay="2"
             aria-label="Research page sections"
           >
             {NAV_ITEMS.map((item) => (

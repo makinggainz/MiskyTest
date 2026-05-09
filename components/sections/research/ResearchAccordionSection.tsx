@@ -4,19 +4,31 @@
 import { useState } from "react";
 import { RESEARCH } from "@/content/research";
 
-function DiagArrow({ className = "" }: { className?: string }) {
+function DotArrow({ className = "" }: { className?: string }) {
+  return (
+    <svg className={`shrink-0 ${className}`} viewBox="0 0 9 13" fill="none" aria-hidden="true">
+      <circle cx="7.22" cy="6.589" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="4.018" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="1.46" r="1.28" fill="currentColor" />
+      <circle cx="4.658" cy="9.151" r="1.28" fill="currentColor" />
+      <circle cx="2.099" cy="11.718" r="1.28" fill="currentColor" />
+    </svg>
+  );
+}
+
+function LineArrow({ className = "" }: { className?: string }) {
   return (
     <svg
       className={`shrink-0 ${className}`}
-      width="14" height="14"
-      viewBox="0 0 14 14"
+      width="12" height="12"
+      viewBox="0 0 12 12"
       fill="none"
       aria-hidden="true"
     >
       <path
-        d="M3 11L11 3M11 3H5.5M11 3V8.5"
+        d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -143,7 +155,7 @@ function GroupBody({ group }: { group: GroupDef }) {
         >
           <span>{group.link.text}</span>
           <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-            <DiagArrow className="size-3" />
+            <LineArrow className="size-3" />
           </span>
         </a>
       )}
@@ -152,127 +164,120 @@ function GroupBody({ group }: { group: GroupDef }) {
 }
 
 export function ResearchAccordionSection() {
-  // One open at a time — start with the first group expanded so users see
-  // content immediately on load.
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
     <section id="core-reasoning" className="py-10 md:py-[100px]">
       <div className="container">
-        {/* Intro row */}
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 mb-10 md:mb-20"
-          data-reveal
-        >
-          <div>
-            <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
-              {RESEARCH.eyebrow}
-            </p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
-              {RESEARCH.title}
-            </h2>
-            <p className="mt-6 md:mt-12 text-sm md:text-base text-mistral-black/70 leading-relaxed max-w-xl">
-              {RESEARCH.intro}
-            </p>
-          </div>
-
-          <div className="lg:pt-2">
-            <p className="text-sm md:text-base text-mistral-black/70 leading-relaxed">
-              {RESEARCH.aside}
-            </p>
-            <a
-              href={RESEARCH.asideCta.href}
-              className="group mt-6 inline-flex items-center gap-2 rounded-[7px] px-5 py-2 text-sm bg-mistral-black text-white transition-colors hover:bg-mistral-black/80"
-            >
-              <span>{RESEARCH.asideCta.text}</span>
-              <span className="text-mistral-orange transition-transform group-hover:translate-x-0.5">
-                <DiagArrow className="size-3" />
-              </span>
-            </a>
-          </div>
+        {/* Centered intro — single column, max-w-3xl */}
+        <div className="text-center mb-10 md:mb-20 mx-auto max-w-3xl" data-reveal>
+          <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
+            {RESEARCH.eyebrow}
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
+            {RESEARCH.title}
+          </h2>
+          <p className="mt-6 md:mt-12 text-sm md:text-base text-mistral-black/70 leading-relaxed">
+            {RESEARCH.intro}
+          </p>
         </div>
 
-        {/* Intro line */}
-        <p
-          className="text-sm md:text-base text-mistral-black/65 leading-relaxed max-w-3xl mb-10 md:mb-20"
+        {/* Aside as pull-quote callout */}
+        <aside
+          className="mb-10 md:mb-20 mx-auto max-w-3xl border border-[#C7D7F8] rounded-[20px] bg-mistral-beige-deep p-6 md:p-10 flex flex-col gap-6"
           data-reveal
           data-reveal-delay="1"
+        >
+          <p className="text-base md:text-lg text-mistral-black leading-relaxed">
+            {RESEARCH.aside}
+          </p>
+          <a
+            href={RESEARCH.asideCta.href}
+            className="group inline-flex items-center gap-2 rounded-[7px] px-5 py-2 text-sm bg-mistral-black text-white transition-colors hover:bg-mistral-black/80 self-start"
+          >
+            <span>{RESEARCH.asideCta.text}</span>
+            <span className="ml-2 inline-block text-mistral-orange transition-transform group-hover:translate-x-0.5">
+              <DotArrow className="size-3" />
+            </span>
+          </a>
+        </aside>
+
+        {/* Intro line — small, centered, leading into the accordion */}
+        <p
+          className="text-sm md:text-base text-mistral-black/65 leading-relaxed max-w-3xl mx-auto text-center mb-10 md:mb-20"
+          data-reveal
+          data-reveal-delay="2"
         >
           {RESEARCH.introLine}
         </p>
 
-        {/* Accordion list + side art */}
+        {/* Accordion — full width, prominent */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-8 md:gap-12 items-start"
-          data-reveal
-          data-reveal-delay="2"
-        >
-          {/* Side art (mirrors the source's voyager pulsar starburst) */}
-          <div
-            className="hidden lg:flex items-start justify-center sticky top-24"
-            aria-hidden="true"
-          >
-            <div className="border border-[#C7D7F8] rounded-[8px] bg-mistral-beige-deep w-full aspect-square flex items-center justify-center overflow-hidden">
-              <img
-                src={RESEARCH.starburstImg}
-                alt=""
-                className="w-full h-full object-contain p-8 opacity-80"
-                style={{
-                  filter: "saturate(0) brightness(0.4) opacity(0.6)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Accordion */}
-          <div className="border-t border-mistral-black/10">
-            {RESEARCH.groups.map((group, i) => {
-              const open = openIndex === i;
-              return (
-                <div key={group.title} className="border-b border-mistral-black/10">
-                  <button
-                    type="button"
-                    onClick={() => setOpenIndex(open ? -1 : i)}
-                    aria-expanded={open}
-                    className="w-full flex items-center justify-between gap-6 py-5 md:py-6 text-left"
-                  >
-                    <span className="text-base md:text-lg font-semibold text-mistral-black leading-snug">
-                      {group.title}
-                    </span>
-                    <span className="text-mistral-black/55">
-                      <Plus open={open} />
-                    </span>
-                  </button>
-                  <div
-                    className="grid transition-[grid-template-rows] duration-300 ease-out"
-                    style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="pb-6 pr-2 md:pb-8 md:pr-4">
-                        <GroupBody group={group} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Closing article card */}
-        <a
-          href={RESEARCH.closingArticle.href}
-          className="group mt-10 md:mt-20 block border border-[#C7D7F8] rounded-[20px] bg-mistral-beige-deep p-6 md:p-10 transition-colors hover:bg-mistral-beige-deep/80"
+          className="border-t border-mistral-black/10"
           data-reveal
           data-reveal-delay="3"
         >
-          <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
-            {RESEARCH.closingArticle.kicker}
-          </p>
-          <p className="mt-3 text-lg md:text-2xl text-mistral-black font-semibold leading-snug">
-            {RESEARCH.closingArticle.headlineStrong}
-          </p>
-        </a>
+          {RESEARCH.groups.map((group, i) => {
+            const open = openIndex === i;
+            return (
+              <div key={group.title} className="border-b border-mistral-black/10">
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(open ? -1 : i)}
+                  aria-expanded={open}
+                  className="w-full flex items-center justify-between gap-6 py-5 md:py-6 text-left"
+                >
+                  <span className="text-base md:text-xl font-semibold text-mistral-black leading-snug">
+                    {group.title}
+                  </span>
+                  <span className="text-mistral-black/55">
+                    <Plus open={open} />
+                  </span>
+                </button>
+                <div
+                  className="grid transition-[grid-template-rows] duration-300 ease-out"
+                  style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-6 md:pb-10 max-w-3xl">
+                      <GroupBody group={group} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Closing article + decorative starburst accent */}
+        <div
+          className="mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4 md:gap-6 items-stretch"
+          data-reveal
+          data-reveal-delay="4"
+        >
+          <a
+            href={RESEARCH.closingArticle.href}
+            className="group block border border-[#C7D7F8] rounded-[20px] bg-mistral-beige-deep p-6 md:p-10 transition-colors hover:bg-mistral-beige-deep/80"
+          >
+            <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
+              {RESEARCH.closingArticle.kicker}
+            </p>
+            <p className="mt-3 text-lg md:text-2xl text-mistral-black font-semibold leading-snug">
+              {RESEARCH.closingArticle.headlineStrong}
+            </p>
+          </a>
+          <div
+            className="hidden md:flex border border-[#C7D7F8] rounded-[8px] bg-mistral-beige-deep items-center justify-center overflow-hidden"
+            aria-hidden="true"
+          >
+            <img
+              src={RESEARCH.starburstImg}
+              alt=""
+              className="w-full h-full object-contain p-6"
+              style={{ filter: "saturate(0) brightness(0.45)", opacity: 0.6 }}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

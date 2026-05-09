@@ -1,6 +1,6 @@
 import { RESULTS } from "@/content/research";
 
-function DiagArrow({ className = "" }: { className?: string }) {
+function LineArrow({ className = "" }: { className?: string }) {
   return (
     <svg
       className={`shrink-0 ${className}`}
@@ -20,14 +20,14 @@ function DiagArrow({ className = "" }: { className?: string }) {
   );
 }
 
-function GlobeMark() {
+function GlobeMark({ className = "" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 100 100"
       fill="none"
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
-      className="size-16 text-mistral-black/35"
+      className={className}
     >
       <circle cx="50" cy="50" r="34" stroke="currentColor" strokeWidth="0.9" />
       <ellipse cx="50" cy="50" rx="34" ry="9" stroke="currentColor" strokeWidth="0.7" />
@@ -47,38 +47,43 @@ export function ResultsSection() {
   return (
     <section id="data-collection" className="py-10 md:py-[100px]">
       <div className="container">
-        <div className="text-center mb-10 md:mb-20" data-reveal>
+        <div className="mb-10 md:mb-20 max-w-3xl" data-reveal>
           <p className="text-xs font-medium text-mistral-black/50 uppercase tracking-wider">
             {RESULTS.kicker}
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-normal tracking-tight text-mistral-black">
             {RESULTS.title}
           </h2>
-          <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
+          <p className="mt-6 md:mt-12 text-sm md:text-base text-mistral-black/70 leading-relaxed">
             {RESULTS.lead}
           </p>
         </div>
 
+        {/* Numbered results list — large display numbers + statement + globe icon */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-10 md:mb-20"
+          className="mb-10 md:mb-20 border-t border-mistral-black/10"
           data-reveal
           data-reveal-delay="1"
         >
           {RESULTS.cards.map((card) => (
             <div
               key={card.num}
-              className="border border-[#C7D7F8] rounded-[20px] bg-mistral-beige-deep p-6 md:p-8 flex flex-col gap-6 min-h-[180px] md:min-h-[220px]"
+              className="group flex items-start md:items-center gap-6 md:gap-10 py-6 md:py-8 border-b border-mistral-black/10"
             >
-              <div aria-hidden="true">
-                <GlobeMark />
-              </div>
-              <h3 className="text-lg md:text-xl font-semibold text-mistral-black leading-snug">
-                {`${card.num}. ${card.text}`}
+              <span className="text-3xl md:text-5xl font-normal tracking-tight text-mistral-black/30 tabular-nums shrink-0 w-12 md:w-20">
+                0{card.num}
+              </span>
+              <h3 className="flex-1 text-base md:text-xl font-semibold text-mistral-black leading-snug">
+                {card.text}
               </h3>
+              <span className="hidden md:inline-block text-mistral-black/30 shrink-0">
+                <GlobeMark className="size-10" />
+              </span>
             </div>
           ))}
         </div>
 
+        {/* Article cards row */}
         <div
           className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
           data-reveal
@@ -97,7 +102,7 @@ export function ResultsSection() {
                   <strong className="font-semibold">{article.strong}</strong>
                 </p>
                 <span className="text-mistral-black/40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <DiagArrow className="size-5" />
+                  <LineArrow className="size-5" />
                 </span>
               </div>
             </a>
