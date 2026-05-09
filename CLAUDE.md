@@ -199,6 +199,20 @@ Before finalising any new UI: imagine someone scrolling through the full page. W
 
 When a design instruction is vague ("add a section", "make it look good"), **the site itself is the brief**. The right answer is almost always the quieter, more restrained option that matches the existing sections — not the more visually impressive one.
 
+## `/research` page patterns
+
+The `/research` route ports content from a sibling project's `/technology` page and introduced four reusable patterns. Don't reinvent these on other pages — extend them. Full spec lives in [`design-system/design-system.md`](design-system/design-system.md) §8.12.
+
+| Pattern | When to reuse | Key tokens |
+|---|---|---|
+| Vertical accordion list | Long-form explanations broken into 3+ sections | `border-b border-mistral-black/10` rows, `gridTemplateRows` 0fr↔1fr animation, plus glyph rotates 45° |
+| Definition tooltip | Inline term with a 1–2 sentence explainer | dotted-underline trigger, `260px` popover with `rounded-[10px] border-[#C7D7F8] bg-white` |
+| Multi-tab form card | Contact / inquiry forms with multiple audiences | tab bar inside `rounded-[20px]` card, active tab `bg-mistral-black text-white`, inputs `rounded-[10px] bg-mistral-beige` |
+| Hairline comparison table | 3-column side-by-side comparisons | `rounded-[20px] bg-white` card with `border-[#C7D7F8]/60` row + column dividers; "winning" column gets `bg-mistral-beige-deep` |
+| Anchor pill nav | In-page TOC at the top of long pages | `rounded-full border-[#C7D7F8]` pills with chevron-down |
+
+The `/research` content is a verbatim port from the sibling project's `/technology` page — strings, brand names ("Columbus", "Columbus-01", "MapsGPT", "Elio", "LGM", "UGM"), and form copy are not edited here. If you need to update content on `/research`, the source of truth is the sibling project; mirror changes verbatim.
+
 ## Component conventions
 
 - Section components live in [`components/sections/`](components/sections/). Each renders `<section>` markup ported verbatim from the snapshot.

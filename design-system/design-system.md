@@ -750,6 +750,90 @@ These are the most concentrated colour elements on the page — pure saturated b
 
 ---
 
+### 8.12 Research page patterns (introduced for `/research`)
+
+The `/research` route ports content from a sibling project's `/technology` page and required four patterns that hadn't existed in MistX before. Each is documented here so future pages can reuse them rather than reinventing.
+
+#### A. Vertical accordion list (one-open-at-a-time)
+
+Used for the "Our research" 4-group accordion. Implemented as a single-state `useState<number>` with `gridTemplateRows: open ? "1fr" : "0fr"` for height animation (no library).
+
+| Property | Value |
+|---|---|
+| Row divider | `border-b border-mistral-black/10` (top row also gets `border-t`) |
+| Row header | `flex items-center justify-between gap-6 py-5 md:py-6` |
+| Title | `text-base md:text-lg font-semibold text-mistral-black leading-snug` |
+| Toggle glyph | 20×20 plus → rotates 45° when open (no chevron) |
+| Body padding | `pb-6 pr-2 md:pb-8 md:pr-4` |
+| Body type | `text-sm md:text-base text-mistral-black/75 leading-relaxed` |
+| Animation | `grid-template-rows` 0fr ↔ 1fr, 300ms `ease-out` |
+
+Behavior: only one row open at a time; clicking the open row collapses it. The first row defaults to open on mount so the section never reads as empty.
+
+#### B. Definition tooltip primitive
+
+Inline term with hover/focus popover — used inside accordion body copy ("P/POI", "Ground Truths", "& labeling"). Pure CSS hover; no JS.
+
+| Property | Value |
+|---|---|
+| Trigger | `<button>` with `underline decoration-dotted decoration-mistral-black/40 underline-offset-4` |
+| Popover container | `border border-[#C7D7F8] rounded-[10px] bg-white p-4 shadow-sm` |
+| Popover width | `260px` |
+| Popover position | absolute `left-0 top-full mt-2 z-20` |
+| Reveal | opacity 0→1 + translate-y-1→0 on `group-hover` and `group-focus-within`, 200ms |
+
+The dotted underline signals "definition available" without competing with normal links (which use `border-b border-current`). Keep the popover narrow (260px) so it doesn't dominate the row.
+
+#### C. Multi-tab form card
+
+Used by `/research`'s Careers / Inquiries section. Single rounded-[20px] card with the tab bar as its first child and the active form as its second.
+
+| Property | Value |
+|---|---|
+| Card | `border border-[#C7D7F8] rounded-[20px] overflow-hidden bg-mistral-beige-deep` |
+| Tab bar | `flex border-b border-[#C7D7F8]/60` (tabs are direct children, `flex-1`) |
+| Tab (idle) | `py-4 text-sm font-medium text-mistral-black/55 hover:text-mistral-black transition-colors` |
+| Tab (active) | `bg-mistral-black text-white` |
+| Form padding | `px-6 py-7 md:px-10 md:py-10` |
+| Field label | `text-xs font-medium text-mistral-black/50 uppercase tracking-wider` |
+| Input | `border border-[#C7D7F8] rounded-[10px] bg-mistral-beige px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:border-mistral-black/40` |
+| Submit | `rounded-[7px] px-5 py-2.5 bg-mistral-black text-white` + `text-mistral-orange` arrow |
+| Char counter | `text-xs text-right text-mistral-black/35` |
+| File input | `file:*` Tailwind: `file:rounded-[7px] file:bg-mistral-black file:text-white file:px-4 file:py-2 hover:file:bg-mistral-black/80` |
+
+Differences from §8.5 segmented tab: the active tab here is **filled black** (not underlined) because the form context demands strong "you are here" feedback while the user fills in fields.
+
+#### D. Hairline comparison table
+
+Used for the LGM-vs-LLM 3-column model comparison. Single `rounded-[20px]` white card with a labels-column on the left and 3 model columns on the right. The "winning" / branded column (LGM) is filled with `bg-mistral-beige-deep` to read as the answer.
+
+| Property | Value |
+|---|---|
+| Outer card | `border border-[#C7D7F8] rounded-[20px] bg-white overflow-hidden` |
+| Row divider | `border-t border-[#C7D7F8]/60` between every row |
+| Column divider | `border-l border-[#C7D7F8]/60` between every column |
+| Grid | `grid-cols-[minmax(0,0.8fr)_repeat(3,minmax(0,1fr))]` (label col is narrower) |
+| Label col cell | `px-4 md:px-6 py-5 md:py-7 text-xs font-medium uppercase tracking-wider text-mistral-black/50` |
+| Data cell heading | `text-sm md:text-base font-semibold text-mistral-black leading-snug` |
+| Data cell note | `text-xs md:text-sm text-mistral-black/55 leading-relaxed` |
+| Highlighted column | append `bg-mistral-beige-deep` to every cell of that column |
+
+Use this pattern any time you need a side-by-side model / plan / feature comparison. Don't introduce thicker borders — the hairline subdivision is the entire visual idea.
+
+#### E. Anchor pill nav (in-page TOC)
+
+Used in the `/research` hero. A horizontal row of pill links to page anchors, with a downward chevron to signal "scroll down to here."
+
+| Property | Value |
+|---|---|
+| Pill | `rounded-full border border-[#C7D7F8] bg-white px-4 py-2 text-sm text-mistral-black hover:bg-mistral-beige-deep` |
+| Chevron | 14×14 chevron-down, `text-mistral-black/45`, `group-hover:translate-y-0.5` |
+| Spacing | `gap-2 md:gap-3` |
+
+This extends §8.3 badges with an arrow + interactive role. Pills wrap to multiple rows on mobile.
+
+---
+
 ### 8.10 Signature elements
 
 The defining brand visuals — never modify these without designer review:
