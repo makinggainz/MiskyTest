@@ -33,7 +33,7 @@ type TabId = typeof TABS[number]["id"];
 
 function MapChatVisual() {
   return (
-    <div className="relative h-full min-h-[514px] overflow-hidden" style={{ background: "#dde3ea" }}>
+    <div className="relative h-full min-h-[643px] overflow-hidden" style={{ background: "#dde3ea" }}>
       {/* Map dot grid */}
       <div
         className="absolute inset-0"
@@ -102,7 +102,7 @@ function DataCatalogueVisual() {
     { name: "Land use zoning", type: "Polygon", updated: "Quarterly", coverage: "EU" },
   ];
   return (
-    <div className="h-full min-h-[514px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
+    <div className="h-full min-h-[643px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
       {/* Search */}
       <div className="flex items-center gap-2.5 bg-white border border-[#C7D7F8] rounded-full px-4 py-2.5 shadow-sm">
         <svg className="size-3.5 shrink-0 text-mistral-black/30" fill="none" viewBox="0 0 16 16" aria-hidden="true">
@@ -147,7 +147,7 @@ function AuditsVisual() {
     { name: "Faubourg Saint-Honoré, Paris", score: 68, tag: "Medium" },
   ];
   return (
-    <div className="h-full min-h-[514px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
+    <div className="h-full min-h-[643px] flex flex-col gap-3 p-6" style={{ background: "#f0f3f8" }}>
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-mistral-black">Top matching parcels</span>
         <span className="text-xs text-mistral-black/40">5 of 128 results</span>
