@@ -199,7 +199,7 @@ export function ColumbusFeatures() {
             Your map intelligence platform.
           </h2>
           <p className="mt-6 md:mt-12 text-sm leading-relaxed text-mistral-black/55 max-w-xl mx-auto">
-            Columbus brings together conversational map chat, curated geospatial data, and AI-powered site intelligence — so your team moves from insight to decision, fast.
+            All-in-one map intelligence platform.
           </p>
         </div>
 

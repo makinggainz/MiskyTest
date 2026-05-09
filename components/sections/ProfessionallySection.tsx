@@ -201,13 +201,6 @@ export function ProfessionallySection() {
     <section className="py-10 md:py-[100px]">
       <div className="container bg-grid-pattern">
 
-        {/* Section heading */}
-        <div className="mb-10 md:mb-20" data-reveal>
-          <h2 className="text-3xl md:text-5xl font-normal tracking-tight">
-            Columbus — Agentic GIS.
-          </h2>
-        </div>
-
         {/* Panel */}
         <div
           className="border border-[#C7D7F8] rounded-[20px] overflow-hidden"
