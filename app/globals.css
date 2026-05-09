@@ -74,9 +74,16 @@ h1, h2, h3, h4 {
   color: inherit;
 }
 
-/* Extend the section grid pattern beyond content vertically.
-   Overrides .bg-grid-pattern from utilities.css (declared later, same specificity). */
+/* Section backdrop: replace the line grid with a dot grid, and extend it
+   beyond the content vertically. Overrides .bg-grid-pattern from utilities.css
+   (declared later, same specificity). */
 .bg-grid-pattern {
+  background-image: radial-gradient(
+    circle,
+    var(--grid-color, hsl(var(--mistral-beige-deep))) var(--grid-thickness, 1px),
+    transparent calc(var(--grid-thickness, 1px) + 0.5px)
+  );
+  background-size: var(--grid-size-x, 50.12px) var(--grid-size-y, 50.14px);
   padding-top: 32px;
   padding-bottom: 32px;
 }
