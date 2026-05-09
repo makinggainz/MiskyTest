@@ -137,6 +137,23 @@ h1, h2, h3, h4 {
   mask-composite: intersect;
 }
 
+/* Circular variant — radial mask. The visible area is a soft circle centered
+   in the element; corners (and the long sides of any wide rectangle) fade
+   fully transparent. Uses `closest-side` extent so the gradient fits the
+   smaller dimension — guarantees the top/bottom edges of a wide video reach
+   full transparency at the boundary, not only its corners.
+     --media-bleed-radius   (default 35%) — radius (relative to closest side)
+                             where the mask is fully opaque — bigger = larger
+                             solid core before the fade starts.
+     --media-bleed-feather  (default 100%) — radius where the mask reaches
+                             fully transparent — bigger = softer/longer fade. */
+.media-bleed-round {
+  --media-bleed-radius: 60%;
+  --media-bleed-feather: 115%;
+  -webkit-mask-image: radial-gradient(circle closest-side at center, black var(--media-bleed-radius), transparent var(--media-bleed-feather));
+  mask-image: radial-gradient(circle closest-side at center, black var(--media-bleed-radius), transparent var(--media-bleed-feather));
+}
+
 /* ─── Segmented tab active indicator ─────────────────────────────────────── */
 /* Animated underline used by ElioSection / ColumbusFeatures tab bars.
    Width animates 0→100% over the cycle duration; pair with a `key` that

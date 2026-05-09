@@ -413,7 +413,7 @@ export function ColumbusFeatures() {
               <div className="relative h-[360px] md:h-[480px]">
                 <video
                   src="/images/No-GISVid.mp4"
-                  className="media-bleed absolute inset-0 w-full h-full object-cover"
+                  className="media-bleed-round absolute inset-0 w-full h-full object-cover"
                   autoPlay
                   loop
                   muted

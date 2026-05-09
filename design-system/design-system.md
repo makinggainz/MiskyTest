@@ -737,6 +737,32 @@ The brand voice on the homepage uses **mountain photography under sunset gradien
 
 ⚠️ **Gap**: no formal photography spec exists from Mistral. Follow the homepage's hero precedent.
 
+### 10.1 Bleeding media — fade-to-background mask
+
+For inline videos and photographic surfaces that should *dissolve into the page* rather than terminate in a hard rectangle (e.g. the No-GIS clip alongside body copy), apply one of the two `.media-bleed*` utilities declared in [`app/globals.css`](../app/globals.css). Both pair with: no `rounded-*`, no `overflow-hidden` on the parent — the mask supplies the visual boundary.
+
+| Variant | Mask | Visible silhouette | Use when |
+|---|---|---|---|
+| `.media-bleed` | Two linear gradients (`to right` + `to bottom`) composited with `mask-composite: intersect` | Soft-edged rectangle | The composition is editorial/landscape and you want all four edges to dissolve while keeping most of the frame visible |
+| `.media-bleed-round` | Single `radial-gradient(circle at center, …)` | Soft circle (corners fully cut) | The piece should feel ornamental / portrait-like — the *No-GIS* clip is the canonical example |
+
+**Tuning variables**
+
+| Class | Variable | Default | Effect |
+|---|---|---|---|
+| `.media-bleed` | `--media-bleed-fade` | `10%` | Fade-band depth on each edge (smaller = harder edge). |
+| `.media-bleed-round` | `--media-bleed-radius` | `60%` | Radius (relative to closest side) where the mask is fully opaque — larger = bigger solid core before the fade starts. |
+| `.media-bleed-round` | `--media-bleed-feather` | `115%` | Radius where the mask reaches fully transparent — values >100% extend the gradient past the closest side so the fade isn't compressed against the edge. |
+
+Override per element via inline `style={{ "--media-bleed-radius": "25%", "--media-bleed-feather": "85%" }}`.
+
+**When NOT to use either variant:**
+- Photographic cards inside Pattern A/B card surfaces (cards have their own `rounded-[8px]` photo boundary by design — see §3 / §8.11)
+- Hero photography that needs a definitive rectangular crop with overlay gradients
+- Screenshots/UI mockups where the rectangular frame is meaningful
+
+⚠️ **Gap**: `mask-composite: intersect` requires Safari 17+, Chrome 120+, Firefox 120+. The `-webkit-mask-composite: source-in` fallback is included for older Safari builds. The radial variant has no compositing requirement — supported everywhere `mask-image` works.
+
 ---
 
 ## 11. Iconography
