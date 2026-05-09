@@ -1,5 +1,8 @@
 import { Hero } from "@/components/sections/Hero";
 import { ProductsSection } from "@/components/sections/ProductsSection";
+import { ElioSection } from "@/components/sections/ElioSection";
+import { ResearchSection } from "@/components/sections/ResearchSection";
+import { HiringSection } from "@/components/sections/HiringSection";
 import { Section1 } from "@/components/sections/Section1";
 import { ColumbusFeatures } from "@/components/sections/ColumbusFeatures";
 import { Section2 } from "@/components/sections/Section2";
@@ -12,6 +15,9 @@ export default function HomePage() {
       <ProductsSection />
       <div className="bg-background">
         <ColumbusFeatures />
+        <ElioSection />
+        <ResearchSection />
+        <HiringSection />
         <Section1 />
         <Section2 />
         <Section3 />
