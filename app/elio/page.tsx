@@ -1,5 +1,5 @@
 import { ElioHero } from "@/components/sections/ElioHero";
-import { ElioFeatureScenes } from "@/components/sections/ElioFeatureScenes";
+import { ElioHowItWorks } from "@/components/sections/ElioHowItWorks";
 import { ElioPromptGallery } from "@/components/sections/ElioPromptGallery";
 import { ElioTestimonials } from "@/components/sections/ElioTestimonials";
 import { ElioValues } from "@/components/sections/ElioValues";
@@ -32,7 +32,7 @@ export default function ElioPage() {
   return (
     <main className="theme-elio bg-background">
       <ElioHero />
-      <ElioFeatureScenes />
+      <ElioHowItWorks />
       <ElioPromptGallery />
       <ElioTestimonials />
       <ElioValues />
