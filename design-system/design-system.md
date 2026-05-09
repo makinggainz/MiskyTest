@@ -331,17 +331,17 @@ These rules are authoritative for all new UI. They encode the brand's editorial 
 |---|---|---|---|
 | `--radius` | `9999px` | — | Base anchor (pill) |
 | `--radius-sm` | `9999px` | `rounded-full` | **Buttons, chips, badges, interactive labels** — pill shape |
-| `--radius-md` | `0.3125rem` (5px) | `rounded-md` | Inputs, info panels, small surfaces |
+| `--radius-md` | `0.3125rem` (5px) | `rounded-md` | — (too small; see `--radius-3xl`) |
 | `--radius-lg` | `1.25rem` (20px) | `rounded-[20px]` | Cards, dialogs, medium containers (squircle) |
 | `--radius-xl` | `0.5rem` (8px) | `rounded-xl` | Large photographic/decorative surfaces |
 | `--radius-2xl` | `0.5625rem` (9px) | `rounded-2xl` | Hero containers |
-| `--radius-3xl` | `0.625rem` (10px) | `rounded-3xl` | Maximum size |
+| `--radius-3xl` | `0.625rem` (10px) | `rounded-[10px]` | **Inputs, info panels, small surfaces** |
 
 **Rules:**
 - **All buttons, chips, badges, and interactive labels use `rounded-full`** — pill shape. No exceptions.
 - **Full-width structural bands are square** (no `rounded-*` on `<section>`, `<main>`, edge-to-edge `<div>` bands) — they span the full viewport so corners are invisible anyway.
 - **Every other surface is rounded.** Cards, panels, inputs, icon containers, modals, tooltips — all get a radius from the scale below.
-- **Scale by visual size:** interactive → pill; small panel/input → 5px; card/dialog → 20px; large photo → 8px; hero container → 9px.
+- **Scale by visual size:** interactive → pill; small panel/input → 10px; card/dialog → 20px; large photo → 8px; hero container → 9px.
 - The photographic cards (600px tall) use `rounded-[20px]` (squircle).
 - Never write `border-radius` inline — always use a token class or `rounded-[Npx]` explicit value.
 - `rounded-full` is the **standard for all interactive elements**; purely decorative circles (e.g. `size-2 rounded-full` colour dots) also use it.

@@ -93,12 +93,12 @@ export function HiringSection() {
               <input
                 type="text"
                 placeholder="Name"
-                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+                className="w-full border border-[#C7D7F8] rounded-[10px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
               />
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
+                className="w-full border border-[#C7D7F8] rounded-[10px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors"
               />
 
               {/* Role interest */}
@@ -122,7 +122,7 @@ export function HiringSection() {
               <textarea
                 rows={4}
                 placeholder="Tell us about yourself."
-                className="w-full border border-[#C7D7F8] rounded-[5px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
+                className="w-full border border-[#C7D7F8] rounded-[10px] bg-background px-4 py-3 text-sm text-mistral-black placeholder:text-mistral-black/30 focus:outline-none focus:border-mistral-black/40 transition-colors resize-none"
               />
             </div>
 

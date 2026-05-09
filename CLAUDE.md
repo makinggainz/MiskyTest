@@ -120,7 +120,7 @@ All sections must use these values. Never use `my-10 md:my-24` (margin-based sec
 | Surface type | Radius | Token / class |
 |---|---|---|
 | Buttons, chips, badges, interactive labels | **pill** | `rounded-full` |
-| Inputs, info panels, small surfaces | 5px | `rounded-[5px]` / `--radius-md` |
+| Inputs, info panels, small surfaces | 10px | `rounded-[10px]` / `--radius-3xl` |
 | Cards, dialogs, medium containers | 20px (squircle) | `rounded-[20px]` / `--radius-lg` |
 | Large photographic / decorative surfaces | 8px | `rounded-[8px]` / `--radius-xl` |
 | Hero containers | 9px | `rounded-[9px]` / `--radius-2xl` |
